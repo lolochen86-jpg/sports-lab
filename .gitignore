@@ -1,0 +1,10 @@
+node_modules/
+data/cache/
+data/raw/
+data/runs/
+data/collect.lock
+data/progress.json
+dist/
+*.tmp
+*.log
+.DS_Store
