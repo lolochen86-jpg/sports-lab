@@ -4,7 +4,7 @@ import path from 'node:path';
 import {randomUUID} from 'node:crypto';
 import {SourceClient,pool,atomic} from '../lib/fetch.mjs';
 import {makeJobs,parsers,PROVIDERS,taipeiDate,shiftDate,team} from '../lib/providers.mjs';
-import {reconcileGames,reconcileInjuries,importedForecasts} from '../lib/reconcile.mjs';
+import {reconcileGames,reconcileInjuries} from '../lib/reconcile.mjs';
 import {collectTeamStats} from '../lib/team-stats.mjs';
 import {collectRosters} from '../lib/rosters.mjs';
 import {gatherInjuryEvidence,compareInjuries} from '../lib/injury-scenario.mjs';
@@ -26,7 +26,7 @@ export async function collect({root=ROOT,date=taipeiDate(new Date()),budgetMs=90
   },6);
   progress.stage='reconciling';await atomic(path.join(data,'progress.json'),progress);
   let previous;try{previous=JSON.parse(await readFile(path.join(data,'dashboard.json'),'utf8'));}catch{}
-  const {games,unresolved}=reconcileGames(observations,dates);const injuryRows=reconcileInjuries(injuries);const imported=importedForecasts(archives);
+  const {games,unresolved}=reconcileGames(observations,dates);const injuryRows=reconcileInjuries(injuries);const imported=JSON.parse(await readFile(path.join(data,'legacy-archive.json'),'utf8'));if(!Array.isArray(imported.forecasts)||!Array.isArray(imported.rookieSnapshots)||!Array.isArray(imported.backtests))throw new Error('歷史存檔格式錯誤');
   const needsHistory=games.some(g=>g.league==='NBA'&&g.status==='scheduled'&&Date.parse(g.startAt)>Date.now()&&g.sourceCount>=2&&!g.conflicts.length);
   const history=needsHistory?await gatherHistory(client,date):{complete:false,events:[],receipts:[],failures:[]};
   const evidenceAt=new Date().toISOString();

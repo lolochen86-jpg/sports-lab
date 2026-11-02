@@ -1,0 +1,1969 @@
+{
+  "archivedAt": "2026-11-02T22:46:49.512Z",
+  "forecasts": [
+    {
+      "source": "hoopslab",
+      "league": "NBA",
+      "away": "POR",
+      "home": "UTA",
+      "startAt": "2026-10-31T19:00Z",
+      "generatedAt": "2026-10-31T17:30:11+00:00",
+      "observedAt": "2026-11-02T22:46:46.706Z",
+      "sourceHash": "935b93e7813cd2a2cc26075fc691ea4be0ae08601fe64422c911544704bb9751",
+      "status": "research_snapshot",
+      "historical": true,
+      "stale": true,
+      "calibrated": false,
+      "homeWinProbability": 0.3661,
+      "awayWinProbability": 0.6339,
+      "score": {
+        "away": 108.7,
+        "home": 100.1
+      },
+      "buckets": {
+        "away": [
+          [
+            "106-110",
+            0.1614
+          ],
+          [
+            "101-105",
+            0.1534
+          ],
+          [
+            "111-115",
+            0.142
+          ],
+          [
+            "96-100",
+            0.1236
+          ]
+        ],
+        "home": [
+          [
+            "101-105",
+            0.1537
+          ],
+          [
+            "96-100",
+            0.152
+          ],
+          [
+            "106-110",
+            0.1319
+          ],
+          [
+            "91-95",
+            0.1265
+          ]
+        ]
+      },
+      "rotation": {
+        "away": [
+          {
+            "name": "Deni Avdija",
+            "minutes": 33.2,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Toumani Camara",
+            "minutes": 31.5,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Jrue Holiday",
+            "minutes": 28.6,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Donovan Clingan",
+            "minutes": 26.7,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Scoot Henderson",
+            "minutes": 23.6,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Sidy Cissoko",
+            "minutes": 20.2,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Micah Potter",
+            "minutes": 18.2,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Damian Lillard",
+            "minutes": 12,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Branden Carlson",
+            "minutes": 11.8,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Robert Williams III",
+            "minutes": 8.7,
+            "status": "QUESTIONABLE"
+          },
+          {
+            "name": "Yang Hansen",
+            "minutes": 7.3,
+            "status": "AVAILABLE"
+          }
+        ],
+        "home": [
+          {
+            "name": "Keyonte George",
+            "minutes": 31.8,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Ace Bailey",
+            "minutes": 27.2,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Isaiah Collier",
+            "minutes": 22.6,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Svi Mykhailiuk",
+            "minutes": 20.4,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Brice Sensabaugh",
+            "minutes": 20.1,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Jaxson Hayes",
+            "minutes": 19.7,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Kyle Filipowski",
+            "minutes": 19.6,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Mo Bamba",
+            "minutes": 18.7,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Josh Okogie",
+            "minutes": 16.5,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Lauri Markkanen",
+            "minutes": 15.8,
+            "status": "QUESTIONABLE"
+          },
+          {
+            "name": "Josh Green",
+            "minutes": 15.4,
+            "status": "AVAILABLE"
+          }
+        ]
+      },
+      "sourceUrl": null,
+      "eligibleForLiveUse": false,
+      "limitation": "原站已下線；此為保留的歷史研究資料，未重新計算或校準。"
+    },
+    {
+      "source": "hoopslab",
+      "league": "NBA",
+      "away": "PHI",
+      "home": "CHA",
+      "startAt": "2026-10-31T22:00Z",
+      "generatedAt": "2026-10-31T17:30:11+00:00",
+      "observedAt": "2026-11-02T22:46:46.706Z",
+      "sourceHash": "935b93e7813cd2a2cc26075fc691ea4be0ae08601fe64422c911544704bb9751",
+      "status": "research_snapshot",
+      "historical": true,
+      "stale": true,
+      "calibrated": false,
+      "homeWinProbability": 0.6353,
+      "awayWinProbability": 0.3647,
+      "score": {
+        "away": 97.3,
+        "home": 100.6
+      },
+      "buckets": {
+        "away": [
+          [
+            "91-95",
+            0.1548
+          ],
+          [
+            "96-100",
+            0.1526
+          ],
+          [
+            "101-105",
+            0.1296
+          ],
+          [
+            "86-90",
+            0.129
+          ]
+        ],
+        "home": [
+          [
+            "101-105",
+            0.176
+          ],
+          [
+            "96-100",
+            0.17
+          ],
+          [
+            "106-110",
+            0.1482
+          ],
+          [
+            "91-95",
+            0.1338
+          ]
+        ]
+      },
+      "rotation": {
+        "away": [
+          {
+            "name": "Tyrese Maxey",
+            "minutes": 37.4,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "VJ Edgecombe",
+            "minutes": 33.9,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Rayan Rupert",
+            "minutes": 30.6,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Anfernee Simons",
+            "minutes": 26.7,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Dean Wade",
+            "minutes": 23.3,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Kentavious Caldwell-Pope",
+            "minutes": 22.4,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Caleb Love",
+            "minutes": 18.9,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Jaylen Brown",
+            "minutes": 17.3,
+            "status": "QUESTIONABLE"
+          },
+          {
+            "name": "Adem Bona",
+            "minutes": 15.6,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Justin Edwards",
+            "minutes": 13.9,
+            "status": "AVAILABLE"
+          }
+        ],
+        "home": [
+          {
+            "name": "Brandon Miller",
+            "minutes": 33,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Grayson Allen",
+            "minutes": 29.3,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Naz Reid",
+            "minutes": 27.8,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Royce O'Neale",
+            "minutes": 25.7,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Sion James",
+            "minutes": 24.7,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Ryan Kalkbrenner",
+            "minutes": 20.5,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Dennis Schroder",
+            "minutes": 15.3,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "PJ Hall",
+            "minutes": 14.8,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Moussa Diabate",
+            "minutes": 14.5,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Liam McNeeley",
+            "minutes": 11.2,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Tidjane Salaun",
+            "minutes": 8.7,
+            "status": "AVAILABLE"
+          }
+        ]
+      },
+      "sourceUrl": null,
+      "eligibleForLiveUse": false,
+      "limitation": "原站已下線；此為保留的歷史研究資料，未重新計算或校準。"
+    },
+    {
+      "source": "hoopslab",
+      "league": "NBA",
+      "away": "ATL",
+      "home": "NOP",
+      "startAt": "2026-10-31T23:00Z",
+      "generatedAt": "2026-10-31T17:30:11+00:00",
+      "observedAt": "2026-11-02T22:46:46.706Z",
+      "sourceHash": "935b93e7813cd2a2cc26075fc691ea4be0ae08601fe64422c911544704bb9751",
+      "status": "research_snapshot",
+      "historical": true,
+      "stale": true,
+      "calibrated": false,
+      "homeWinProbability": 0.5464,
+      "awayWinProbability": 0.4536,
+      "score": {
+        "away": 118.7,
+        "home": 118
+      },
+      "buckets": {
+        "away": [
+          [
+            "116-120",
+            0.1792
+          ],
+          [
+            "111-115",
+            0.168
+          ],
+          [
+            "121-125",
+            0.1506
+          ],
+          [
+            "106-110",
+            0.1269
+          ]
+        ],
+        "home": [
+          [
+            "116-120",
+            0.175
+          ],
+          [
+            "121-125",
+            0.1616
+          ],
+          [
+            "111-115",
+            0.1529
+          ],
+          [
+            "126-130",
+            0.1254
+          ]
+        ]
+      },
+      "rotation": {
+        "away": [
+          {
+            "name": "Jalen Johnson",
+            "minutes": 33.1,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Nickeil Alexander-Walker",
+            "minutes": 31,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Dyson Daniels",
+            "minutes": 30.5,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Onyeka Okongwu",
+            "minutes": 28.9,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "CJ McCollum",
+            "minutes": 26.8,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Keshon Gilbert",
+            "minutes": 24.9,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Luguentz Dort",
+            "minutes": 24.4,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Aaron Wiggins",
+            "minutes": 22.2,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Jock Landale",
+            "minutes": 18,
+            "status": "AVAILABLE"
+          }
+        ],
+        "home": [
+          {
+            "name": "Trey Murphy III",
+            "minutes": 32.6,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Julian Reese",
+            "minutes": 29.1,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Zion Williamson",
+            "minutes": 28.6,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Saddiq Bey",
+            "minutes": 27.5,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Dejounte Murray",
+            "minutes": 27.2,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Herbert Jones",
+            "minutes": 24.5,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Jeremiah Fears",
+            "minutes": 23.8,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Bennedict Mathurin",
+            "minutes": 23.4,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Derik Queen",
+            "minutes": 23.2,
+            "status": "AVAILABLE"
+          }
+        ]
+      },
+      "sourceUrl": null,
+      "eligibleForLiveUse": false,
+      "limitation": "原站已下線；此為保留的歷史研究資料，未重新計算或校準。"
+    },
+    {
+      "source": "hoopslab",
+      "league": "NBA",
+      "away": "SAC",
+      "home": "MEM",
+      "startAt": "2026-11-01T00:00Z",
+      "generatedAt": "2026-10-31T17:30:11+00:00",
+      "observedAt": "2026-11-02T22:46:46.706Z",
+      "sourceHash": "935b93e7813cd2a2cc26075fc691ea4be0ae08601fe64422c911544704bb9751",
+      "status": "research_snapshot",
+      "historical": true,
+      "stale": true,
+      "calibrated": false,
+      "homeWinProbability": 0.5043,
+      "awayWinProbability": 0.4957,
+      "score": {
+        "away": 112.8,
+        "home": 110.4
+      },
+      "buckets": {
+        "away": [
+          [
+            "111-115",
+            0.1732
+          ],
+          [
+            "106-110",
+            0.1693
+          ],
+          [
+            "116-120",
+            0.1424
+          ],
+          [
+            "101-105",
+            0.1361
+          ]
+        ],
+        "home": [
+          [
+            "111-115",
+            0.172
+          ],
+          [
+            "106-110",
+            0.1676
+          ],
+          [
+            "116-120",
+            0.145
+          ],
+          [
+            "101-105",
+            0.1355
+          ]
+        ]
+      },
+      "rotation": {
+        "away": [
+          {
+            "name": "Zach LaVine",
+            "minutes": 32.3,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Domantas Sabonis",
+            "minutes": 31.2,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "De'Andre Hunter",
+            "minutes": 26,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Precious Achiuwa",
+            "minutes": 25.1,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Leaky Black",
+            "minutes": 24.8,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Daeqwon Plowden",
+            "minutes": 23.5,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Nique Clifford",
+            "minutes": 20.1,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Malik Monk",
+            "minutes": 18.9,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Darius Acuff Jr.",
+            "minutes": 14.7,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Emanuel Sharp",
+            "minutes": 9,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Jonathan Mogbo",
+            "minutes": 7.8,
+            "status": "AVAILABLE"
+          }
+        ],
+        "home": [
+          {
+            "name": "Jerami Grant",
+            "minutes": 26.7,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Jaylen Wells",
+            "minutes": 25.4,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Cedric Coward",
+            "minutes": 25.2,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Zach Edey",
+            "minutes": 23.2,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Cam Spencer",
+            "minutes": 20.9,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Jahmai Mashack",
+            "minutes": 20.5,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Isaiah Stewart",
+            "minutes": 20.2,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Taylor Hendricks",
+            "minutes": 20.1,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Kris Murray",
+            "minutes": 19.9,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Javon Small",
+            "minutes": 19.1,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "GG Jackson",
+            "minutes": 18.7,
+            "status": "AVAILABLE"
+          }
+        ]
+      },
+      "sourceUrl": null,
+      "eligibleForLiveUse": false,
+      "limitation": "原站已下線；此為保留的歷史研究資料，未重新計算或校準。"
+    },
+    {
+      "source": "hoopslab",
+      "league": "NBA",
+      "away": "CLE",
+      "home": "MIL",
+      "startAt": "2026-11-01T00:00Z",
+      "generatedAt": "2026-10-31T17:30:11+00:00",
+      "observedAt": "2026-11-02T22:46:46.706Z",
+      "sourceHash": "935b93e7813cd2a2cc26075fc691ea4be0ae08601fe64422c911544704bb9751",
+      "status": "research_snapshot",
+      "historical": true,
+      "stale": true,
+      "calibrated": false,
+      "homeWinProbability": 0.5532,
+      "awayWinProbability": 0.4468,
+      "score": {
+        "away": 116.3,
+        "home": 115.9
+      },
+      "buckets": {
+        "away": [
+          [
+            "111-115",
+            0.1754
+          ],
+          [
+            "116-120",
+            0.1666
+          ],
+          [
+            "106-110",
+            0.1458
+          ],
+          [
+            "121-125",
+            0.1316
+          ]
+        ],
+        "home": [
+          [
+            "116-120",
+            0.1742
+          ],
+          [
+            "111-115",
+            0.1669
+          ],
+          [
+            "121-125",
+            0.1471
+          ],
+          [
+            "106-110",
+            0.1296
+          ]
+        ]
+      },
+      "rotation": {
+        "away": [
+          {
+            "name": "James Harden",
+            "minutes": 34.1,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Donovan Mitchell",
+            "minutes": 33.7,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Evan Mobley",
+            "minutes": 32.5,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Peyton Watson",
+            "minutes": 29.5,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Jarrett Allen",
+            "minutes": 27.4,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Sam Merrill",
+            "minutes": 25.8,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Craig Porter Jr.",
+            "minutes": 15.4,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Thomas Bryant",
+            "minutes": 12.1,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Tyrese Proctor",
+            "minutes": 10.7,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Tristan Enaruna",
+            "minutes": 9.4,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Mario Hezonja",
+            "minutes": 9.3,
+            "status": "AVAILABLE"
+          }
+        ],
+        "home": [
+          {
+            "name": "Tyler Herro",
+            "minutes": 29.7,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Ryan Rollins",
+            "minutes": 29,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Jaime Jaquez Jr.",
+            "minutes": 27.2,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Myles Turner",
+            "minutes": 25.5,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Kyle Kuzma",
+            "minutes": 25.4,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Cormac Ryan",
+            "minutes": 23.4,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Ousmane Dieng",
+            "minutes": 22.3,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Kel'el Ware",
+            "minutes": 20.1,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Gary Trent Jr.",
+            "minutes": 19.1,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Caris LeVert",
+            "minutes": 18.3,
+            "status": "AVAILABLE"
+          }
+        ]
+      },
+      "sourceUrl": null,
+      "eligibleForLiveUse": false,
+      "limitation": "原站已下線；此為保留的歷史研究資料，未重新計算或校準。"
+    },
+    {
+      "source": "hoopslab",
+      "league": "NBA",
+      "away": "MIN",
+      "home": "SAS",
+      "startAt": "2026-11-01T00:00Z",
+      "generatedAt": "2026-10-31T17:30:11+00:00",
+      "observedAt": "2026-11-02T22:46:46.706Z",
+      "sourceHash": "935b93e7813cd2a2cc26075fc691ea4be0ae08601fe64422c911544704bb9751",
+      "status": "research_snapshot",
+      "historical": true,
+      "stale": true,
+      "calibrated": false,
+      "homeWinProbability": 0.6435,
+      "awayWinProbability": 0.3565,
+      "score": {
+        "away": 109.9,
+        "home": 113.1
+      },
+      "buckets": {
+        "away": [
+          [
+            "106-110",
+            0.1802
+          ],
+          [
+            "111-115",
+            0.1601
+          ],
+          [
+            "101-105",
+            0.1598
+          ],
+          [
+            "116-120",
+            0.1182
+          ]
+        ],
+        "home": [
+          [
+            "111-115",
+            0.1748
+          ],
+          [
+            "116-120",
+            0.1632
+          ],
+          [
+            "106-110",
+            0.1509
+          ],
+          [
+            "121-125",
+            0.1258
+          ]
+        ]
+      },
+      "rotation": {
+        "away": [
+          {
+            "name": "Jaden McDaniels",
+            "minutes": 31.8,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Rudy Gobert",
+            "minutes": 30.7,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Ayo Dosunmu",
+            "minutes": 28.4,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "LaMelo Ball",
+            "minutes": 27.2,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Jonathan Kuminga",
+            "minutes": 24.3,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Cody Williams",
+            "minutes": 19,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Terrence Shannon Jr.",
+            "minutes": 15.8,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Bones Hyland",
+            "minutes": 14.8,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Jaylen Clark",
+            "minutes": 11.3,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Joan Beringer",
+            "minutes": 10.5,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Trey Lyles",
+            "minutes": 9.3,
+            "status": "AVAILABLE"
+          }
+        ],
+        "home": [
+          {
+            "name": "De'Aaron Fox",
+            "minutes": 29.9,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Devin Vassell",
+            "minutes": 29.7,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Stephon Castle",
+            "minutes": 29.1,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Victor Wembanyama",
+            "minutes": 28.9,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Julian Champagnie",
+            "minutes": 26.7,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Dylan Harper",
+            "minutes": 24.5,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Keldon Johnson",
+            "minutes": 22,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Harrison Barnes",
+            "minutes": 20.5,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Luke Kornet",
+            "minutes": 18.4,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Carter Bryant",
+            "minutes": 10.2,
+            "status": "AVAILABLE"
+          }
+        ]
+      },
+      "sourceUrl": null,
+      "eligibleForLiveUse": false,
+      "limitation": "原站已下線；此為保留的歷史研究資料，未重新計算或校準。"
+    },
+    {
+      "source": "hoopslab",
+      "league": "NBA",
+      "away": "OKC",
+      "home": "HOU",
+      "startAt": "2026-11-01T00:30Z",
+      "generatedAt": "2026-10-31T17:30:11+00:00",
+      "observedAt": "2026-11-02T22:46:46.706Z",
+      "sourceHash": "935b93e7813cd2a2cc26075fc691ea4be0ae08601fe64422c911544704bb9751",
+      "status": "research_snapshot",
+      "historical": true,
+      "stale": true,
+      "calibrated": false,
+      "homeWinProbability": 0.7041,
+      "awayWinProbability": 0.2959,
+      "score": {
+        "away": 107.2,
+        "home": 113.5
+      },
+      "buckets": {
+        "away": [
+          [
+            "101-105",
+            0.1724
+          ],
+          [
+            "106-110",
+            0.1713
+          ],
+          [
+            "96-100",
+            0.1398
+          ],
+          [
+            "111-115",
+            0.1378
+          ]
+        ],
+        "home": [
+          [
+            "111-115",
+            0.1609
+          ],
+          [
+            "116-120",
+            0.1532
+          ],
+          [
+            "106-110",
+            0.1408
+          ],
+          [
+            "121-125",
+            0.1262
+          ]
+        ]
+      },
+      "rotation": {
+        "away": [
+          {
+            "name": "Shai Gilgeous-Alexander",
+            "minutes": 40,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Ajay Mitchell",
+            "minutes": 34.3,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Isaiah Hartenstein",
+            "minutes": 32.1,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Jared McCain",
+            "minutes": 26.4,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Jaylin Williams",
+            "minutes": 25,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Kenrich Williams",
+            "minutes": 19.2,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Micah Peavy",
+            "minutes": 18.9,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Aday Mara",
+            "minutes": 11.8,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Josh Dix",
+            "minutes": 11.2,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Bennett Stirtz",
+            "minutes": 10.8,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Brooks Barnhizer",
+            "minutes": 10.3,
+            "status": "AVAILABLE"
+          }
+        ],
+        "home": [
+          {
+            "name": "Amen Thompson",
+            "minutes": 36,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Kevin Durant",
+            "minutes": 35.3,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Jabari Smith Jr.",
+            "minutes": 34.4,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Marcus Smart",
+            "minutes": 26.7,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Tari Eason",
+            "minutes": 25.1,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Oscar Tshiebwe",
+            "minutes": 15.8,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Clint Capela",
+            "minutes": 12.9,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Alperen Sengun",
+            "minutes": 12.8,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Reed Sheppard",
+            "minutes": 12.5,
+            "status": "QUESTIONABLE"
+          },
+          {
+            "name": "Bogdan Bogdanovic",
+            "minutes": 8.4,
+            "status": "AVAILABLE"
+          },
+          {
+            "name": "Julian Phillips",
+            "minutes": 7.1,
+            "status": "AVAILABLE"
+          }
+        ]
+      },
+      "sourceUrl": null,
+      "eligibleForLiveUse": false,
+      "limitation": "原站已下線；此為保留的歷史研究資料，未重新計算或校準。"
+    },
+    {
+      "source": "statshub",
+      "league": "NBA",
+      "away": "OKC",
+      "home": "CLE",
+      "startAt": "2026-11-03T00:00:00.000Z",
+      "generatedAt": "2026-11-02T13:00:08.730Z",
+      "observedAt": "2026-11-02T22:46:48.196Z",
+      "sourceHash": "373df56a4d9a40cd4837d9b59f45eed0686780065c179b257f29fbb2d213fa3b",
+      "status": "research_snapshot",
+      "historical": true,
+      "stale": true,
+      "calibrated": false,
+      "awayWinProbability": 0.49958844439100003,
+      "homeWinProbability": 0.500411555609,
+      "score": {
+        "away": 113.5654,
+        "home": 114.4936
+      },
+      "buckets": [],
+      "modelVersion": "nba-elo-candidate-20261023",
+      "sourceUrl": null,
+      "eligibleForLiveUse": false,
+      "limitation": "原站已下線；此為保留的歷史研究資料，未重新計算或校準。"
+    },
+    {
+      "source": "statshub",
+      "league": "NBA",
+      "away": "DET",
+      "home": "CHA",
+      "startAt": "2026-11-03T00:30:00.000Z",
+      "generatedAt": "2026-11-02T13:00:08.730Z",
+      "observedAt": "2026-11-02T22:46:48.196Z",
+      "sourceHash": "373df56a4d9a40cd4837d9b59f45eed0686780065c179b257f29fbb2d213fa3b",
+      "status": "research_snapshot",
+      "historical": true,
+      "stale": true,
+      "calibrated": false,
+      "awayWinProbability": 0.562460109661,
+      "homeWinProbability": 0.437539890339,
+      "score": {
+        "away": 108.3188,
+        "home": 108.8896
+      },
+      "buckets": [],
+      "modelVersion": "nba-elo-candidate-20261023",
+      "sourceUrl": null,
+      "eligibleForLiveUse": false,
+      "limitation": "原站已下線；此為保留的歷史研究資料，未重新計算或校準。"
+    },
+    {
+      "source": "statshub",
+      "league": "NBA",
+      "away": "ATL",
+      "home": "IND",
+      "startAt": "2026-11-03T00:30:00.000Z",
+      "generatedAt": "2026-11-02T13:00:08.730Z",
+      "observedAt": "2026-11-02T22:46:48.196Z",
+      "sourceHash": "373df56a4d9a40cd4837d9b59f45eed0686780065c179b257f29fbb2d213fa3b",
+      "status": "research_snapshot",
+      "historical": true,
+      "stale": true,
+      "calibrated": false,
+      "awayWinProbability": 0.615396902162,
+      "homeWinProbability": 0.384603097838,
+      "score": {
+        "away": 122.5601,
+        "home": 114.0548
+      },
+      "buckets": [],
+      "modelVersion": "nba-elo-candidate-20261023",
+      "sourceUrl": null,
+      "eligibleForLiveUse": false,
+      "limitation": "原站已下線；此為保留的歷史研究資料，未重新計算或校準。"
+    },
+    {
+      "source": "statshub",
+      "league": "NBA",
+      "away": "BKN",
+      "home": "NYK",
+      "startAt": "2026-11-03T00:30:00.000Z",
+      "generatedAt": "2026-11-02T13:00:08.730Z",
+      "observedAt": "2026-11-02T22:46:48.196Z",
+      "sourceHash": "373df56a4d9a40cd4837d9b59f45eed0686780065c179b257f29fbb2d213fa3b",
+      "status": "research_snapshot",
+      "historical": true,
+      "stale": true,
+      "calibrated": false,
+      "awayWinProbability": 0.234738113935,
+      "homeWinProbability": 0.765261886065,
+      "score": {
+        "away": 100.3624,
+        "home": 116.7994
+      },
+      "buckets": [],
+      "modelVersion": "nba-elo-candidate-20261023",
+      "sourceUrl": null,
+      "eligibleForLiveUse": false,
+      "limitation": "原站已下線；此為保留的歷史研究資料，未重新計算或校準。"
+    },
+    {
+      "source": "statshub",
+      "league": "NBA",
+      "away": "WAS",
+      "home": "ORL",
+      "startAt": "2026-11-03T00:30:00.000Z",
+      "generatedAt": "2026-11-02T13:00:08.730Z",
+      "observedAt": "2026-11-02T22:46:48.196Z",
+      "sourceHash": "373df56a4d9a40cd4837d9b59f45eed0686780065c179b257f29fbb2d213fa3b",
+      "status": "research_snapshot",
+      "historical": true,
+      "stale": true,
+      "calibrated": false,
+      "awayWinProbability": 0.28410903158,
+      "homeWinProbability": 0.71589096842,
+      "score": {
+        "away": 112.4535,
+        "home": 124.0615
+      },
+      "buckets": [],
+      "modelVersion": "nba-elo-candidate-20261023",
+      "sourceUrl": null,
+      "eligibleForLiveUse": false,
+      "limitation": "原站已下線；此為保留的歷史研究資料，未重新計算或校準。"
+    },
+    {
+      "source": "statshub",
+      "league": "NBA",
+      "away": "CHI",
+      "home": "PHI",
+      "startAt": "2026-11-03T00:30:00.000Z",
+      "generatedAt": "2026-11-02T13:00:08.730Z",
+      "observedAt": "2026-11-02T22:46:48.196Z",
+      "sourceHash": "373df56a4d9a40cd4837d9b59f45eed0686780065c179b257f29fbb2d213fa3b",
+      "status": "research_snapshot",
+      "historical": true,
+      "stale": true,
+      "calibrated": false,
+      "awayWinProbability": 0.24247507611499997,
+      "homeWinProbability": 0.757524923885,
+      "score": {
+        "away": 113.0978,
+        "home": 122.5907
+      },
+      "buckets": [],
+      "modelVersion": "nba-elo-candidate-20261023",
+      "sourceUrl": null,
+      "eligibleForLiveUse": false,
+      "limitation": "原站已下線；此為保留的歷史研究資料，未重新計算或校準。"
+    },
+    {
+      "source": "statshub",
+      "league": "NBA",
+      "away": "SAC",
+      "home": "DAL",
+      "startAt": "2026-11-03T01:00:00.000Z",
+      "generatedAt": "2026-11-02T13:00:08.730Z",
+      "observedAt": "2026-11-02T22:46:48.196Z",
+      "sourceHash": "373df56a4d9a40cd4837d9b59f45eed0686780065c179b257f29fbb2d213fa3b",
+      "status": "research_snapshot",
+      "historical": true,
+      "stale": true,
+      "calibrated": false,
+      "awayWinProbability": 0.31328645048000003,
+      "homeWinProbability": 0.68671354952,
+      "score": {
+        "away": 116.5575,
+        "home": 121.1588
+      },
+      "buckets": [],
+      "modelVersion": "nba-elo-candidate-20261023",
+      "sourceUrl": null,
+      "eligibleForLiveUse": false,
+      "limitation": "原站已下線；此為保留的歷史研究資料，未重新計算或校準。"
+    },
+    {
+      "source": "statshub",
+      "league": "NBA",
+      "away": "NOP",
+      "home": "MEM",
+      "startAt": "2026-11-03T01:00:00.000Z",
+      "generatedAt": "2026-11-02T13:00:08.730Z",
+      "observedAt": "2026-11-02T22:46:48.196Z",
+      "sourceHash": "373df56a4d9a40cd4837d9b59f45eed0686780065c179b257f29fbb2d213fa3b",
+      "status": "research_snapshot",
+      "historical": true,
+      "stale": true,
+      "calibrated": false,
+      "awayWinProbability": 0.37552529062600004,
+      "homeWinProbability": 0.624474709374,
+      "score": {
+        "away": 121.6153,
+        "home": 118.4353
+      },
+      "buckets": [],
+      "modelVersion": "nba-elo-candidate-20261023",
+      "sourceUrl": null,
+      "eligibleForLiveUse": false,
+      "limitation": "原站已下線；此為保留的歷史研究資料，未重新計算或校準。"
+    },
+    {
+      "source": "statshub",
+      "league": "NBA",
+      "away": "MIL",
+      "home": "MIN",
+      "startAt": "2026-11-03T01:00:00.000Z",
+      "generatedAt": "2026-11-02T13:00:08.730Z",
+      "observedAt": "2026-11-02T22:46:48.196Z",
+      "sourceHash": "373df56a4d9a40cd4837d9b59f45eed0686780065c179b257f29fbb2d213fa3b",
+      "status": "research_snapshot",
+      "historical": true,
+      "stale": true,
+      "calibrated": false,
+      "awayWinProbability": 0.27033509451399995,
+      "homeWinProbability": 0.729664905486,
+      "score": {
+        "away": 109.7161,
+        "home": 121.39
+      },
+      "buckets": [],
+      "modelVersion": "nba-elo-candidate-20261023",
+      "sourceUrl": null,
+      "eligibleForLiveUse": false,
+      "limitation": "原站已下線；此為保留的歷史研究資料，未重新計算或校準。"
+    },
+    {
+      "source": "statshub",
+      "league": "NBA",
+      "away": "BOS",
+      "home": "HOU",
+      "startAt": "2026-11-03T01:30:00.000Z",
+      "generatedAt": "2026-11-02T13:00:08.730Z",
+      "observedAt": "2026-11-02T22:46:48.196Z",
+      "sourceHash": "373df56a4d9a40cd4837d9b59f45eed0686780065c179b257f29fbb2d213fa3b",
+      "status": "research_snapshot",
+      "historical": true,
+      "stale": true,
+      "calibrated": false,
+      "awayWinProbability": 0.45164440831200003,
+      "homeWinProbability": 0.548355591688,
+      "score": {
+        "away": 108.6924,
+        "home": 108.3585
+      },
+      "buckets": [],
+      "modelVersion": "nba-elo-candidate-20261023",
+      "sourceUrl": null,
+      "eligibleForLiveUse": false,
+      "limitation": "原站已下線；此為保留的歷史研究資料，未重新計算或校準。"
+    },
+    {
+      "source": "statshub",
+      "league": "NBA",
+      "away": "UTA",
+      "home": "SAS",
+      "startAt": "2026-11-03T01:30:00.000Z",
+      "generatedAt": "2026-11-02T13:00:08.730Z",
+      "observedAt": "2026-11-02T22:46:48.196Z",
+      "sourceHash": "373df56a4d9a40cd4837d9b59f45eed0686780065c179b257f29fbb2d213fa3b",
+      "status": "research_snapshot",
+      "historical": true,
+      "stale": true,
+      "calibrated": false,
+      "awayWinProbability": 0.16466704054799997,
+      "homeWinProbability": 0.835332959452,
+      "score": {
+        "away": 110.1816,
+        "home": 127.9267
+      },
+      "buckets": [],
+      "modelVersion": "nba-elo-candidate-20261023",
+      "sourceUrl": null,
+      "eligibleForLiveUse": false,
+      "limitation": "原站已下線；此為保留的歷史研究資料，未重新計算或校準。"
+    },
+    {
+      "source": "statshub",
+      "league": "NBA",
+      "away": "POR",
+      "home": "DEN",
+      "startAt": "2026-11-03T02:00:00.000Z",
+      "generatedAt": "2026-11-02T13:00:08.730Z",
+      "observedAt": "2026-11-02T22:46:48.196Z",
+      "sourceHash": "373df56a4d9a40cd4837d9b59f45eed0686780065c179b257f29fbb2d213fa3b",
+      "status": "research_snapshot",
+      "historical": true,
+      "stale": true,
+      "calibrated": false,
+      "awayWinProbability": 0.37811970379899995,
+      "homeWinProbability": 0.621880296201,
+      "score": {
+        "away": 116.8174,
+        "home": 120.4655
+      },
+      "buckets": [],
+      "modelVersion": "nba-elo-candidate-20261023",
+      "sourceUrl": null,
+      "eligibleForLiveUse": false,
+      "limitation": "原站已下線；此為保留的歷史研究資料，未重新計算或校準。"
+    },
+    {
+      "source": "statshub",
+      "league": "NBA",
+      "away": "PHX",
+      "home": "GSW",
+      "startAt": "2026-11-03T03:00:00.000Z",
+      "generatedAt": "2026-11-02T13:00:08.730Z",
+      "observedAt": "2026-11-02T22:46:48.196Z",
+      "sourceHash": "373df56a4d9a40cd4837d9b59f45eed0686780065c179b257f29fbb2d213fa3b",
+      "status": "research_snapshot",
+      "historical": true,
+      "stale": true,
+      "calibrated": false,
+      "awayWinProbability": 0.447765073358,
+      "homeWinProbability": 0.552234926642,
+      "score": {
+        "away": 112.3851,
+        "home": 111.9706
+      },
+      "buckets": [],
+      "modelVersion": "nba-elo-candidate-20261023",
+      "sourceUrl": null,
+      "eligibleForLiveUse": false,
+      "limitation": "原站已下線；此為保留的歷史研究資料，未重新計算或校準。"
+    },
+    {
+      "source": "statshub",
+      "league": "NBA",
+      "away": "TOR",
+      "home": "LAC",
+      "startAt": "2026-11-03T03:00:00.000Z",
+      "generatedAt": "2026-11-02T13:00:08.730Z",
+      "observedAt": "2026-11-02T22:46:48.196Z",
+      "sourceHash": "373df56a4d9a40cd4837d9b59f45eed0686780065c179b257f29fbb2d213fa3b",
+      "status": "research_snapshot",
+      "historical": true,
+      "stale": true,
+      "calibrated": false,
+      "awayWinProbability": 0.454775192493,
+      "homeWinProbability": 0.545224807507,
+      "score": {
+        "away": 112.0132,
+        "home": 112.0854
+      },
+      "buckets": [],
+      "modelVersion": "nba-elo-candidate-20261023",
+      "sourceUrl": null,
+      "eligibleForLiveUse": false,
+      "limitation": "原站已下線；此為保留的歷史研究資料，未重新計算或校準。"
+    },
+    {
+      "source": "statshub",
+      "league": "NBA",
+      "away": "MIA",
+      "home": "LAL",
+      "startAt": "2026-11-03T03:00:00.000Z",
+      "generatedAt": "2026-11-02T13:00:08.730Z",
+      "observedAt": "2026-11-02T22:46:48.196Z",
+      "sourceHash": "373df56a4d9a40cd4837d9b59f45eed0686780065c179b257f29fbb2d213fa3b",
+      "status": "research_snapshot",
+      "historical": true,
+      "stale": true,
+      "calibrated": false,
+      "awayWinProbability": 0.320560049146,
+      "homeWinProbability": 0.679439950854,
+      "score": {
+        "away": 116.4633,
+        "home": 120.7323
+      },
+      "buckets": [],
+      "modelVersion": "nba-elo-candidate-20261023",
+      "sourceUrl": null,
+      "eligibleForLiveUse": false,
+      "limitation": "原站已下線；此為保留的歷史研究資料，未重新計算或校準。"
+    }
+  ],
+  "rookieSnapshots": [
+    {
+      "source": "HoopsLab",
+      "updatedAt": "2026-10-31T17:30:11+00:00",
+      "rows": [
+        {
+          "name": "Cooper Flagg",
+          "team": "DAL",
+          "class": "二年級",
+          "rank": 1,
+          "games": 5,
+          "points": 26.8,
+          "minutes": 32.2,
+          "gs36": 26.77,
+          "espnId": "5041939",
+          "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/5041939.png"
+        },
+        {
+          "name": "Graham Ike",
+          "team": "GSW",
+          "class": "一年級",
+          "rank": 2,
+          "games": 4,
+          "points": 8.2,
+          "minutes": 13.2,
+          "gs36": 20.03,
+          "espnId": "4703396",
+          "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/4703396.png"
+        },
+        {
+          "name": "Allen Graves",
+          "team": "TOR",
+          "class": "一年級",
+          "rank": 3,
+          "games": 5,
+          "points": 5.6,
+          "minutes": 14.6,
+          "gs36": 16.79,
+          "espnId": "5149115",
+          "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/5149115.png"
+        },
+        {
+          "name": "Joan Beringer",
+          "team": "MIN",
+          "class": "二年級",
+          "rank": 4,
+          "games": 6,
+          "points": 6.3,
+          "minutes": 16,
+          "gs36": 16.65,
+          "espnId": "5279133",
+          "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/5279133.png"
+        },
+        {
+          "name": "Yaxel Lendeborg",
+          "team": "GSW",
+          "class": "一年級",
+          "rank": 5,
+          "games": 6,
+          "points": 19.8,
+          "minutes": 32,
+          "gs36": 16.03,
+          "espnId": "5175737",
+          "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/5175737.png"
+        },
+        {
+          "name": "Derik Queen",
+          "team": "NOP",
+          "class": "二年級",
+          "rank": 6,
+          "games": 5,
+          "points": 11.8,
+          "minutes": 23.8,
+          "gs36": 15.17,
+          "espnId": "4869780",
+          "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/4869780.png"
+        },
+        {
+          "name": "Cameron Boozer",
+          "team": "MEM",
+          "class": "一年級",
+          "rank": 7,
+          "games": 5,
+          "points": 15.8,
+          "minutes": 32.2,
+          "gs36": 15.14,
+          "espnId": "5041935",
+          "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/5041935.png"
+        },
+        {
+          "name": "Ace Bailey",
+          "team": "UTA",
+          "class": "二年級",
+          "rank": 8,
+          "games": 5,
+          "points": 14.2,
+          "minutes": 29.8,
+          "gs36": 14.98,
+          "espnId": "4873138",
+          "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/4873138.png"
+        },
+        {
+          "name": "Caleb Wilson",
+          "team": "CHI",
+          "class": "一年級",
+          "rank": 9,
+          "games": 6,
+          "points": 21.2,
+          "minutes": 34.2,
+          "gs36": 14.8,
+          "espnId": "5095151",
+          "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/5095151.png"
+        },
+        {
+          "name": "Brayden Burries",
+          "team": "MIL",
+          "class": "一年級",
+          "rank": 10,
+          "games": 5,
+          "points": 7.8,
+          "minutes": 15,
+          "gs36": 14.67,
+          "espnId": "5082206",
+          "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/5082206.png"
+        },
+        {
+          "name": "Dylan Harper",
+          "team": "SAS",
+          "class": "二年級",
+          "rank": 11,
+          "games": 5,
+          "points": 17.2,
+          "minutes": 32.6,
+          "gs36": 14.45,
+          "espnId": "5037871",
+          "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/5037871.png"
+        },
+        {
+          "name": "Cedric Coward",
+          "team": "MEM",
+          "class": "二年級",
+          "rank": 12,
+          "games": 4,
+          "points": 13.8,
+          "minutes": 29.5,
+          "gs36": 14.18,
+          "espnId": "4903027",
+          "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/4903027.png"
+        },
+        {
+          "name": "Tobe Awaka",
+          "team": "CHI",
+          "class": "一年級",
+          "rank": 13,
+          "games": 3,
+          "points": 2.7,
+          "minutes": 13,
+          "gs36": 13.8,
+          "espnId": "5105555",
+          "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/5105555.png"
+        },
+        {
+          "name": "Tyrese Proctor",
+          "team": "CLE",
+          "class": "二年級",
+          "rank": 14,
+          "games": 4,
+          "points": 3.5,
+          "minutes": 10.2,
+          "gs36": 13.66,
+          "espnId": "5023693",
+          "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/5023693.png"
+        },
+        {
+          "name": "Keaton Wagler",
+          "team": "LAC",
+          "class": "一年級",
+          "rank": 15,
+          "games": 5,
+          "points": 14.4,
+          "minutes": 26.2,
+          "gs36": 13.3,
+          "espnId": "5254165",
+          "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/5254165.png"
+        },
+        {
+          "name": "Ryan Kalkbrenner",
+          "team": "CHA",
+          "class": "二年級",
+          "rank": 16,
+          "games": 6,
+          "points": 4.2,
+          "minutes": 16.2,
+          "gs36": 13.05,
+          "espnId": "4576060",
+          "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/4576060.png"
+        },
+        {
+          "name": "Collin Murray-Boyles",
+          "team": "TOR",
+          "class": "二年級",
+          "rank": 17,
+          "games": 5,
+          "points": 8.4,
+          "minutes": 18.8,
+          "gs36": 12.59,
+          "espnId": "5093267",
+          "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/5093267.png"
+        },
+        {
+          "name": "Darius Acuff Jr.",
+          "team": "SAC",
+          "class": "一年級",
+          "rank": 18,
+          "games": 5,
+          "points": 24,
+          "minutes": 36.4,
+          "gs36": 12.4,
+          "espnId": "5142620",
+          "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/5142620.png"
+        },
+        {
+          "name": "Kasparas Jakucionis",
+          "team": "MIL",
+          "class": "二年級",
+          "rank": 19,
+          "games": 5,
+          "points": 9,
+          "minutes": 22.8,
+          "gs36": 12.31,
+          "espnId": "5214640",
+          "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/5214640.png"
+        },
+        {
+          "name": "Trevon Brazile",
+          "team": "DEN",
+          "class": "一年級",
+          "rank": 20,
+          "games": 5,
+          "points": 8.8,
+          "minutes": 22.8,
+          "gs36": 12.26,
+          "espnId": "4698719",
+          "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/4698719.png"
+        },
+        {
+          "name": "Khaman Maluach",
+          "team": "PHX",
+          "class": "二年級",
+          "rank": 21,
+          "games": 4,
+          "points": 8,
+          "minutes": 21.8,
+          "gs36": 11.67,
+          "espnId": "5203685",
+          "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/5203685.png"
+        },
+        {
+          "name": "Walter Clayton Jr.",
+          "team": "DAL",
+          "class": "二年級",
+          "rank": 22,
+          "games": 5,
+          "points": 4.2,
+          "minutes": 11.2,
+          "gs36": 11.22,
+          "espnId": "4896372",
+          "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/4896372.png"
+        },
+        {
+          "name": "Darryn Peterson",
+          "team": "UTA",
+          "class": "一年級",
+          "rank": 23,
+          "games": 5,
+          "points": 12.8,
+          "minutes": 28.6,
+          "gs36": 11.04,
+          "espnId": "5041955",
+          "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/5041955.png"
+        },
+        {
+          "name": "Nolan Traore",
+          "team": "BKN",
+          "class": "二年級",
+          "rank": 24,
+          "games": 5,
+          "points": 9.4,
+          "minutes": 19.2,
+          "gs36": 10.98,
+          "espnId": "5279130",
+          "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/5279130.png"
+        },
+        {
+          "name": "Jeremiah Fears",
+          "team": "NOP",
+          "class": "二年級",
+          "rank": 25,
+          "games": 5,
+          "points": 11.6,
+          "minutes": 24.2,
+          "gs36": 10.98,
+          "espnId": "5144091",
+          "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/5144091.png"
+        },
+        {
+          "name": "Kobe Sanders",
+          "team": "LAC",
+          "class": "二年級",
+          "rank": 26,
+          "games": 5,
+          "points": 7,
+          "minutes": 21.8,
+          "gs36": 10.65,
+          "espnId": "4702352",
+          "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/4702352.png"
+        },
+        {
+          "name": "Sergio de Larrea",
+          "team": "DAL",
+          "class": "一年級",
+          "rank": 27,
+          "games": 4,
+          "points": 5.2,
+          "minutes": 11.5,
+          "gs36": 10.57,
+          "espnId": "5279129",
+          "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/5279129.png"
+        },
+        {
+          "name": "Tre Johnson",
+          "team": "WAS",
+          "class": "二年級",
+          "rank": 28,
+          "games": 5,
+          "points": 10.4,
+          "minutes": 20.6,
+          "gs36": 10.15,
+          "espnId": "5238230",
+          "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/5238230.png"
+        },
+        {
+          "name": "VJ Edgecombe",
+          "team": "PHI",
+          "class": "二年級",
+          "rank": 29,
+          "games": 5,
+          "points": 11.6,
+          "minutes": 32.6,
+          "gs36": 10.12,
+          "espnId": "5124612",
+          "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/5124612.png"
+        },
+        {
+          "name": "Aday Mara",
+          "team": "OKC",
+          "class": "一年級",
+          "rank": 30,
+          "games": 5,
+          "points": 5.6,
+          "minutes": 15.8,
+          "gs36": 9.58,
+          "espnId": "5174983",
+          "headshot": "https://a.espncdn.com/i/headshots/nba/players/full/5174983.png"
+        }
+      ],
+      "stale": true
+    }
+  ],
+  "backtests": [
+    {
+      "source": "HoopsLab",
+      "updatedAt": "2026-10-31T17:30:11+00:00",
+      "summary": {
+        "games": 7,
+        "winner_acc": 57.1,
+        "home_bucket_acc": 0,
+        "away_bucket_acc": 28.6,
+        "both_bucket_acc": 0,
+        "mae_total": 22.3,
+        "brier": 0.2409
+      },
+      "independentlyRecomputed": false
+    }
+  ]
+}
