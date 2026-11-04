@@ -13,6 +13,7 @@ import {collectRosters} from '../lib/rosters.mjs';
 import {gatherInjuryEvidence,compareInjuries} from '../lib/injury-scenario.mjs';
 import {gatherHistory,calculatePredictions} from '../lib/prediction.mjs';
 import {preserveUnavailable} from '../lib/preserve.mjs';
+import {preserveGameHistory} from '../lib/game-history.mjs';
 export const ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 export async function collect({root=ROOT,date=taipeiDate(new Date()),budgetMs=90000,timeoutMs=10000,fetchImpl=fetch}={}){
  if(!/^\d{4}-\d{2}-\d{2}$/.test(date)||!Number.isFinite(Date.parse(date)))throw new Error('日期無效');
@@ -49,6 +50,7 @@ export async function collect({root=ROOT,date=taipeiDate(new Date()),budgetMs=90
   const activeProviders=sourceHealth.filter(s=>!s.aggregate&&s.usableEndpoints>0);const dashboard={schemaVersion:1,title:'Sports Lab',runId,generatedAt:new Date().toISOString(),targetDates:dates,timeZone:'Asia/Taipei',collection:{status:progress.failures?'partial_success':'success',durationMs:Date.now()-started,budgetMs,total:jobs.length,usable:receipts.filter(r=>r.parseStatus==='ok'&&!r.stale).length,failed:progress.failures,activeProviderCount:activeProviders.length,warning:'來源網站數不等於獨立上游數；不使用網站票數當預測信心。'},teamDashboard,rosterDatabase,leaderboards,recentForm,popularity,injuryScenarios,predictionHistory:{complete:history.complete,failures:history.failures,days:history.receipts.length},researchPredictions,schedule:{taipeiHours:[7,14,21],mechanism:'GitHub Actions',mayBeDelayed:true},games,injuries:injuryRows,unresolvedSchedule:unresolved,officialReports:reports,sources:sourceHealth,...imported,limitations:['新研究基準僅根據近期完賽比分，未經獨立校準；不混合原站模型勝率。','新預測僅供研究，未納入傷病與先發；原站舊預測仍是歷史存檔。','傷病取同隊完整姓名配對，無記錄不代表健康；預期先發不等於確認先發。','MLB 非賽季或無賽事時如實顯示空賽程；不補造比賽。','NBA 官方CDN若403會保留阻擋原因；官方PDF目前提供連結索引，未解析成球員共識。']};
   // Never replace a useful previous snapshot with an empty failed refresh.
   preserveUnavailable(dashboard,previous,receipts);
+  preserveGameHistory(dashboard,previous);
   await atomic(path.join(data,'dashboard.json'),dashboard);await atomic(path.join(data,'runs',runId+'.json'),dashboard);progress.stage='complete';progress.completedAt=new Date().toISOString();progress.status=dashboard.collection.status;await atomic(path.join(data,'progress.json'),progress);
   const runs=(await readdir(path.join(data,'runs'))).filter(n=>n.endsWith('.json')).sort();for(const old of runs.slice(0,-20))await rm(path.join(data,'runs',old));
   console.log(JSON.stringify({runId,status:dashboard.collection.status,providers:activeProviders.length,games:games.length,injuries:injuryRows.length,unresolved:unresolved.length,durationMs:Date.now()-started}));return dashboard;
