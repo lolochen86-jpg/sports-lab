@@ -1,0 +1,5 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {compositeBoard,classifyExperience} from '../public/composite.js';
+const p=(id,v,games=4)=>({id,name:id,stats:{gamesPlayed:games,avgPoints:v,avgRebounds:v,avgAssists:v,avgSteals:v,avgBlocks:v}});
+test('rank five metrics fairly with ties and minimum samples',()=>{const r=compositeBoard([p('a',5),p('b',5),p('c',1),p('few',99,2)]);assert.equal(r.length,3);assert.equal(r[0].score,r[1].score);assert.ok(r[0].score>r[2].score);assert.equal(r[0].radar.length,5);});
+test('do not assume year class when roster is stale, ambiguous, or unknown',()=>{const d=new Date().toISOString();const roster={teams:[{observedAt:d,stale:false,players:[{id:'a',experience:0},{id:'b',experience:2},{id:'c',experience:null}]}]};assert.deepEqual(classifyExperience([p('a',1),p('b',1),p('c',1),p('z',1)],roster).map(x=>x.yearClass),['rookie','sophomore',null,null]);roster.teams[0].stale=true;assert.equal(classifyExperience([p('a',1)],roster)[0].yearClass,null);});
