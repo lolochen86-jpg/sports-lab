@@ -1,0 +1,3 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {twoPointStats} from '../public/nba-basic-stats.js';
+test('兩分命中率從累計投籃與三分命中出手精確計算',()=>{assert.deepEqual(twoPointStats({fieldGoalsMade:82,fieldGoalsAttempted:165,threePointFieldGoalsMade:41,threePointFieldGoalsAttempted:96}),{made:41,attempts:69,pct:100*41/69});});
+test('沒有出手、欄位缺少或數據矛盾時不捏造命中率',()=>{assert.deepEqual(twoPointStats({fieldGoalsMade:3,fieldGoalsAttempted:7,threePointFieldGoalsMade:3,threePointFieldGoalsAttempted:7}),{made:0,attempts:0,pct:null});assert.equal(twoPointStats({fieldGoalsMade:3}).pct,null);assert.equal(twoPointStats({fieldGoalsMade:1,fieldGoalsAttempted:5,threePointFieldGoalsMade:2,threePointFieldGoalsAttempted:4}).pct,null);});
