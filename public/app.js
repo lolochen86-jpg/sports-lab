@@ -1,4 +1,4 @@
-import {buildRookieRoster,filterRookies,partitionAppearances} from './rookie-filter.js';
+import {buildRookieRoster,filterRookies,partitionAppearances} from './rookie-filter.js?v=active-20261106';
 import {parseNbaSupplement} from './nba-supplement.js';
 import {twoPointStats} from './nba-basic-stats.js';
 import {provisionalNames} from './translated-names.js';
