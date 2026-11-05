@@ -1,3 +1,4 @@
+import { compositeBoard } from './composite.js';
 // ESPN roster experience values used by the existing site: 0 = rookie, 2 = sophomore.
 export function buildRookieRoster(database, now = Date.now()) {
   const byId = new Map();
@@ -35,4 +36,16 @@ export function partitionAppearances(rows, seasonPlayers) {
     else noGames.push(p);
   }
   return { played, pending, noGames };
+}
+// Rank within the selected group, retaining played players with insufficient data.
+export function rankRookies(rows, statsById) {
+  const candidates = rows.map(p => ({ ...p, stats: statsById.get(String(p.id)) }));
+  const ranked = compositeBoard(candidates).map((p, index, all) => {
+    const score = Math.round(p.score * 10) / 10;
+    const first = all.findIndex(x => Math.round(x.score * 10) / 10 === score);
+    return { ...p, displayScore: score, rank: first + 1 };
+  });
+  const rankedIds = new Set(ranked.map(p => String(p.id)));
+  const unranked = candidates.filter(p => !rankedIds.has(String(p.id)));
+  return { ranked, unranked, rows: [...ranked, ...unranked] };
 }
