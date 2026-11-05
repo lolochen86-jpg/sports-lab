@@ -24,3 +24,15 @@ export function filterRookies(rows, view = 'all') {
   if (view === 'rookie' || view === 'sophomore') return records.filter(row => row.yearClass === view);
   return records;
 }
+// A missing stats row is unknown, not proof the player has not played.
+export function partitionAppearances(rows, seasonPlayers) {
+  const byId = new Map((seasonPlayers ?? []).map(p => [String(p.id), p.stats?.gamesPlayed]));
+  const played = [], pending = [], noGames = [];
+  for (const p of rows ?? []) {
+    const gp = byId.get(String(p.id));
+    if (p.rosterStale || !Number.isInteger(gp) || gp < 0) pending.push(p);
+    else if (gp > 0) played.push(p);
+    else noGames.push(p);
+  }
+  return { played, pending, noGames };
+}
