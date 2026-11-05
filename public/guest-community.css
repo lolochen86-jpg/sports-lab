@@ -1,0 +1,6 @@
+.guest-community{background:#fff;border:1px solid #d0dce1;border-radius:12px;padding:24px;margin:24px 0;color:#16384a}
+.guest-community h2{font-size:1.4rem;margin:0 0 10px}.guest-community p{line-height:1.6}
+.guest-community form{display:grid;gap:12px;max-width:720px}.guest-community label{display:grid;gap:5px;font-weight:700}
+.guest-community input,.guest-community textarea{width:100%;padding:12px;font:inherit;border:1px solid #9aafb7;border-radius:6px}
+.guest-community textarea{min-height:110px;resize:vertical}.guest-community button{justify-self:start;background:#087d70;color:white;padding:12px 22px;border:0;border-radius:6px;font:inherit;font-weight:700;cursor:pointer}
+.guest-community button:disabled{opacity:.6}.guest-list article{border-top:1px solid #dce6e9;padding:14px 0}.guest-list p{white-space:pre-wrap;overflow-wrap:anywhere}.guest-list time{font-size:.85em;color:#526d7a}
