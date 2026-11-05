@@ -1,0 +1,7 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {parseConferenceStandings,collectPlayoffRace} from '../lib/playoff-race.mjs';
+import {orderConference,gamesBehind} from '../public/playoff-race.js';
+const entry=i=>({team:{abbreviation:'T'+i},stats:[{name:'wins',value:10-i},{name:'losses',value:i},{name:'winPercent',value:(10-i)/10},{name:'playoffSeed',value:99}]});
+test('東西區來源需完整且不能把預測種子當實際名次',()=>{const body=JSON.stringify({season:{year:2027,displayName:'2026-27'},children:['Eastern Conference','Western Conference'].map((name,j)=>({name,standings:{entries:Array.from({length:15},(_,i)=>({team:{abbreviation:'T'+(i+j*15)},stats:[{name:'wins',value:15-i},{name:'losses',value:i},{name:'winPercent',value:(15-i)/15},{name:'playoffSeed',value:99}]}))}}))});const d=parseConferenceStandings(body,2027);assert.equal(d.groups[0].rows.length,15);assert.equal(d.groups[0].rows[0].rank,undefined);assert.throws(()=>parseConferenceStandings(body,2026));});
+test('同勝率並列且分界勝差計算正確',()=>{const rows=orderConference([{team:'A',wins:8,losses:2,pct:.8},{team:'B',wins:4,losses:1,pct:.8},{team:'C',wins:4,losses:6,pct:.4}]);assert.deepEqual(rows.map(x=>x.rank),[1,1,3]);assert.equal(gamesBehind(rows[2],rows[0]),4);});
+test('跨季錯誤不得回退舊球季',async()=>{const old={seasonYear:2026,groups:[]};const result=await collectPlayoffRace({get:async()=>{throw Error('offline')}},2027,old);assert.equal(result.stale,true);assert.equal(result.groups,undefined);});
