@@ -58,7 +58,9 @@ export async function collect({root=ROOT,date=taipeiDate(new Date()),budgetMs=90
   // Never replace a useful previous snapshot with an empty failed refresh.
   preserveUnavailable(dashboard,previous,receipts);
   preserveGameHistory(dashboard,previous);
-  dashboard.retainedPredictions=retainPregamePredictions(dashboard,previous);
+  let recovery;try{recovery=JSON.parse(await readFile(path.join(data,'pregame-recovery.json'),'utf8'));}catch(e){if(e.code!=='ENOENT')throw e;}
+  const retentionInputs={...previous,retainedPredictions:[...(previous?.retainedPredictions??[]),...(recovery?.retainedPredictions??[])]};
+  dashboard.retainedPredictions=retainPregamePredictions(dashboard,retentionInputs);
   await atomic(path.join(data,'dashboard.json'),dashboard);await atomic(path.join(data,'runs',runId+'.json'),dashboard);progress.stage='complete';progress.completedAt=new Date().toISOString();progress.status=dashboard.collection.status;await atomic(path.join(data,'progress.json'),progress);
   const runs=(await readdir(path.join(data,'runs'))).filter(n=>n.endsWith('.json')).sort();for(const old of runs.slice(0,-20))await rm(path.join(data,'runs',old));
   console.log(JSON.stringify({runId,status:dashboard.collection.status,providers:activeProviders.length,games:games.length,injuries:injuryRows.length,unresolved:unresolved.length,durationMs:Date.now()-started}));return dashboard;
