@@ -17,6 +17,7 @@ import {gatherInjuryEvidence,compareInjuries} from '../lib/injury-scenario.mjs';
 import {gatherHistory,calculatePredictions} from '../lib/prediction.mjs';
 import {preserveUnavailable} from '../lib/preserve.mjs';
 import {preserveGameHistory} from '../lib/game-history.mjs';
+import {retainPregamePredictions} from '../lib/prediction-retention.mjs';
 export const ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 export async function collect({root=ROOT,date=taipeiDate(new Date()),budgetMs=90000,timeoutMs=10000,fetchImpl=fetch}={}){
  if(!/^\d{4}-\d{2}-\d{2}$/.test(date)||!Number.isFinite(Date.parse(date)))throw new Error('日期無效');
@@ -57,6 +58,7 @@ export async function collect({root=ROOT,date=taipeiDate(new Date()),budgetMs=90
   // Never replace a useful previous snapshot with an empty failed refresh.
   preserveUnavailable(dashboard,previous,receipts);
   preserveGameHistory(dashboard,previous);
+  dashboard.retainedPredictions=retainPregamePredictions(dashboard,previous);
   await atomic(path.join(data,'dashboard.json'),dashboard);await atomic(path.join(data,'runs',runId+'.json'),dashboard);progress.stage='complete';progress.completedAt=new Date().toISOString();progress.status=dashboard.collection.status;await atomic(path.join(data,'progress.json'),progress);
   const runs=(await readdir(path.join(data,'runs'))).filter(n=>n.endsWith('.json')).sort();for(const old of runs.slice(0,-20))await rm(path.join(data,'runs',old));
   console.log(JSON.stringify({runId,status:dashboard.collection.status,providers:activeProviders.length,games:games.length,injuries:injuryRows.length,unresolved:unresolved.length,durationMs:Date.now()-started}));return dashboard;
