@@ -25,3 +25,36 @@
 /* Consistent, concise cards and expandable source details. */
 .compact-team{gap:7px;margin-top:6px}.compact-team .team-icon{width:28px;height:28px;font-size:10px}.compact-team strong{font-size:14px}.compact-team small{font-size:12px;line-height:1.4}.info-summary{display:block}.info-summary summary{cursor:pointer;font-size:14px;list-style:none}.info-summary summary::after{content:'＋';float:right}.info-summary[open] summary::after{content:'−'}.info-summary summary span{font-size:12px}.info-summary p,.info-summary>a{font-size:12px;margin-top:8px}.overview-details{margin:18px 0}.overview-details>summary{font-weight:800;font-size:15px;color:#087e75;cursor:pointer}.overview-details .metrics{margin:12px 0}.game-card .matchup h3,.prediction-teams strong{font-weight:800}
 @media(max-width:700px){.compact-team .team-icon{width:26px;height:26px}.compact-team strong{font-size:14px}.compact-team small{font-size:12px}.info-summary{padding:12px 14px}.info-summary summary{font-size:13px}.content-section{margin-top:22px}.game-bottom{gap:5px;flex-wrap:wrap}.matchup h3{font-size:16px}}
+
+/* Group secondary destinations without changing established routes. */
+@media (min-width:701px){
+  .sidebar{overflow-y:auto}
+  .sidebar .nav-caption{margin-top:30px}
+  .sidebar nav{gap:3px}
+  .sidebar nav a{padding:9px 12px}
+  .nav-extra{margin-top:8px;border-top:1px solid #dbe6eb;padding-top:8px}
+  .nav-extra summary{cursor:pointer;padding:9px 12px;color:#426074;font-size:14px;font-weight:800;list-style:none}
+  .nav-extra summary::-webkit-details-marker{display:none}
+  .nav-extra summary::after{content:'＋';float:right;color:#087e75}
+  .nav-extra[open] summary::after{content:'−'}
+  .nav-group-label{padding:10px 12px 3px;color:#688190;font-size:11px;font-weight:800}
+  .sidebar .nav-extra-links a{font-size:15px;padding:7px 12px}
+  .sidebar .nav-extra-links a span{font-size:13px}
+}
+@media (min-width:701px) and (max-width:900px){
+  .sidebar{overflow:visible}
+  .sidebar nav{flex-wrap:wrap;overflow:visible;padding-bottom:8px}
+  .nav-extra{margin:0;border:0;padding:0}
+  .nav-extra[open]{flex-basis:100%}
+  .nav-extra-links{display:flex;flex-wrap:wrap;gap:3px}
+  .nav-group-label{flex-basis:100%}
+}
+@media(max-width:700px){
+  .mobile-menu-links{display:block}
+  .mobile-link-group + .mobile-link-group{margin-top:18px}
+  .mobile-link-group h3{margin:0 0 8px;color:#496779;font-size:13px;font-weight:800}
+  .mobile-link-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+}
+@media(max-width:360px){.mobile-link-grid{grid-template-columns:1fr}}
+@media(min-width:701px){.nav-extra:has(a.active)>summary{color:#066c64;background:#e4f6f2;border-radius:7px}}
+
