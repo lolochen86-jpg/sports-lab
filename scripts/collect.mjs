@@ -15,6 +15,7 @@ import {collectTeamStats} from '../lib/team-stats.mjs';
 import {collectRosters} from '../lib/rosters.mjs';
 import {gatherInjuryEvidence,compareInjuries} from '../lib/injury-scenario.mjs';
 import {gatherHistory,calculatePredictions} from '../lib/prediction.mjs';
+import {quarterPrediction} from '../lib/quarter-prediction.mjs';
 import {preserveUnavailable} from '../lib/preserve.mjs';
 import {preserveGameHistory} from '../lib/game-history.mjs';
 import {retainPregamePredictions} from '../lib/prediction-retention.mjs';
@@ -42,7 +43,7 @@ export async function collect({root=ROOT,date=taipeiDate(new Date()),budgetMs=90
   const evidenceAt=new Date().toISOString();
   const injuryEvidence=needsHistory&&history.complete?await gatherInjuryEvidence(client,games,injuryRows,history,evidenceAt):{};
   const predictionAt=new Date().toISOString();
-  const researchPredictions=calculatePredictions(games,history,predictionAt);
+  const researchPredictions=calculatePredictions(games,history,predictionAt).map(p=>({...p,quarterPrediction:quarterPrediction(p,history)}));
   const injurySourceOk=['espn-injuries','cbs-injuries'].every(id=>receipts.some(r=>r.id===id&&r.parseStatus==='ok'&&!r.stale));
   const injuryScenarios=compareInjuries(researchPredictions,injuryRows,injuryEvidence,injurySourceOk,predictionAt);
   const leaderboards=await collectLeaderboards(client,previous?.leaderboards,Number(date.slice(0,4)));
