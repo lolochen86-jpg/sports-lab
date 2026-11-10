@@ -4,6 +4,8 @@ on:
   schedule:
     # Asia/Taipei 07:00, 14:00, 21:00 (UTC 23:00, 06:00, 13:00).
     - cron: '0 23,6,13 * * *'
+    # A non-hourly fallback reduces missed/late updates; GitHub can still delay schedules.
+    - cron: '13 23,6,13 * * *'
   push:
     branches: [main]
     paths: ['public/**', 'lib/**', 'scripts/**', 'tests/**', 'package.json', '.github/workflows/update.yml']
@@ -65,3 +67,4 @@ jobs:
             data/runs/
           retention-days: 14
           if-no-files-found: warn
+
