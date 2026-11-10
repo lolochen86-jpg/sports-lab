@@ -35,3 +35,12 @@ test('不同球季、賽前以後比賽和重複衝突均不納入',()=>{
  const conflict=fixture();const repeat=event('1','BOS','LAL');repeat.competitions[0].competitors[0].linescores[0].value++;repeat.competitions[0].competitors[0].score='87';conflict.events.push(repeat);assert.equal(quarterPrediction(prediction,conflict).status,'pending');
 });
 
+
+test('逐節紀錄可重現每節估計，並保留原始樣本與延長賽隔離',()=>{
+ const q=quarterPrediction(prediction,fixture()),t=q.calculationTrace;
+ assert.equal(t.priorGames,8);assert.equal(t.homeAdjustmentPerQuarter,0.1875);
+ assert.deepEqual(t.away.samples[1].scored,[20,21,22,23]);assert.deepEqual(t.away.samples[1].allowed,[24,25,26,27]);
+ assert.equal(t.periods[0].leagueAverage,22);assert.equal(t.periods[0].away.rawScored,20);
+ assert.equal(t.periods[0].away.adjustedScored,(3*20+8*22)/11);
+ assert.equal(q.quarters[0].away,+t.periods[0].away.expectedBeforeRounding.toFixed(1));
+});

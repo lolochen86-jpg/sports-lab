@@ -1,0 +1,50 @@
+const esc = value => String(value ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const number = (v, digits = 2) => typeof v === 'number' && Number.isFinite(v) ? v.toFixed(digits) : '—';
+const safeLink = (url, title) => { try { const u = new URL(url); return u.protocol === 'https:' && !u.username && !u.password ? `<a href="${esc(u.href)}" target="_blank" rel="noopener noreferrer">${esc(title)} ↗</a>` : esc(title); } catch { return esc(title); } };
+const gameUrl = id => /^\d+$/.test(String(id ?? '')) ? `https://www.espn.com/nba/boxscore/_/gameId/${id}` : null;
+const time = v => Number.isFinite(Date.parse(v)) ? new Intl.DateTimeFormat('zh-TW',{timeZone:'Asia/Taipei',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hour12:false}).format(new Date(v)) : '未提供';
+const teamName = (team, options) => options?.shortTeam?.(team) ?? team ?? '待確認';
+const noTrace = '<p class="walkthrough-note">這份預測產生時沒有保存完整計算明細，無法可靠還原當時的數值；不使用目前資料補算。</p>';
+function historyLinks(sources) {
+  if (!Array.isArray(sources) || !sources.length) return '<p>本次歷史比分來源未保存。</p>';
+  return `<ul class="walkthrough-sources">${sources.map(s=>`<li>${safeLink(s.url, `ESPN ${s.day ?? '日期未提供'} 賽果`)} <span>取得 ${esc(time(s.observedAt))}（台灣時間）</span></li>`).join('')}</ul>`;
+}
+function gamesTable(side, options, quarters = false) {
+  if (!Array.isArray(side?.samples) || !side.samples.length) return '<p>本次樣本明細未保存。</p>';
+  return `<div class="walkthrough-scroll"><table><thead><tr><th>日期／對手</th>${quarters ? '<th>本隊每節得分 Q1–Q4</th><th>對手每節得分 Q1–Q4</th>' : '<th>本隊得分</th><th>對手得分</th>'}<th>來源</th></tr></thead><tbody>${side.samples.map(g=>`<tr><td>${esc(time(g.date))}<br>${esc(teamName(g.opponent,options))}</td><td>${quarters ? esc(Array.isArray(g.scored)?g.scored.join(' / '):'—') : esc(number(g.scored,0))}</td><td>${quarters ? esc(Array.isArray(g.allowed)?g.allowed.join(' / '):'—') : esc(number(g.allowed,0))}</td><td>${safeLink(gameUrl(g.id),'比賽')}</td></tr>`).join('')}</tbody></table></div>`;
+}
+function teamBaseline(side, league, prior, options) {
+  const n=side?.samples?.length;
+  return `<section class="walkthrough-step"><h5>${esc(teamName(side?.team,options))}：近期樣本 ${esc(n ?? '—')} 場</h5><p>平均得分 <strong>${number(side?.rawScored)}</strong>，平均失分 <strong>${number(side?.rawAllowed)}</strong>。</p><p>調整後得分 ≈（${number(n,0)} × ${number(side?.rawScored)} ＋ ${number(prior,0)} × ${number(league)}）÷（${number(n,0)} ＋ ${number(prior,0)}）＝ <strong>${number(side?.adjustedScored)}</strong></p><p>調整後失分 ≈（${number(n,0)} × ${number(side?.rawAllowed)} ＋ ${number(prior,0)} × ${number(league)}）÷（${number(n,0)} ＋ ${number(prior,0)}）＝ <strong>${number(side?.adjustedAllowed)}</strong></p>${gamesTable(side,options)}</section>`;
+}
+function baseline(p,options) {
+ const t=p?.calculationTrace;
+ if (!t?.away || !t?.home) return `<h4>一、全場比分基準</h4>${noTrace}`;
+ const a=esc(teamName(t.away.team,options)),h=esc(teamName(t.home.team,options));
+ return `<h4>一、全場比分基準</h4><p>採用 ${esc(t.seasonYear-1)}–${esc(t.seasonYear)} 球季、以更新時的台灣日期往前推 30 個日期查詢 ESPN 賽程（不含當日查詢），採用其中已完賽例行賽比分；聯盟樣本 ${esc(t.leagueSamples)} 場，每隊至少需 3 場。聯盟每隊每場平均得分 <strong>${number(t.leagueAverage)}</strong>。</p><p>為什麼用這些數據：近期得失分反映球隊近期表現；加入相當於 ${esc(t.priorGames)} 場聯盟平均的權重，降低小樣本波動。這是模型假設，不代表最佳權重。</p>${teamBaseline(t.away,t.leagueAverage,t.priorGames,options)}${teamBaseline(t.home,t.leagueAverage,t.priorGames,options)}<section class="walkthrough-step"><h5>兩隊配對與主場</h5><p>${a}預估 ≈（${a}調整後得分 ${number(t.away.adjustedScored)} ＋ ${h}調整後失分 ${number(t.home.adjustedAllowed)}）÷ 2 − ${number(t.homeAdjustment)} ＝ <strong>${number(p.expectedAway,1)}</strong> 分。</p><p>${h}預估 ≈（${h}調整後得分 ${number(t.home.adjustedScored)} ＋ ${a}調整後失分 ${number(t.away.adjustedAllowed)}）÷ 2 ＋ ${number(t.homeAdjustment)} ＝ <strong>${number(p.expectedHome,1)}</strong> 分。</p><p>主客各加減 ${number(t.homeAdjustment)} 分是未校準的主場假設。上式顯示值經四捨五入，模型實際以完整精度計算後再顯示。</p></section><section class="walkthrough-step"><h5>模擬勝率</h5><p>以未四捨五入的預估分差，加上假設的常態波動（每隊標準差 ${number(t.teamScoreStdDev,0)} 分），模擬 ${Number(t.simulations).toLocaleString('zh-TW')} 次；主隊得分較高的比例為主隊勝率。此波動與主場假設尚未經獨立回測校準。</p></section><section class="walkthrough-step"><h5>近期比分資料來源與取得時間</h5>${historyLinks(p.historySources)}</section>`;
+}
+function injury(p,s,options) {
+ const heading='<h4>二、傷病情境</h4>';
+ if(!s) return heading+'<p>此場沒有保存傷病情境，無法展開計算。</p>';
+ if(s.status!=='experimental') return heading+`<p>待確認：${esc(s.reason ?? '資料不足')}</p>${s.unresolved?.length?`<ul>${s.unresolved.map(x=>`<li>${esc(teamName(x.team,options))} · ${esc(x.player)}：${esc(options?.injuryNames?.[x.status] ?? x.status)} ${esc(x.detail ?? '')}</li>`).join('')}</ul>`:''}`;
+ const t=s.calculationTrace;
+ const playerRows=(s.players??[]).map(x=>`<tr><td>${esc(teamName(x.team,options))} · ${esc(x.player)}</td><td>${esc(x.games)} 場</td><td>${number(x.minutes,1)}</td><td>${number(x.points,1)}</td><td>${typeof x.rawPoints === 'number' && Number.isFinite(x.rawPoints) ? `≈ ${number(x.rawPoints,4)} × 25% ＝ ${number(x.adjustment)}` : `原始場均未保存；已存扣分 ${number(x.adjustment)}`}</td><td>${safeLink(x.source,'ESPN 球員紀錄')}（取得 ${esc(time(x.observedAt))}）${(x.injurySources??[]).map(y=>`<br>${safeLink(y.reference, options?.providerNames?.[y.provider] ?? y.provider)}（取得 ${esc(time(y.observedAt))}）`).join('')}</td></tr>`).join('');
+ return heading+`<p>單獨在全場比分基準上，對來源一致標示缺陣、且近期有至少 3 場可核對紀錄的球員，假設其近期場均得分的 25% 為球隊得分損失，每隊最多扣 8 分。為什麼使用：用球員近期得分估計缺陣可能影響；25% 與上限只是未校準假設，不等於球員真實價值。</p>${playerRows?`<div class="walkthrough-scroll"><table><thead><tr><th>缺陣球員</th><th>樣本</th><th>場均分鐘</th><th>場均得分</th><th>假設損失</th><th>來源／取得時間（台灣時間）</th></tr></thead><tbody>${playerRows}</tbody></table></div>${(s.players??[]).map(x=>`<section class="walkthrough-step"><h5>${esc(x.player)}：場均得分計算樣本</h5>${Array.isArray(x.gameLog)?`<div class="walkthrough-scroll"><table><thead><tr><th>比賽</th><th>得分</th><th>上場分鐘（參考）</th></tr></thead><tbody>${x.gameLog.map(g=>`<tr><td>${safeLink(gameUrl(g.eventId),`比賽 ${g.eventId}`)}</td><td>${number(g.points,0)}</td><td>${number(g.minutes,1)}</td></tr>`).join('')}</tbody></table></div>`:'<p>這份存檔未保留逐場明細。</p>'}</section>`).join('')}`:'<p>來源沒有符合條件的缺陣球員；不代表全員健康。</p>'}${t?`<p>客隊：全場基準 ${number(p.expectedAway,1)} − 損失 ${number(t.awayDeduction)} ≈ <strong>${number(s.expectedAway,1)}</strong>；主隊：全場基準 ${number(p.expectedHome,1)} − 損失 ${number(t.homeDeduction)} ≈ <strong>${number(s.expectedHome,1)}</strong>。扣分以已四捨五入的全場基準計算，最低為 0；結果顯示時四捨五入至小數點後一位；再以相同的波動假設模擬 ${Number(t.simulations).toLocaleString('zh-TW')} 次。</p><p>表中場均得分為顯示值，球員損失先按完整場均得分計算並取至小數點後兩位，再加總及套用上限。上場分鐘只供參考，並未帶入扣分公式。若沒有符合條件的缺陣球員，勝率沿用基準。</p>`:noTrace}${s.unresolved?.length?`<p>下列球員尚未納入計算：</p><ul>${s.unresolved.map(x=>`<li>${esc(teamName(x.team,options))} · ${esc(x.player)}：${esc(options?.injuryNames?.[x.status] ?? x.status)} ${esc(x.detail ?? '')}</li>`).join('')}</ul>`:''}<p>未計防守、替代球員與完整輪替；近期比分可能已反映缺陣，存在重複扣分風險。多來源也可能共用上游。</p>`;
+}
+function quarter(p,options) {
+ const q=p?.quarterPrediction,t=q?.calculationTrace,heading='<h4>三、四節比分</h4>';
+ if(q?.status!=='experimental')return heading+`<p>待確認：${esc(q?.reason ?? '分節預測尚未保存或資料不足')}</p>`;
+ if(!t?.away||!t?.home||!Array.isArray(t.periods))return heading+noTrace;
+ const a=esc(teamName(t.away.team,options)),h=esc(teamName(t.home.team,options));
+ return heading+`<p>使用同一球季、更新時台灣日期往前推 30 個查詢日期（不含當日查詢）內已完賽的逐節比分，每隊至少 3 場；每節各用相當於 ${esc(t.priorGames)} 場的該節聯盟平均調整，降低樣本波動。分節主場假設：主隊每節加 ${number(t.homeAdjustmentPerQuarter,4)}，客隊每節減相同分數。</p><div class="walkthrough-scroll"><table><thead><tr><th>節次</th><th>聯盟每隊平均</th><th>${a}原始得／失</th><th>${a}調整後得／失</th><th>${h}原始得／失</th><th>${h}調整後得／失</th><th>${a}預估</th><th>${h}預估</th></tr></thead><tbody>${t.periods.map((x,i)=>`<tr><td>第 ${esc(x.period)} 節</td><td>${number(x.leagueAverage)}</td><td>${number(x.away?.rawScored)} / ${number(x.away?.rawAllowed)}</td><td>${number(x.away?.adjustedScored)} / ${number(x.away?.adjustedAllowed)}</td><td>${number(x.home?.rawScored)} / ${number(x.home?.rawAllowed)}</td><td>${number(x.home?.adjustedScored)} / ${number(x.home?.adjustedAllowed)}</td><td>${number(q.quarters?.[i]?.away,1)}</td><td>${number(q.quarters?.[i]?.home,1)}</td></tr>`).join('')}</tbody></table></div><p>每節調整後得分／失分 ≈（球隊該節平均 × 球隊樣本場數 ＋ 聯盟該節平均 × ${esc(t.priorGames)}）÷（球隊樣本場數 ＋ ${esc(t.priorGames)}）。客隊該節預估＝（客隊調整後得分＋主隊調整後失分）÷ 2 − ${number(t.homeAdjustmentPerQuarter,4)}；主隊反向配對並加同樣分數，最低均為 0。</p><p>數值先計算再四捨五入；四節合計是各節顯示值相加，僅計正常時間。分節模型與全場模型獨立，未納傷病、先發與輪替。</p><section class="walkthrough-step"><h5>${a}分節樣本</h5>${gamesTable(t.away,options,true)}</section><section class="walkthrough-step"><h5>${h}分節樣本</h5>${gamesTable(t.home,options,true)}</section><section class="walkthrough-step"><h5>分節資料來源與取得時間</h5>${historyLinks(q.sources)}</section>`;
+}
+function scheduleSources(p, options) {
+ const observations=p?.calculationTrace?.scheduleObservations;
+ if(!Array.isArray(observations) || !observations.length) return '<h4>賽程核對來源</h4><p>這份預測未保存當時的賽程來源明細，無法以目前賽程還原。</p>';
+ const labels={scheduled:'未開賽',live:'進行中',final:'已完賽',postponed:'延期',unknown:'未確認'};
+ return `<h4>賽程核對來源</h4><p>以下為預測當時保存的賽程觀測，用來核對各來源有提供的對戰、時間及狀態；未提供的欄位如實標示。不同網站可能共用上游，不能直接視為完全獨立來源。</p><ul class="walkthrough-sources">${observations.map(o=>`<li>${safeLink(o.sourceUrl ?? o.reference,options?.providerNames?.[o.provider] ?? o.provider ?? '來源未提供')} <span>觀測 ${esc(time(o.observedAt))} · 開賽 ${esc(time(o.startAt))} · ${esc(labels[o.status] ?? o.status ?? '狀態未提供')}（台灣時間）</span></li>`).join('')}</ul><p>下方 ESPN 歷史比分來源用於計算球隊得失分，與賽程核對的用途不同。</p>`;
+}
+export function predictionWalkthrough(p,s,options={}) {
+ if(p?.status!=='experimental'||p?.league!=='NBA')return '';
+ return `<section class="prediction-walkthrough"><h3>完整預測計算過程 / Prediction walkthrough</h3><p>以下記錄此場預測實際使用的資料、算法與來源；資料時間 ${esc(time(p.generatedAt))}（台灣時間）。本模型屬研究用途，尚未經回測校準。</p>${scheduleSources(p,options)}${baseline(p,options)}${injury(p,s,options)}${quarter(p,options)}<p class="walkthrough-note">尚未納入完整球員強弱、先發、輪替、上場時間、對手賽程強度，也未接入 DPM、EPM 或 LEBRON。球員四節實際紀錄不等於球員得分預測。</p></section>`;
+}
