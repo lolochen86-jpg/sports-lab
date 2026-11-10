@@ -1,0 +1,7 @@
+.player-quarter-table{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:12px}
+.player-quarter-table table{min-width:620px;width:100%;border-collapse:collapse}
+.player-quarter-table th,.player-quarter-table td{white-space:nowrap;text-align:center;padding:11px 10px;font-size:15px}
+.player-quarter-table th:first-child,.player-quarter-table td:first-child{text-align:left}
+.player-quarter-table td strong{font-size:17px}
+#player-quarter-more{margin:10px 0;min-height:44px}
+
