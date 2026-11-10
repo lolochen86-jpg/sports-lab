@@ -1,4 +1,4 @@
-import {predictionWalkthrough} from './prediction-walkthrough.js?v=20261110b';
+import {predictionWalkthrough} from './prediction-walkthrough.js?v=formula-20261110';
 import {loadPlayerQuarterScores} from './player-quarter-view.js?v=20261110';
 import {quarterPredictionCard} from './quarter-prediction.js?v=20261109';
 import { taipeiDay, nextTaipeiMidnight, todayPredictions } from './today-predictions.js?v=20261110';

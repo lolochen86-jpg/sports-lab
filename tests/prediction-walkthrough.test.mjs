@@ -34,3 +34,16 @@ test('injury uses stored raw points and detailed game log only when preserved',(
  const html=predictionWalkthrough(p,{...scenario,players:[row]});
  assert.match(html,/19\.5234 × 25% ＝ 4\.88/);assert.match(html,/比賽 123/);
 });
+
+test('new predictions display substituted equations for all periods before the closed source details',()=>{
+ const side=(name)=>({team:name,samples:[{date:'2026-11-01',scored:100,allowed:101}],rawScored:100,rawAllowed:101,adjustedScored:110,adjustedAllowed:111,expectedBeforeRounding:110.5});
+ const per=Array.from({length:4},(_,i)=>({period:i+1,leagueAverage:28,away:{rawScored:25,rawAllowed:26,adjustedScored:27,adjustedAllowed:28},home:{rawScored:26,rawAllowed:27,adjustedScored:28,adjustedAllowed:29}}));
+ const prediction={...p,away:'AAA',home:'BBB',homeWinProbability:.6,calculationTrace:{away:side('AAA'),home:side('BBB'),leagueAverage:110,priorGames:8,leagueSamples:10,homeAdjustment:.75,teamScoreStdDev:12,simulations:10000},quarterPrediction:{status:'experimental',quarters:per.map((_,i)=>({period:i+1,away:27.8,home:28.2})),regulationAway:111.2,regulationHome:112.8,calculationTrace:{away:side('AAA'),home:side('BBB'),periods:per,priorGames:8,homeAdjustmentPerQuarter:.1875}}};
+ const inj={status:'experimental',players:[{player:'X',team:'AAA',rawPoints:20,adjustment:5}],expectedAway:95,expectedHome:101,calculationTrace:{awayDeduction:5,homeDeduction:0}};
+ const html=predictionWalkthrough(prediction,inj);const before=html.split('<details class="formula-sources">')[0];
+ assert.match(before,/6000|6,000/);assert.match(before,/10000/);assert.match(before,/2200 ÷ \(2 × 10\) ≈ 110\.0000/);assert.match(before,/1 − 0\.6000 ≈/);assert.match(before,/分差 &gt; 0 為主勝/);assert.match(before,/20\.0000 × 25% ≈ 5\.00/);assert.match(before,/min\(8, 5\.00\)/);assert.match(before,/max\(0, 100\.0 − 5\.00\)/);for(let i=1;i<=4;i++)assert.match(before,new RegExp(`第 ${i} 節`));assert.match(before,/max\(0, \(27\.0000 \+ 29\.0000\) ÷ 2 − 0\.1875\)/);assert.doesNotMatch(before,/NaN/);
+});
+test('recognized old model gives general formulas without inventing historical input values',()=>{
+ const html=predictionWalkthrough({...p,model:'nba-recent-scores-baseline-v1',quarterPrediction:{status:'experimental',model:'nba-quarter-regulation-baseline-v1'}},{status:'experimental',model:'injury-scenario-v1'});
+ const before=html.split('<details class="formula-sources">')[0];assert.match(before,/主隊模擬獲勝次數 ÷ 10,000/);assert.match(before,/0\.1875/);assert.match(before,/原始場均|沒有保存完整計算明細/);
+});

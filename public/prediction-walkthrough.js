@@ -44,7 +44,35 @@ function scheduleSources(p, options) {
  const labels={scheduled:'未開賽',live:'進行中',final:'已完賽',postponed:'延期',unknown:'未確認'};
  return `<h4>賽程核對來源</h4><p>以下為預測當時保存的賽程觀測，用來核對各來源有提供的對戰、時間及狀態；未提供的欄位如實標示。不同網站可能共用上游，不能直接視為完全獨立來源。</p><ul class="walkthrough-sources">${observations.map(o=>`<li>${safeLink(o.sourceUrl ?? o.reference,options?.providerNames?.[o.provider] ?? o.provider ?? '來源未提供')} <span>觀測 ${esc(time(o.observedAt))} · 開賽 ${esc(time(o.startAt))} · ${esc(labels[o.status] ?? o.status ?? '狀態未提供')}（台灣時間）</span></li>`).join('')}</ul><p>下方 ESPN 歷史比分來源用於計算球隊得失分，與賽程核對的用途不同。</p>`;
 }
+// Equations use recorded inputs and outputs; displayed intermediates are rounded.
+const eq=(label,expr)=>`<div class="formula-line"><span>${label}</span><strong>${expr}</strong></div>`;
+function baselineEquations(p,options){
+ const t=p?.calculationTrace;
+ if(!t?.away||!t?.home)return '<h4>① 全場比分公式</h4>'+(p?.model==='nba-recent-scores-baseline-v1'?eq('調整後得分','(球隊平均得分 × 場數 + 聯盟平均 × 8) ÷ (場數 + 8)')+eq('調整後失分','(球隊平均失分 × 場數 + 聯盟平均 × 8) ÷ (場數 + 8)')+eq('客隊預測','(客隊調整後得分 + 主隊調整後失分) ÷ 2 − 0.75')+eq('主隊預測','(主隊調整後得分 + 客隊調整後失分) ÷ 2 + 0.75')+eq('主隊勝率','主隊模擬獲勝次數 ÷ 10,000'): '')+noTrace;
+ const a=esc(teamName(t.away.team,options)),h=esc(teamName(t.home.team,options)),prior=t.priorGames,league=t.leagueAverage;
+ const smooth=(side,label)=>{const n=side.samples?.length;return ['Scored','Allowed'].map((key,i)=>eq(`${label}調整後${i?'失':'得'}分`,`(${number(n,0)} × ${number(side['raw'+key],4)} + ${number(prior,0)} × ${number(league,4)}) ÷ (${number(n,0)} + ${number(prior,0)}) ≈ ${number(side['adjusted'+key],4)}`)).join('');};
+ const wins=Number.isFinite(p.homeWinProbability)&&Number.isFinite(t.simulations)?Math.round(p.homeWinProbability*t.simulations):null;
+ return `<h4>① 全場比分公式</h4>${eq('聯盟平均得分',`${number(Math.round(league * 2 * t.leagueSamples),0)} ÷ (2 × ${number(t.leagueSamples,0)}) ≈ ${number(league,4)} 分`)}${smooth(t.away,a)}${smooth(t.home,h)}${eq(`${a}預測`, `(${number(t.away.adjustedScored,4)} + ${number(t.home.adjustedAllowed,4)}) ÷ 2 − ${number(t.homeAdjustment,2)} ≈ ${number(p.expectedAway,1)} 分`)}${eq(`${h}預測`, `(${number(t.home.adjustedScored,4)} + ${number(t.away.adjustedAllowed,4)}) ÷ 2 + ${number(t.homeAdjustment,2)} ≈ ${number(p.expectedHome,1)} 分`)}${eq(`${h}勝率（獲勝次數 ÷ 模擬次數）`, `${wins===null?'—':wins.toLocaleString('zh-TW')} ÷ ${number(t.simulations,0)} ≈ ${number(p.homeWinProbability*100,1)}%`)}${eq(`${a}勝率`, `1 − ${number(p.homeWinProbability,4)} ≈ ${number(p.awayWinProbability*100,1)}%`)}<div class="formula-hint">模擬分差 = ${number(t.home.expectedBeforeRounding,4)} − ${number(t.away.expectedBeforeRounding,4)} + ${number(t.teamScoreStdDev,0)} × √2 × Z；分差 &gt; 0 為主勝；Z 為標準常態隨機數。主場、波動及權重尚未校準；公式數值顯示為四捨五入。</div>`;
+}
+function injuryEquations(p,s,options){
+ const title='<h4>② 傷病情境公式</h4>';
+ if(!s)return title+'<p>此場未保存傷病情境。</p>';
+ if(s.status!=='experimental')return title+`<p>待確認：${esc(s.reason??'資料不足')}</p>`;
+ const t=s.calculationTrace;if(!t)return title+(s.model==='injury-scenario-v1'?eq('球員扣分','round(近期場均得分 × 25%, 2)')+eq('球隊扣分','min(8, 各球員扣分總和)')+eq('傷病預測','max(0, 全場基準 − 球隊扣分)'):'')+noTrace;
+ const playerRows=(s.players??[]).map(x=>eq(`${esc(x.player)}扣分`,Number.isFinite(x.rawPoints)?`${number(x.rawPoints,4)} × 25% ≈ ${number(x.adjustment,2)}`:`原始場均未保存；已存扣分 ${number(x.adjustment,2)}`)).join('');
+ const teamEq=(code,label,deduction,base,result)=>{const vals=(s.players??[]).filter(x=>x.team===code).map(x=>number(x.adjustment,2));return eq(`${label}扣分`,`min(8, ${vals.length?vals.join(' + '):'0'}) ≈ ${number(deduction,2)}`)+eq(`${label}傷病預測`,`max(0, ${number(base,1)} − ${number(deduction,2)}) ≈ ${number(result,1)} 分`);};
+ return title+`${playerRows||'<p>未有符合條件的缺陣球員。</p>'}${teamEq(p.away,esc(teamName(p.away,options)),t.awayDeduction,p.expectedAway,s.expectedAway)}${teamEq(p.home,esc(teamName(p.home,options)),t.homeDeduction,p.expectedHome,s.expectedHome)}<div class="formula-hint">min：取較小值（最多扣 8 分）；max：取較大值（最低 0 分）；round：四捨五入。25% 與 8 分上限未校準；未含完整先發與替補。${s.unresolved?.length?`${esc(s.unresolved.length)} 位球員待確認。`:''}</div>`;
+}
+function quarterEquations(p,options){
+ const q=p?.quarterPrediction,t=q?.calculationTrace,title='<h4>③ 四節比分公式</h4>';
+ if(q?.status!=='experimental')return title+`<p>待確認：${esc(q?.reason??'資料不足')}</p>`;
+ if(!t?.away||!t?.home||!Array.isArray(t.periods))return title+(q?.model==='nba-quarter-regulation-baseline-v1'?eq('每節調整','(該節平均 × 場數 + 聯盟該節平均 × 8) ÷ (場數 + 8)')+eq('每節客隊','max(0, (客隊調整後得分 + 主隊調整後失分) ÷ 2 − 0.1875)')+eq('每節主隊','max(0, (主隊調整後得分 + 客隊調整後失分) ÷ 2 + 0.1875)'):'')+noTrace;
+ const a=esc(teamName(t.away.team,options)),h=esc(teamName(t.home.team,options));
+ const rows=t.periods.map((x,i)=>{const nA=t.away.samples?.length,nH=t.home.samples?.length;const smooth=(who,key,n,label)=>eq(`${label}調整後${key==='Scored'?'得':'失'}`,`(${number(n,0)} × ${number(who['raw'+key],4)} + ${number(t.priorGames,0)} × ${number(x.leagueAverage,4)}) ÷ (${number(n,0)} + ${number(t.priorGames,0)}) ≈ ${number(who['adjusted'+key],4)}`);return `<section class="quarter-formulas"><h5>第 ${esc(x.period)} 節</h5>${smooth(x.away,'Scored',nA,a)}${smooth(x.away,'Allowed',nA,a)}${smooth(x.home,'Scored',nH,h)}${smooth(x.home,'Allowed',nH,h)}${eq(`${a}預測`,`max(0, (${number(x.away.adjustedScored,4)} + ${number(x.home.adjustedAllowed,4)}) ÷ 2 − ${number(t.homeAdjustmentPerQuarter,4)}) ≈ ${number(q.quarters?.[i]?.away,1)} 分`)}${eq(`${h}預測`,`max(0, (${number(x.home.adjustedScored,4)} + ${number(x.away.adjustedAllowed,4)}) ÷ 2 + ${number(t.homeAdjustmentPerQuarter,4)}) ≈ ${number(q.quarters?.[i]?.home,1)} 分`)}</section>`;}).join('');
+ const total=(key,label)=>eq(`${label}四節合計`,`${q.quarters.map(x=>number(x[key],1)).join(' + ')} = ${number(key==='away'?q.regulationAway:q.regulationHome,1)} 分`);
+ return title+rows+total('away',a)+total('home',h)+'<div class="formula-hint">四節為正常時間；分開計算，未納入傷病或延長賽。</div>';
+}
 export function predictionWalkthrough(p,s,options={}) {
  if(p?.status!=='experimental'||p?.league!=='NBA')return '';
- return `<section class="prediction-walkthrough"><h3>完整預測計算過程 / Prediction walkthrough</h3><p>以下記錄此場預測實際使用的資料、算法與來源；資料時間 ${esc(time(p.generatedAt))}（台灣時間）。本模型屬研究用途，尚未經回測校準。</p>${scheduleSources(p,options)}${baseline(p,options)}${injury(p,s,options)}${quarter(p,options)}<p class="walkthrough-note">尚未納入完整球員強弱、先發、輪替、上場時間、對手賽程強度，也未接入 DPM、EPM 或 LEBRON。球員四節實際紀錄不等於球員得分預測。</p></section>`;
+ return `<section class="prediction-walkthrough"><h3>預測計算公式 / Prediction formulas</h3><div class="formula-hint">${esc(time(p.generatedAt))}（台灣時間） · 研究模型，尚未校準</div>${baselineEquations(p,options)}${injuryEquations(p,s,options)}${quarterEquations(p,options)}<details class="formula-sources"><summary>查看數據、原因與來源</summary>${scheduleSources(p,options)}${baseline(p,options)}${injury(p,s,options)}${quarter(p,options)}<p class="walkthrough-note">尚未納入完整球員強弱、先發、輪替、上場時間、對手賽程強度，也未接入 DPM、EPM 或 LEBRON。</p></details></section>`;
 }
