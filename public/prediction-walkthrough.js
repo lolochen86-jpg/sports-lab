@@ -11,7 +11,7 @@ function historyLinks(sources) {
 }
 function gamesTable(side, options, quarters = false) {
   if (!Array.isArray(side?.samples) || !side.samples.length) return '<p>本次樣本明細未保存。</p>';
-  return `<div class="walkthrough-scroll"><table><thead><tr><th>日期／對手</th>${quarters ? '<th>本隊每節得分 Q1–Q4</th><th>對手每節得分 Q1–Q4</th>' : '<th>本隊得分</th><th>對手得分</th>'}<th>來源</th></tr></thead><tbody>${side.samples.map(g=>`<tr><td>${esc(time(g.date))}<br>${esc(teamName(g.opponent,options))}</td><td>${quarters ? esc(Array.isArray(g.scored)?g.scored.join(' / '):'—') : esc(number(g.scored,0))}</td><td>${quarters ? esc(Array.isArray(g.allowed)?g.allowed.join(' / '):'—') : esc(number(g.allowed,0))}</td><td>${safeLink(gameUrl(g.id),'比賽')}</td></tr>`).join('')}</tbody></table></div>`;
+  return `<div class="walkthrough-scroll"><table><thead><tr><th>日期／對手</th>${quarters ? '<th>本隊每節得分 Q1–Q4</th><th>對手每節得分 Q1–Q4</th>' : '<th>本隊得分</th><th>對手得分</th>'}<th>來源</th></tr></thead><tbody>${[...side.samples].sort((a,b)=>Date.parse(b.date)-Date.parse(a.date)).map(g=>`<tr><td>${esc(time(g.date))}<br>${esc(teamName(g.opponent,options))}</td><td>${quarters ? esc(Array.isArray(g.scored)?g.scored.join(' / '):'—') : esc(number(g.scored,0))}</td><td>${quarters ? esc(Array.isArray(g.allowed)?g.allowed.join(' / '):'—') : esc(number(g.allowed,0))}</td><td>${safeLink(gameUrl(g.id),'比賽')}</td></tr>`).join('')}</tbody></table></div>`;
 }
 function teamBaseline(side, league, prior, options) {
   const n=side?.samples?.length;
