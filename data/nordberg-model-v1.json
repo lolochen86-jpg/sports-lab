@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "method": "Nordberg last-ten logistic, independently refitted",
+  "source": "https://github.com/tylernordberg0/nba-game-predictor",
+  "featureSource": "https://github.com/tylernordberg0/nba-game-predictor/blob/main/src/features.py",
+  "sourceLicense": "MIT",
+  "dataSource": "https://www.boxscorelab.com/downloads/",
+  "dataLicense": "CC BY 4.0",
+  "trainingSeasons": [
+    "2022-23",
+    "2023-24",
+    "2024-25",
+    "2025-26"
+  ],
+  "trainingGames": 4863,
+  "trainingCutoff": "2026-04-12",
+  "windowGames": 10,
+  "minimumGames": 3,
+  "coef": [
+    0.07477465176521017,
+    -0.062223246022152776,
+    0.12085268109801357,
+    0.3314972697495858,
+    0.03392268119969508,
+    -0.2964781522415181,
+    0.788559718054335,
+    -0.6427030918290569,
+    -0.013582704797285176,
+    0.023539973780974964,
+    -0.009347091093942503,
+    0.004390450826502968
+  ],
+  "intercept": 0.5719731511589422,
+  "featureOrder": [
+    "home_point_diff",
+    "away_point_diff",
+    "home_efg",
+    "away_efg",
+    "home_ast_to",
+    "away_ast_to",
+    "home_ftr",
+    "away_ftr",
+    "home_offensive_rebounds",
+    "away_offensive_rebounds",
+    "home_defensive_rebounds",
+    "away_defensive_rebounds"
+  ],
+  "evaluation": {
+    "trainGames": 3638,
+    "testGames": 1225,
+    "accuracy": 0.6571428571428571,
+    "brier": 0.21478961580179082,
+    "logLoss": 0.617799281237323,
+    "start": "2025-10-21",
+    "end": "2026-04-12"
+  },
+  "dataSha256": {
+    "2022-23.csv": "40b9a2c4f50d040396c53a45e86d174dcfcb0af3d8105a1c53f33432cf088a86",
+    "2023-24.csv": "3f181cbcc8bda22aa878e59e34f638fc10961a9af9b6aaf2d622cccb8028afce",
+    "2024-25.csv": "61d696baa530a865f06169be4cfc0992de731c400317e484f9fa146cd6c2321b",
+    "2025-26.csv": "f2872cc98025595469847db9da3210521d7ea52ab5d43ce39ffd4f1e6ffbacf1"
+  },
+  "limitations": [
+    "Independently refitted, not the author trained coefficients.",
+    "Holdout score tests the 2022-25 fit, not the final refit; retrospective, not archived live picks.",
+    "Neutral-site pairs not labelled home in the source are excluded from fit and holdout but still update team form.",
+    "Team game statistics only; injuries, player rotation and trades are not direct inputs.",
+    "Logistic parameters are frozen through 2025-26; do not retrain using current-season future data."
+  ]
+}
