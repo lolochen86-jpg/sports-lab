@@ -1,0 +1,130 @@
+{
+  "source": "https://github.com/Neil-Paine-1/NBA-elo",
+  "sourceFile": "https://raw.githubusercontent.com/Neil-Paine-1/NBA-elo/main/nba_elo.csv",
+  "sha256": "be12a0ffcf49820ec967bfc4e838d477728a345753e4ebcc8e1b455cc98d8bff",
+  "asOf": "2023-06-12",
+  "seasonEnd": 2023,
+  "note": "Paine archive, end of 2022–23 including playoffs; 2023–24 onward our replay uses regular season only",
+  "ratings": {
+    "BOS": {
+      "rating": 1663.59059,
+      "date": "2023-05-29"
+    },
+    "GSW": {
+      "rating": 1590.70123,
+      "date": "2023-05-12"
+    },
+    "PHI": {
+      "rating": 1640.096044,
+      "date": "2023-05-14"
+    },
+    "LAL": {
+      "rating": 1591.528555,
+      "date": "2023-05-22"
+    },
+    "IND": {
+      "rating": 1399.746043,
+      "date": "2023-04-09"
+    },
+    "DET": {
+      "rating": 1271.086891,
+      "date": "2023-04-09"
+    },
+    "ATL": {
+      "rating": 1531.148133,
+      "date": "2023-04-27"
+    },
+    "MEM": {
+      "rating": 1568.282143,
+      "date": "2023-04-28"
+    },
+    "MIA": {
+      "rating": 1605.084562,
+      "date": "2023-06-12"
+    },
+    "BKN": {
+      "rating": 1491.315946,
+      "date": "2023-04-22"
+    },
+    "TOR": {
+      "rating": 1560.158236,
+      "date": "2023-04-12"
+    },
+    "SAS": {
+      "rating": 1329.731448,
+      "date": "2023-04-09"
+    },
+    "MIN": {
+      "rating": 1519.81851,
+      "date": "2023-04-25"
+    },
+    "UTA": {
+      "rating": 1414.423807,
+      "date": "2023-04-09"
+    },
+    "PHX": {
+      "rating": 1557.148612,
+      "date": "2023-05-11"
+    },
+    "SAC": {
+      "rating": 1537.087382,
+      "date": "2023-04-30"
+    },
+    "WAS": {
+      "rating": 1436.363271,
+      "date": "2023-04-09"
+    },
+    "ORL": {
+      "rating": 1448.471239,
+      "date": "2023-04-09"
+    },
+    "HOU": {
+      "rating": 1328.383299,
+      "date": "2023-04-09"
+    },
+    "NYK": {
+      "rating": 1595.159192,
+      "date": "2023-05-12"
+    },
+    "CHI": {
+      "rating": 1543.219505,
+      "date": "2023-04-14"
+    },
+    "NOP": {
+      "rating": 1529.816162,
+      "date": "2023-04-12"
+    },
+    "CLE": {
+      "rating": 1569.958556,
+      "date": "2023-04-26"
+    },
+    "CHA": {
+      "rating": 1386.721356,
+      "date": "2023-04-09"
+    },
+    "OKC": {
+      "rating": 1516.829954,
+      "date": "2023-04-14"
+    },
+    "DEN": {
+      "rating": 1685.231861,
+      "date": "2023-06-12"
+    },
+    "DAL": {
+      "rating": 1442.29727,
+      "date": "2023-04-09"
+    },
+    "POR": {
+      "rating": 1310.234587,
+      "date": "2023-04-09"
+    },
+    "MIL": {
+      "rating": 1561.36245,
+      "date": "2023-04-26"
+    },
+    "LAC": {
+      "rating": 1523.618644,
+      "date": "2023-04-25"
+    }
+  }
+}

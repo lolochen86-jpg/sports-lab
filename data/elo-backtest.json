@@ -1,0 +1,58 @@
+{
+  "method": "NBA Elo — Nicholas I. Dobson implementation of FiveThirtyEight Elo-only method",
+  "methodUrl": "https://github.com/nicidob/nba_elo",
+  "seedUrl": "https://github.com/Neil-Paine-1/NBA-elo",
+  "scoreDataUrl": "https://www.boxscorelab.com/downloads/",
+  "scoreDataLicense": "CC BY 4.0",
+  "period": "2023-24 to 2025-26 regular seasons",
+  "seasonCount": 3,
+  "games": 3690,
+  "correct": 2420,
+  "accuracy": 0.6558265582655827,
+  "brier": 0.21458588813624016,
+  "logLoss": 0.6182694030589514,
+  "seasons": {
+    "2023-24": {
+      "games": 1230,
+      "correct": 788,
+      "brierSum": 268.24362850616313
+    },
+    "2024-25": {
+      "games": 1230,
+      "correct": 801,
+      "brierSum": 266.6657823673054
+    },
+    "2025-26": {
+      "games": 1230,
+      "correct": 831,
+      "brierSum": 256.9125163492575
+    }
+  },
+  "scoreSources": [
+    {
+      "season": "2023-24",
+      "games": 1230,
+      "sha256": "3f181cbcc8bda22aa878e59e34f638fc10961a9af9b6aaf2d622cccb8028afce",
+      "last": "2024-04-14"
+    },
+    {
+      "season": "2024-25",
+      "games": 1230,
+      "sha256": "61d696baa530a865f06169be4cfc0992de731c400317e484f9fa146cd6c2321b",
+      "last": "2025-04-13"
+    },
+    {
+      "season": "2025-26",
+      "games": 1230,
+      "sha256": "f2872cc98025595469847db9da3210521d7ea52ab5d43ce39ffd4f1e6ffbacf1",
+      "last": "2026-04-12"
+    }
+  ],
+  "limitations": [
+    "Retrospective chronological replay, not predictions actually archived in advance.",
+    "Seed at 2022–23 season end includes playoffs; later seasons regular season only, no postseason included.",
+    "Team Elo does not directly use player availability, injuries, transfers or rotation.",
+    "May include later score corrections in historical data; no verification of original publication snapshots.",
+    "Metrics are for this replay only, not a guarantee of future performance."
+  ]
+}

@@ -1,0 +1,10 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {selectEloPrediction,eloPredictionCard} from '../public/elo-prediction.js';
+const now=Date.parse('2026-11-10T01:00:00Z');
+const game={id:'g1',league:'NBA',home:'BOS',away:'BKN',status:'scheduled',startAt:'2026-11-10T12:00:00Z',conflicts:[]};
+const homeWinProbability=1/(1+10**(-((1600+100-1500)/400)));
+const p={gameId:'g1',league:'NBA',home:'BOS',away:'BKN',startAt:game.startAt,status:'experimental',model:'nba-elo-dobson-v1',modelSource:'https://github.com/nicidob/nba_elo',historicalDataSource:'https://www.boxscorelab.com/downloads/',observedAt:'2026-11-10T00:48:00Z',generatedAt:'2026-11-10T00:50:00Z',historyThrough:'2026-11-09',eloHome:1600,eloAway:1500,homeAdvantage:100,homeWinProbability,awayWinProbability:1-homeWinProbability};
+test('renders sourced formula and actual values alongside limitation',()=>{assert.equal(selectEloPrediction(game,[p],[],now).prediction,p);const html=eloPredictionCard(game,[p],[],now);assert.match(html,/1600\.00 \+ 100 − 1500\.00/);assert.match(html,/76\.0%/);assert.match(html,/BoxScore Lab/);assert.match(html,/不含傷病/);});
+test('pending, stale, wrong identity, future inputs and wrong formula cannot show as live forecast',()=>{for(const q of [{...p,status:'pending',reason:'資料過期'}, {...p,generatedAt:'2026-11-06T00:00:00Z',observedAt:'2026-11-05T23:59:00Z'}, {...p,home:'LAL'}, {...p,observedAt:'2026-11-10T00:55:00Z'}, {...p,homeWinProbability:.99}, {...p,generatedAt:game.startAt}, {...p,modelSource:'https://example.test/'}])assert.equal(selectEloPrediction(game,[q],[],now).prediction,null);});
+test('after tipoff only pregame archive is eligible; live records cannot be rebuilt or substituted',()=>{const after=Date.parse('2026-11-10T13:00:00Z'),final={...game,status:'final'};assert.equal(selectEloPrediction(final,[p],[],after).prediction,null);assert.equal(selectEloPrediction(final,[],[p],after).prediction,p);assert.equal(selectEloPrediction(final,[],[{...p,generatedAt:'2026-11-10T12:01:00Z'}],after).prediction,null);assert.match(eloPredictionCard(final,[],[p],after),/賽前存檔/);});
