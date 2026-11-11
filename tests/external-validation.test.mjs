@@ -1,0 +1,12 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {validateDashboard} from '../lib/validate.mjs';
+const start='2026-11-12T00:00:00Z', obs='2026-11-11T12:01:00Z';
+const game={id:'game1',league:'NBA',home:'IND',away:'WAS',startAt:start,date:'2026-11-12',status:'scheduled',comparison:'matched_websites',conflicts:[],forecastEligible:false,observations:[{provider:'espn',sourceId:'401909966',home:'IND',away:'WAS',startAt:start,status:'scheduled',observedAt:obs,sha256:'a'.repeat(64),stale:false}]};
+const forecast={gameId:'game1',sourceEventId:'401909966',league:'NBA',home:'IND',away:'WAS',startAt:start,status:'available',sourceUrl:'https://thedropcoverage.com/data/games.json',sourceHash:'b'.repeat(64),sourceUpdatedAt:'2026-11-11T12:00:00Z',observedAt:obs,homeWinProbability:.631,awayWinProbability:.369,expectedHome:null,expectedAway:110};
+const make=()=>({schemaVersion:1,generatedAt:'2026-11-11T12:02:00Z',targetDates:['2026-11-11','2026-11-12'],timeZone:'Asia/Taipei',collection:{status:'partial_success'},sources:[],games:[structuredClone(game)],injuries:[],forecasts:[],externalPredictions:[structuredClone(forecast)],retainedExternalPredictions:[]});
+test('accepts validated source and partial score',()=>assert.doesNotThrow(()=>validateDashboard(make())));
+test('rejects wrong event, wrong source, invalid score and probabilities',()=>{for(const change of [{sourceEventId:'42'},{sourceUrl:'https://example.com'},{expectedHome:-1},{awayWinProbability:.7}]){const d=make();Object.assign(d.externalPredictions[0],change);assert.throws(()=>validateDashboard(d));}});
+test('rejects prediction made after start and games already started',()=>{let d=make();d.externalPredictions[0].observedAt=start;assert.throws(()=>validateDashboard(d));d=make();d.games[0].status='live';assert.throws(()=>validateDashboard(d));});
+test('retained archives do not require a current matching game',()=>{const d=make();d.games=[];d.externalPredictions=[];d.retainedExternalPredictions=[structuredClone(forecast)];assert.doesNotThrow(()=>validateDashboard(d));});
+test('pending prediction can honestly reflect unavailable source',()=>{const d=make();d.externalPredictions=[{gameId:game.id,league:'NBA',home:'IND',away:'WAS',startAt:start,status:'pending',reason:'來源過期',sourceUrl:forecast.sourceUrl}];assert.doesNotThrow(()=>validateDashboard(d));});
