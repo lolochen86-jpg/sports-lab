@@ -20,6 +20,8 @@ import {collectRecentForm} from '../lib/recent-player-form.mjs';
 import {collectTeamStats} from '../lib/team-stats.mjs';
 import {collectRosters} from '../lib/rosters.mjs';
 import {collectMlbRosters} from '../lib/mlb-rosters.mjs';
+import {collectMlbPerformance} from '../lib/mlb-performance.mjs';
+import {collectNbaPlayerRatings} from '../lib/nba-player-ratings.mjs';
 import {gatherHistory} from '../lib/prediction.mjs';
 import {preserveUnavailable} from '../lib/preserve.mjs';
 import {preserveGameHistory} from '../lib/game-history.mjs';
@@ -73,9 +75,13 @@ export async function collect({root=ROOT,date=taipeiDate(new Date()),budgetMs=90
   // source in another league cannot silently prevent the refresh.
   const mlbRosterClient=new SourceClient({directory:path.join(data,'cache'),fetchImpl,timeoutMs,deadline:Date.now()+20000});
   const mlbRosterDatabase=await collectMlbRosters(mlbRosterClient,previous?.mlbRosterDatabase,Number(date.slice(0,4)));
+  const mlbPerformanceClient=new SourceClient({directory:path.join(data,'cache'),fetchImpl,timeoutMs,deadline:Date.now()+15000});
+  const mlbPerformance=await collectMlbPerformance(mlbPerformanceClient,previous?.mlbPerformance,Number(date.slice(0,4)));
   // Use a bounded, separate source budget. These are labelled lineup scenarios, not calibrated win forecasts.
   const playerImpactClient=new SourceClient({directory:path.join(data,'cache'),fetchImpl,timeoutMs,deadline:Date.now()+15000});
   const playerImpact=await collectPlayerImpact({client:playerImpactClient,games,rosters:rosterDatabase,injuries:injuryRows,receipts});
+  const nbaRatingClient=new SourceClient({directory:path.join(data,'cache'),fetchImpl,timeoutMs,deadline:Date.now()+15000});
+  const nbaPlayerRatings=await collectNbaPlayerRatings({client:nbaRatingClient,rosters:rosterDatabase,previous:previous?.nbaPlayerRatings});
   const recentForm=await collectRecentForm(client,leaderboards?.nba,rosterDatabase,history,new Date().toISOString());
   const popularity=await collectPopularity(client,leaderboards?.nba,rosterDatabase,new Date().toISOString());
   const analysisReadiness=archives.filter(a=>a.provider==='statshub').flatMap(a=>(a.data.games??[]).filter(r=>r.game&&r.prediction).map(r=>({league:a.data.league,away:team(r.game.away.tricode??r.game.away.abbreviation??r.game.away.name_en,a.data.league),home:team(r.game.home.tricode??r.game.home.abbreviation??r.game.home.name_en,a.data.league),startAt:r.game.start_time_utc,status:r.prediction.status,reasons:r.prediction.reasons??[],sourceUpdatedAt:a.data.sourceUpdatedAt})));
@@ -84,8 +90,10 @@ export async function collect({root=ROOT,date=taipeiDate(new Date()),budgetMs=90
   const activeProviders=sourceHealth.filter(s=>!s.aggregate&&s.usableEndpoints>0);const dashboard={eloForecasts:eloResult.forecasts,eloSourceStatus:eloResult.status,externalPredictions,dropSourceStatus,legacyResearchPredictions:freezeLegacyResearchPredictions(previous),schemaVersion:1,title:'Sports Lab',runId,generatedAt:new Date().toISOString(),targetDates:dates,timeZone:'Asia/Taipei',collection:{status:progress.failures?'partial_success':'success',durationMs:Date.now()-started,budgetMs,total:jobs.length,usable:receipts.filter(r=>r.parseStatus==='ok'&&!r.stale).length,failed:progress.failures,activeProviderCount:activeProviders.length,warning:'來源網站數不等於獨立上游數；不使用網站票數當預測信心。'},teamDashboard,rosterDatabase,leaderboards,nbaConferenceStandings,mlbPlayerNumbers,improvement,recentForm,popularity,injuryScenarios,predictionHistory:{complete:history.complete,failures:history.failures,days:history.receipts.length},researchPredictions,schedule:{taipeiHours:[7,14,21],mechanism:'GitHub Actions',mayBeDelayed:true},games,injuries:injuryRows,unresolvedSchedule:unresolved,officialReports:reports,sources:sourceHealth,...imported,limitations:['本網站自訂比分模型已停止產生新預測；原始資料保留供歷史查閱。','外部預測依原來源發布資訊顯示，實際陣容及模型輸入細節以來源說明為準。','傷病取同隊完整姓名配對，無記錄不代表健康；預期先發不等於確認先發。','MLB 非賽季或無賽事時如實顯示空賽程；不補造比賽。','NBA 官方CDN若403會保留阻擋原因；官方PDF目前提供連結索引，未解析成球員共識。']};
   dashboard.opponentAnalysis=opponentAnalysis;
   dashboard.mlbRosterDatabase=mlbRosterDatabase;
+  dashboard.mlbPerformance=mlbPerformance;
   dashboard.playerImpactScenarios=playerImpact.scenarios;
   dashboard.playerImpactSourceStatus=playerImpact.status;
+  dashboard.nbaPlayerRatings=nbaPlayerRatings;
   dashboard.nordbergForecasts=nordbergResult.forecasts;
   dashboard.nordbergSourceStatus=nordbergResult.status;
   // Never replace a useful previous snapshot with an empty failed refresh.
