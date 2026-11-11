@@ -1,0 +1,21 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {playerImpactCard,selectPlayerImpactScenario} from '../public/player-impact.js';
+const now=Date.parse('2026-11-11T12:00:00.000Z');
+const game={id:'a',league:'NBA',away:'WAS',home:'IND',startAt:'2026-11-12T00:00:00.000Z',status:'scheduled',comparison:'matched_websites',conflicts:[]};
+function team(code){const rotation=Array.from({length:8},(_,i)=>({id:String(i+1),name:`Player ${i+1}`,availabilityType:i===1?'conflict_assumption':'unreported_assumption',availability:1,minutesIfAvailable:30,rating:2,allocatedMinutes:30,contribution:1.25}));return {status:'scenario',team:code,ratingFamily:'adj-RAPM',asOf:'2026-11-11T11:00:00.000Z',rawTotal:240,teamStrength:10,rotation,outPlayers:[{name:'Out Person'}],coverage:{eligible:8,matchedMinutes:200,allMinutes:250,unmatchedPlayers:[{name:'Missed Player',reason:'未核對'}],rosterMissing:[{name:'New Player',reason:'當季資料不足'}]}};}
+function forecast(){return {gameId:game.id,league:'NBA',away:game.away,home:game.home,startAt:game.startAt,status:'scenario',model:'sportsdataverse-rapm-minute-weighted-v1',generatedAt:'2026-11-11T11:00:00.000Z',awayTeam:team('WAS'),homeTeam:team('IND')};}
+test('renders lineup weights, detailed assumptions and limitations',()=>{
+ const html=playerImpactCard(game,[forecast()],now,{shortTeam:x=>x,playerName:x=>'中文'});
+ assert.match(html,/球員陣容影響情境/);assert.match(html,/30\.00/);assert.match(html,/1\.25/);assert.match(html,/10\.00/);assert.match(html,/來源衝突，暫按可出賽試算/);assert.match(html,/未通報傷病不代表確認健康/);assert.match(html,/不提供勝率/);assert.match(html,/Out Person/);assert.match(html,/中文 \/ Player 1/);assert.match(html,/80.0%/);assert.match(html,/Missed Player/);assert.match(html,/New Player/);
+});
+test('rejects stale, wrong game, tampering, future or postgame situations',()=>{
+ for(const mutate of [p=>p.home='BKN',p=>p.generatedAt='2026-11-10T11:00:00.000Z',p=>p.generatedAt='2026-11-11T13:00:00.000Z',p=>p.awayTeam.rotation[0].contribution=42,p=>p.homeTeam.teamStrength=99,p=>p.awayTeam.rotation[0].availabilityType='confirmed_out',p=>p.homeTeam.asOf='2026-11-11T12:00:00.000Z']){const p=forecast();mutate(p);assert.equal(selectPlayerImpactScenario(game,[p],now).scenario,null);}
+ assert.equal(selectPlayerImpactScenario({...game,status:'final'},[forecast()],now).scenario,null);
+ assert.equal(selectPlayerImpactScenario({...game,comparison:'conflict'},[forecast()],now).scenario,null);
+ assert.equal(selectPlayerImpactScenario(game,[forecast(),forecast()],now).scenario,null);
+});
+test('escapes untrusted names and pending reasons',()=>{
+ const p=forecast();p.homeTeam.rotation[0].name='<img src=x onerror=alert(1)>';assert.doesNotMatch(playerImpactCard(game,[p],now),/<img src=x/);
+ assert.doesNotMatch(playerImpactCard(game,[{...p,status:'pending',reason:'<img src=x>'}],now),/<img src=x/);
+});

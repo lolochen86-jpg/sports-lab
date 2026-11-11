@@ -1,4 +1,5 @@
 import {collectElo,retainElo} from '../lib/elo-forecast.mjs';
+import {collectPlayerImpact} from '../lib/player-impact-forecast.mjs';
 import {freezeLegacyResearchPredictions} from '../lib/legacy-research-freeze.mjs';
 import {collectDropForecasts,retainExternalPredictions} from '../lib/drop-coverage.mjs';
 import {mkdir,readFile,writeFile,rm,readdir} from 'node:fs/promises';
@@ -62,6 +63,9 @@ export async function collect({root=ROOT,date=taipeiDate(new Date()),budgetMs=90
   const mlbPlayerNumbers=await collectMlbPlayerNumbers(client,leaderboards,previous?.mlbPlayerNumbers);
   const teamDashboard=await collectTeamStats(client,previous?.teamDashboard);
   const rosterDatabase=await collectRosters(client,previous?.rosterDatabase);
+  // Use a bounded, separate source budget. These are labelled lineup scenarios, not calibrated win forecasts.
+  const playerImpactClient=new SourceClient({directory:path.join(data,'cache'),fetchImpl,timeoutMs,deadline:Date.now()+15000});
+  const playerImpact=await collectPlayerImpact({client:playerImpactClient,games,rosters:rosterDatabase,injuries:injuryRows,receipts});
   const recentForm=await collectRecentForm(client,leaderboards?.nba,rosterDatabase,history,new Date().toISOString());
   const popularity=await collectPopularity(client,leaderboards?.nba,rosterDatabase,new Date().toISOString());
   const analysisReadiness=archives.filter(a=>a.provider==='statshub').flatMap(a=>(a.data.games??[]).filter(r=>r.game&&r.prediction).map(r=>({league:a.data.league,away:team(r.game.away.tricode??r.game.away.abbreviation??r.game.away.name_en,a.data.league),home:team(r.game.home.tricode??r.game.home.abbreviation??r.game.home.name_en,a.data.league),startAt:r.game.start_time_utc,status:r.prediction.status,reasons:r.prediction.reasons??[],sourceUpdatedAt:a.data.sourceUpdatedAt})));
@@ -69,6 +73,8 @@ export async function collect({root=ROOT,date=taipeiDate(new Date()),budgetMs=90
   const sourceHealth=Object.entries(PROVIDERS).map(([id,meta])=>{const rows=receipts.filter(r=>r.provider===id);const usable=rows.filter(r=>r.parseStatus==='ok'&&!r.stale);return {id,...meta,aggregate:['statshub','hoopslab'].includes(id),status:!rows.length?'not_requested':usable.length===rows.length?'ok':usable.length?'partial':'unavailable',usableEndpoints:usable.length,totalEndpoints:rows.length,records:rows.reduce((n,r)=>n+r.recordCount,0),observedAt:rows.map(r=>r.observedAt).filter(Boolean).sort().at(-1)??null,independentUpstreamConfirmed:id==='nba'||id==='mlb',endpoints:rows};});
   const activeProviders=sourceHealth.filter(s=>!s.aggregate&&s.usableEndpoints>0);const dashboard={eloForecasts:eloResult.forecasts,eloSourceStatus:eloResult.status,externalPredictions,dropSourceStatus,legacyResearchPredictions:freezeLegacyResearchPredictions(previous),schemaVersion:1,title:'Sports Lab',runId,generatedAt:new Date().toISOString(),targetDates:dates,timeZone:'Asia/Taipei',collection:{status:progress.failures?'partial_success':'success',durationMs:Date.now()-started,budgetMs,total:jobs.length,usable:receipts.filter(r=>r.parseStatus==='ok'&&!r.stale).length,failed:progress.failures,activeProviderCount:activeProviders.length,warning:'來源網站數不等於獨立上游數；不使用網站票數當預測信心。'},teamDashboard,rosterDatabase,leaderboards,nbaConferenceStandings,mlbPlayerNumbers,improvement,recentForm,popularity,injuryScenarios,predictionHistory:{complete:history.complete,failures:history.failures,days:history.receipts.length},researchPredictions,schedule:{taipeiHours:[7,14,21],mechanism:'GitHub Actions',mayBeDelayed:true},games,injuries:injuryRows,unresolvedSchedule:unresolved,officialReports:reports,sources:sourceHealth,...imported,limitations:['本網站自訂比分模型已停止產生新預測；原始資料保留供歷史查閱。','外部預測依原來源發布資訊顯示，實際陣容及模型輸入細節以來源說明為準。','傷病取同隊完整姓名配對，無記錄不代表健康；預期先發不等於確認先發。','MLB 非賽季或無賽事時如實顯示空賽程；不補造比賽。','NBA 官方CDN若403會保留阻擋原因；官方PDF目前提供連結索引，未解析成球員共識。']};
   dashboard.opponentAnalysis=opponentAnalysis;
+  dashboard.playerImpactScenarios=playerImpact.scenarios;
+  dashboard.playerImpactSourceStatus=playerImpact.status;
   // Never replace a useful previous snapshot with an empty failed refresh.
   preserveUnavailable(dashboard,previous,receipts);
   preserveGameHistory(dashboard,previous);
