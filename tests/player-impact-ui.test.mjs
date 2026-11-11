@@ -19,3 +19,17 @@ test('escapes untrusted names and pending reasons',()=>{
  const p=forecast();p.homeTeam.rotation[0].name='<img src=x onerror=alert(1)>';assert.doesNotMatch(playerImpactCard(game,[p],now),/<img src=x/);
  assert.doesNotMatch(playerImpactCard(game,[{...p,status:'pending',reason:'<img src=x>'}],now),/<img src=x/);
 });
+function saved(){const p=forecast(), receipt={observedAt:'2026-11-11T10:59:00.000Z',sha256:'a'.repeat(64),stale:false};for(const t of [p.homeTeam,p.awayTeam]){t.ratingReceipt={...receipt};t.crosswalkReceipt={...receipt};t.rosterReceipt={...receipt};t.injurySources=[{...receipt},{...receipt}];t.rotation[0].injurySources=[{...receipt}];}return p;}
+test('after tipoff renders only the original validated pregame archive',()=>{
+ const p=saved(),post=Date.parse(game.startAt)+1000,g={...game,status:'live'};
+ assert.equal(selectPlayerImpactScenario(g,[p],post).scenario,null);
+ assert.equal(selectPlayerImpactScenario(g,[],post,[p]).archived,true);
+ assert.match(playerImpactCard(g,[],post,{},[p]),/球員陣容賽前情境存檔/);
+ assert.equal(selectPlayerImpactScenario({...g,status:'final'},[],post,[p]).archived,true);
+ assert.equal(selectPlayerImpactScenario(game,[],now,[p]).scenario,null);
+});
+test('archive refuses after-game revisions, future source observations, wrong identity and stale receipts',()=>{
+ const post=Date.parse(game.startAt)+1000,g={...game,status:'final'};
+ for(const mutate of [p=>p.generatedAt=game.startAt,p=>p.homeTeam.asOf=game.startAt,p=>p.away='BKN',p=>p.homeTeam.ratingReceipt.observedAt='2026-11-11T11:30:00Z',p=>p.homeTeam.rotation[0].injurySources[0].observedAt=game.startAt,p=>p.homeTeam.rosterReceipt.stale=true,p=>p.homeTeam.crosswalkReceipt.sha256='bad',p=>p.homeTeam.injurySources=[]]){const p=saved();mutate(p);assert.equal(selectPlayerImpactScenario(g,[],post,[p]).scenario,null);}
+ assert.equal(selectPlayerImpactScenario(g,[],post,[saved(),saved()]).scenario,null);
+});

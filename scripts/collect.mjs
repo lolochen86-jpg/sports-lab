@@ -1,5 +1,6 @@
 import {collectElo,retainElo} from '../lib/elo-forecast.mjs';
 import {collectPlayerImpact} from '../lib/player-impact-forecast.mjs';
+import {retainPlayerImpactScenarios} from '../lib/player-impact-retention.mjs';
 import {freezeLegacyResearchPredictions} from '../lib/legacy-research-freeze.mjs';
 import {collectDropForecasts,retainExternalPredictions} from '../lib/drop-coverage.mjs';
 import {mkdir,readFile,writeFile,rm,readdir} from 'node:fs/promises';
@@ -83,6 +84,7 @@ export async function collect({root=ROOT,date=taipeiDate(new Date()),budgetMs=90
   dashboard.retainedPredictions=retainPregamePredictions(dashboard,retentionInputs);
   dashboard.retainedExternalPredictions=retainExternalPredictions(dashboard,previous);
   dashboard.retainedEloForecasts=retainElo(previous,dashboard);
+  dashboard.retainedPlayerImpactScenarios=retainPlayerImpactScenarios(dashboard,previous);
   await atomic(path.join(data,'dashboard.json'),dashboard);await atomic(path.join(data,'runs',runId+'.json'),dashboard);progress.stage='complete';progress.completedAt=new Date().toISOString();progress.status=dashboard.collection.status;await atomic(path.join(data,'progress.json'),progress);
   const runs=(await readdir(path.join(data,'runs'))).filter(n=>n.endsWith('.json')).sort();for(const old of runs.slice(0,-20))await rm(path.join(data,'runs',old));
   console.log(JSON.stringify({runId,status:dashboard.collection.status,providers:activeProviders.length,games:games.length,injuries:injuryRows.length,unresolved:unresolved.length,durationMs:Date.now()-started}));return dashboard;
