@@ -21,14 +21,14 @@ test('pitching uses outs, correctly separates roles, excludes small samples and 
 });
 test('two-way players retain two separate ratings and show calculations with season',async()=>{
  const observedAt=new Date(Date.now()-1000).toISOString(),h=data('hitting',hitters),p=data('pitching',pitchers);const client={get:async j=>({body:j.id.includes('hitting')?h:p,status:'live',stale:false,observedAt,sha256:'a'.repeat(64)})};
- const db=await collectMlbPerformance(client,null,2026);assert.ok(db.ratings['1'].hitting);assert.ok(db.ratings['1'].pitching);
+ const db=await collectMlbPerformance(client,null,2026);assert.ok(db.ratings['1'].hitting);assert.ok(db.ratings['1'].pitching);assert.equal(db.seasonStats.hitting['1'].stat.plateAppearances,100);assert.equal(db.seasonStats.pitching['1'].stat.outs,90);
  const html=mlbRatingDetails(db,'1');assert.match(html,/2026/);assert.match(html,/打擊 OPS/);assert.match(html,/先發投手 ERA/);assert.match(html,/出局數/);assert.match(mlbRatingSummary(db,'1'),/OPS/);
  db.groups.hitting.observedAt=new Date(Date.now()-25*3600000).toISOString();assert.match(mlbRatingSummary(db,'1'),/舊資料/);
 });
 test('source failure keeps prior data clearly stale, never relabels new season',async()=>{
  const observedAt=new Date(Date.now()-1000).toISOString(),h=data('hitting',hitters),p=data('pitching',pitchers),success={get:async j=>({body:j.id.includes('hitting')?h:p,status:'live',observedAt,sha256:'a'.repeat(64)})};
  const first=await collectMlbPerformance(success,null,2026),bad={get:async()=>({status:'failed'})};const next=await collectMlbPerformance(bad,first,2027);
- assert.equal(next.groups.hitting.season,2026);assert.equal(next.groups.hitting.status,'stale');assert.ok(next.ratings['1'].hitting);assert.match(mlbRatingSummary(next,'1'),/舊資料/);
+ assert.equal(next.groups.hitting.season,2026);assert.equal(next.groups.hitting.status,'stale');assert.ok(next.ratings['1'].hitting);assert.equal(next.seasonStats.hitting['1'].stat.plateAppearances,100);assert.match(mlbRatingSummary(next,'1'),/舊資料/);
 });
 test('invalid source and mismatched season never rank',()=>{
  assert.throws(()=>parseLeagueStats(data('hitting',hitters),2025,'hitting'));assert.throws(()=>parseLeagueStats('{"stats":[]}',2026,'hitting'));

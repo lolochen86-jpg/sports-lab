@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {parseMlbTeams,parseMlbRoster,collectMlbRosters} from '../lib/mlb-rosters.mjs';
-import {parseMlbProfile,rosterPlayer,fetchMlbProfile} from '../public/mlb-rosters.js';
+import {parseMlbProfile,rosterPlayer,fetchMlbProfile,mlbSeasonSummary,parseMlbGameLog,fetchMlbGameLog,renderMlbGameLog} from '../public/mlb-rosters.js';
 
 const teamRows=Array.from({length:30},(_,i)=>({id:i+100,name:`Team ${i}`,abbreviation:`T${i}`,season:2026,sport:{id:1},active:true}));
 const roster=(id)=>JSON.stringify({teamId:id,rosterType:'40Man',roster:Array.from({length:5},(_,i)=>({parentTeamId:id,person:{id:id*100+i,fullName:`Player ${id} ${i}`},jerseyNumber:String(i),position:{abbreviation:'P',name:'Pitcher'}}))});
@@ -9,3 +9,15 @@ test('validates team season, roster team, player IDs and duplicate entries',()=>
 test('collects all 30 clubs, and retains failed team only as stale',async()=>{const client={get:async j=>j.id==='mlb-roster-teams'?{body:JSON.stringify({teams:teamRows}),status:'live',observedAt:'2026-11-11T00:00:00Z',sha256:'x'}:j.id==='mlb-roster-100'?{body:null,status:'timeout',error:'timeout'}:{body:roster(Number(j.id.split('-').at(-1))),status:'live',observedAt:'2026-11-11T00:00:00Z',sha256:'x'}};let result=await collectMlbRosters(client,{season:2026,teams:[{teamId:100,team:'T0',players:[{id:'1'}],observedAt:'2026-11-01T00:00:00Z'}]},2026);assert.equal(result.availableTeams,29);assert.equal(result.teams.find(x=>x.teamId===100).stale,true);assert.equal(result.teams.find(x=>x.teamId===100).observedAt,'2026-11-01T00:00:00Z');assert.equal(result.teams.find(x=>x.teamId===101).players.length,5);});
 test('profile rejects wrong identity, preserves absent values and season boundaries',()=>{const body={people:[{id:42,fullName:'Test Player',stats:[{type:{displayName:'season'},group:{displayName:'hitting'},splits:[{season:'2025',stat:{avg:'.200'}},{season:'2026',team:{name:'New York Mets'},stat:{avg:'.300',homeRuns:0}}]}]}]};const p=parseMlbProfile(body,'42',2026);assert.equal(p.stats.length,1);assert.equal(p.stats[0].stat.homeRuns,0);assert.equal(p.stats[0].team,'New York Mets');assert.throws(()=>parseMlbProfile(body,'99',2026));assert.equal(rosterPlayer({teams:[{players:[{id:'42'}]},{players:[{id:'42'}]}]},'42'),null);});
 test('only fall back to prior season after a successful empty current season',async()=>{const calls=[],fetcher=async url=>{calls.push(url);const season=url.includes('season=2027')?'2027':'2026';return {ok:true,json:async()=>({people:[{id:42,fullName:'Player',stats:season==='2027'?[]:[{type:{displayName:'season'},group:{displayName:'hitting'},splits:[{season:'2026',stat:{avg:'.300'}}]}]}]})};};const r=await fetchMlbProfile('42',2027,fetcher);assert.equal(r.fallback,true);assert.equal(r.season,2026);assert.equal(calls.length,2);await assert.rejects(()=>fetchMlbProfile('42',2027,async()=>({ok:false})));});
+
+test('roster season summaries show both hitting and pitching, preserving zero and missing values',()=>{
+ const observedAt=new Date().toISOString(),source={season:2026,status:'ok',observedAt,source:'https://statsapi.mlb.com/api/v1/stats'};
+ const db={groups:{hitting:source,pitching:source},seasonStats:{hitting:{'42':{stat:{gamesPlayed:10,avg:'.300',homeRuns:0,rbi:5,ops:'.800'}}},pitching:{'42':{stat:{gamesPlayed:2,wins:1,losses:0,era:'2.00'}}}}};
+ const html=mlbSeasonSummary(db,'42',()=> '11/12 12:00');assert.match(html,/打擊/);assert.match(html,/投球/);assert.match(html,/<dd>0<\/dd>/);assert.match(html,/<dd>—<\/dd>/);assert.match(html,/2026/);
+ assert.match(mlbSeasonSummary(db,'99',()=>''),/暫無資料/);db.groups.hitting={...source,status:'stale',stale:true};assert.match(mlbSeasonSummary(db,'42',()=>''),/舊資料/);
+});
+test('MLB game log validates season, displays both roles and all supplied records',async()=>{
+ const body={stats:[{type:{displayName:'gameLog'},group:{displayName:'hitting'},splits:[{season:'2026',date:'2026-04-01',team:{name:'Dodgers'},opponent:{name:'Mets'},game:{gamePk:1},stat:{atBats:4,hits:0}},{season:'2026',date:'2026-04-03',stat:{homeRuns:1}}]},{type:{displayName:'gameLog'},group:{displayName:'pitching'},splits:[{season:'2026',date:'2026-04-02',stat:{inningsPitched:'5.1',earnedRuns:0}}]}]};
+ const rows=parseMlbGameLog(body,2026);assert.equal(rows.length,3);assert.equal(rows[0].date,'2026-04-03');assert.equal(rows[1].stat.inningsPitched,'5.1');assert.throws(()=>parseMlbGameLog(body,2025));assert.throws(()=>parseMlbGameLog({},2026));
+ const fetched=await fetchMlbGameLog('42',2026,async url=>({ok:true,json:async()=>body}));const html=renderMlbGameLog(fetched,()=> '11/12');assert.match(html,/2026/);assert.match(html,/打擊/);assert.match(html,/投球/);assert.match(html,/5.1/);assert.match(html,/<td>0<\/td>/);assert.match(html,/<td>—<\/td>/);assert.match(fetched.url,/gameType=R/);await assert.rejects(()=>fetchMlbGameLog('42',2026,async()=>({ok:false})));
+});
