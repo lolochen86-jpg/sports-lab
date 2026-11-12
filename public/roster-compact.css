@@ -1,0 +1,27 @@
+/* 球員名單：沿用 Sports Lab 的淺色介面，讓重點先於細節。 */
+.roster-card{border-radius:14px;padding:18px;box-shadow:0 4px 16px #36586a09}
+.roster-compact-head{display:flex;gap:13px;align-items:center;min-width:0}
+.roster-compact-head>a{display:block;width:66px;height:66px;flex:none;border-radius:50%;overflow:hidden;background:#e7f0f5}
+.roster-compact-head>a img{display:block;width:100%;height:100%;object-fit:cover;object-position:top}
+.roster-compact-head .player-cell{min-width:0}
+.roster-compact-head .player-photo{width:66px;height:66px;flex:none}
+.roster-compact-head strong{font-size:18px;line-height:1.3}
+.roster-compact-head small{display:block;font-size:13px;color:#587488;margin-top:4px}
+.roster-compact-meta{display:flex;align-items:center;flex-wrap:wrap;gap:7px;margin:13px 0;color:#496779;font-size:13px}
+.roster-compact-meta>span:first-child{display:inline-flex;align-items:center;gap:6px;flex-wrap:wrap}
+.roster-compact-meta .team-icon{width:25px;height:25px;flex:none;margin:0}
+.roster-compact-meta img{width:25px;height:25px;object-fit:contain}
+.roster-compact-meta strong{color:#183950;font-size:14px}
+.roster-compact-score{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin:10px 0;color:#24516a;font-size:13px;font-weight:800}
+.roster-compact-score strong,.roster-compact-score .badge{display:inline-block;padding:4px 8px;border-radius:6px;background:#e1f3ef;color:#087567;font-size:15px}
+.roster-compact-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:13px 0;border-top:1px solid #e7eef1;border-bottom:1px solid #e7eef1}
+.roster-compact-stats>div{min-width:0}
+.roster-compact-stats strong{display:block;color:#12384a;font-size:19px;line-height:1.2;overflow-wrap:anywhere}
+.roster-compact-stats span{display:block;margin-top:4px;color:#577488;font-size:12px}
+.roster-card .roster-compact-warning{margin:10px 0;color:#955918;font-size:13px}
+.roster-compact-details{margin-top:10px;color:#587488}
+.roster-compact-details summary{cursor:pointer;color:#087e75;font-size:13px;font-weight:800}
+.roster-compact-details p{overflow-wrap:anywhere;line-height:1.55}
+.roster-card .roster-compact-link{display:inline-block;margin-top:12px;color:#087e75;font-size:14px;font-weight:800}
+@media(max-width:620px){.roster-card{padding:16px}.roster-compact-stats strong{font-size:18px}.roster-compact-stats span{font-size:12px}}
+@media(max-width:340px){.roster-compact-stats{grid-template-columns:repeat(2,minmax(0,1fr))}}
