@@ -1,1 +1,32 @@
-{"name":"sports-lab","version":"1.0.0","private":true,"type":"module","engines":{"node":">=22"},"scripts":{"collect":"node scripts/collect.mjs","build":"node scripts/build.mjs","test":"node --test tests/*.test.mjs","start":"node scripts/server.mjs"}}
+{
+  "name": "sports-lab",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "collect": "node scripts/collect.mjs",
+    "build": "node scripts/build.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "start": "node scripts/server.mjs"
+  },
+  "license": "MIT",
+  "description": "Open-source NBA and MLB research dashboard with transparent sources and player statistics",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lolochen86-jpg/sports-lab.git"
+  },
+  "homepage": "https://lolochen86-jpg.github.io/sports-lab/",
+  "bugs": {
+    "url": "https://github.com/lolochen86-jpg/sports-lab/issues"
+  },
+  "keywords": [
+    "nba",
+    "mlb",
+    "sports",
+    "statistics",
+    "traditional-chinese"
+  ]
+}

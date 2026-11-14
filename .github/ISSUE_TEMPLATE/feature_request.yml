@@ -1,0 +1,13 @@
+name: 功能建議
+description: 提出功能或資料改善建議
+body:
+  - type: textarea
+    id: request
+    attributes:
+      label: 想解決的問題與建議
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: 參考資料、畫面或資料來源

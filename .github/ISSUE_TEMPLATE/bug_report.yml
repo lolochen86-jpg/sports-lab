@@ -1,0 +1,22 @@
+name: 問題回報
+description: 回報介面、資料或蒐集問題
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: 發生什麼問題？
+      description: 請附頁面網址、時間、球員或比賽，以及預期結果。不要貼密鑰或個資。
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 重現步驟與使用環境
+      description: 作業系統、瀏覽器、手機或電腦；可附截圖。
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: 資料來源或相關紀錄
+      description: 資料問題請提供官方公告或來源網址及原始日期。

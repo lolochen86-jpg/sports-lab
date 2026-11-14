@@ -1,0 +1,22 @@
+name: Source checks
+on:
+  pull_request:
+    paths: ['public/**', 'lib/**', 'scripts/**', 'tests/**', 'data/**', 'package.json', '.github/workflows/ci.yml']
+  push:
+    branches: [main]
+    paths: ['public/**', 'lib/**', 'scripts/**', 'tests/**', 'package.json', '.github/workflows/ci.yml']
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Run offline tests
+        run: npm test
+      - name: Validate bundled snapshot and build
+        run: npm run build

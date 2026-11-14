@@ -8,3 +8,8 @@ dist/
 *.tmp
 *.log
 .DS_Store
+.tmp/
+.env
+.env.*
+!.env.example
+coverage/
