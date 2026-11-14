@@ -1,0 +1,5 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import {transferRows,transferCard} from '../public/transfers.js';
+test('transfer filters retain repeat moves and original order by newest date',()=>{const rows=[{league:'NBA',name:'Aaron Wiggins',date:'2026-07-01',from:'OKC',to:'ATL',type:'交易 / Trade'},{league:'NBA',name:'Aaron Wiggins',date:'2026-08-01',from:'ATL',to:'BOS',type:'交易 / Trade'},{league:'MLB',name:'Other',date:'2026-10-01',from:'A',to:'B',type:'交易 / Trade'}];assert.deepEqual(transferRows(rows,{query:'Aaron'}).map(r=>r.date),['2026-08-01','2026-07-01']);assert.equal(transferRows(rows,{year:'2025'}).length,0);assert.equal(transferRows(rows,{league:'MLB'}).length,1);assert.equal(transferRows(rows,{query:'老鷹'}).length,2);});
+test('transfer card cannot invent player profile or accept unsafe source',()=>{const r={league:'NBA',name:'Unknown <x>',date:'2026-01-01',from:'ATL',to:'BOS',type:'交易',source:'javascript:alert(1)'};let h=transferCard(r);assert.ok(!h.includes('javascript:'));assert.ok(!h.includes('./#player/'));assert.ok(h.includes('&lt;x&gt;'));});
