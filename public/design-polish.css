@@ -1,0 +1,66 @@
+/* Sports Lab: readable scoreboards and player history, in the approved light palette. */
+body.sports-polish{--sl-paper:#fff;--sl-canvas:#f2f6fa;--sl-ink:#183950;--sl-muted:#496779;--sl-accent:#087e75;--sl-line:#cedce7;font-family:"PingFang TC","Microsoft JhengHei",system-ui,sans-serif;color:var(--sl-ink);background:var(--sl-canvas);line-height:1.55}
+.sports-polish :is(button,input,select,textarea){font:inherit}
+.sports-polish :is(a,button,input,select,summary,textarea):focus-visible{outline:3px solid var(--sl-accent);outline-offset:3px}
+.sports-polish :is(input[type=search],select){min-height:44px}
+.sports-polish .page-heading .eyebrow{display:none}
+.sports-polish .page-heading h1,.sports-polish main>h1{font-size:clamp(25px,2.3vw,34px);line-height:1.25;letter-spacing:-.025em;margin-bottom:10px}
+.sports-polish .page-heading p{max-width:65ch;line-height:1.65}
+.sports-polish .rank-leagues{gap:12px;margin:18px 0}
+.sports-polish .rank-league{padding:16px 20px;box-shadow:none;border:1px solid var(--sl-line);border-radius:10px;background:var(--sl-paper)}
+.sports-polish .rank-league strong{font-size:20px}
+.sports-polish .rank-league.move-active{border-color:var(--sl-accent);background:#eaf6f3}
+.sports-polish .rank-grid{gap:12px}
+.sports-polish .rank-category{padding:18px 20px;min-height:130px;box-shadow:none;border-radius:10px}
+.sports-polish .rank-category strong{font-size:23px;line-height:1.3}
+.sports-polish .rank-category>span{font-size:12px;letter-spacing:0}
+.sports-polish .rank-category>b{margin-top:10px;color:var(--sl-accent)}
+.sports-polish .roster-grid{gap:16px;align-items:start}
+.sports-polish .roster-card{padding:20px;border-radius:12px;box-shadow:none;border-color:#d2e0e8}
+.sports-polish .roster-compact-head{gap:14px;align-items:center}
+.sports-polish .roster-compact-head>a,.sports-polish .roster-compact-head .player-photo{width:74px;height:74px}
+.sports-polish .roster-compact-head>div{min-width:0}
+.sports-polish .roster-compact-head strong,.sports-polish .roster-compact-head .player-cell strong{font-size:20px;line-height:1.4;overflow-wrap:anywhere}
+.sports-polish .roster-compact-head small,.sports-polish .roster-compact-head .player-cell small{font-size:13px;line-height:1.5;color:var(--sl-muted)}
+.sports-polish .roster-compact-head .player-team-info strong{font-size:14px}
+.sports-polish .roster-compact-meta{margin:14px 0;line-height:1.7;gap:6px 10px}
+.sports-polish .roster-compact-score{font-size:13px;gap:8px;line-height:1.7;margin:12px 0}
+.sports-polish .roster-compact-score>strong{min-width:32px;text-align:center;font-size:18px;padding:3px 9px;border-radius:5px}
+.sports-polish .roster-compact-score .roster-status{margin:0}
+.sports-polish .roster-compact-score .roster-status strong{font-size:14px}
+.sports-polish .roster-compact-stats{gap:8px;padding:16px 0}
+.sports-polish .roster-compact-stats strong{font-size:clamp(20px,1.8vw,26px);font-weight:800;letter-spacing:-.035em;font-variant-numeric:tabular-nums;line-height:1.25}
+.sports-polish .roster-compact-stats span{font-size:12px;line-height:1.5;color:var(--sl-muted)}
+.sports-polish .roster-card .roster-compact-link{font-size:15px;min-height:44px;display:inline-flex;align-items:center;margin-top:8px;text-underline-offset:4px}
+.sports-polish .roster-card p.roster-compact-link{margin:0}
+.sports-polish .roster-compact-details{border-top:1px solid #e3ebf0;padding-top:10px;margin-top:4px}
+.sports-polish .roster-compact-details summary{min-height:32px;line-height:1.7;color:var(--sl-muted);font-weight:600}
+.sports-polish .roster-compact-details[open] summary{color:var(--sl-accent)}
+.sports-polish .table-wrap{border-radius:10px;overflow-x:auto;border-color:var(--sl-line);box-shadow:none}
+.sports-polish table{font-variant-numeric:tabular-nums;font-size:15px;line-height:1.5}
+.sports-polish th{font-size:13px;line-height:1.6;white-space:nowrap;padding:15px 16px;color:var(--sl-ink);background:#edf4f7}
+.sports-polish td{padding:16px;border-color:#e3ebf0}
+.sports-polish tbody tr:nth-child(even){background:#f7fafc}
+.sports-polish tbody tr:focus-within{background:#eaf6f3}
+.sports-polish table .player-cell{min-width:210px}
+.sports-polish table .player-cell strong{font-size:17px}
+.sports-polish table .player-cell small{font-size:13px}
+.sports-polish .player-history{padding:20px 22px;border-radius:10px;gap:16px 24px;grid-template-columns:minmax(230px,290px) minmax(0,1fr);border-color:#d2e0e8}
+.sports-polish .player-history .person img{width:72px;height:72px;flex:none}
+.sports-polish .player-history .person strong{font-size:20px;line-height:1.4}
+.sports-polish .history-track{gap:18px;scrollbar-width:thin;scrollbar-color:#91b5b0 transparent;overscroll-behavior-x:contain}
+.sports-polish .history-stop{min-width:110px;padding:5px 0}
+.sports-polish .history-stop:first-child{border-left:3px solid var(--sl-accent);padding-left:12px}
+.sports-polish .history-stop .club{font-size:15px;white-space:nowrap}
+.sports-polish .history-stop .club img{width:32px;height:32px}
+.sports-polish .history-jersey{font-size:24px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.sports-polish .history-jersey.pending{font-size:12px;letter-spacing:0}
+.sports-polish .history-details summary{min-height:32px;line-height:1.7;font-weight:600;color:var(--sl-muted)}
+.sports-polish .history-details[open] summary{color:var(--sl-accent)}
+.sports-polish .filters input{width:100%}
+.sports-polish .filters label{color:var(--sl-muted);font-weight:600}
+.sports-polish .filters select{max-width:100%}
+@media(max-width:1100px) and (min-width:701px){.sports-polish .roster-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:700px){.sports-polish .roster-grid{grid-template-columns:1fr}.sports-polish .roster-card{padding:18px}.sports-polish .roster-compact-stats strong{font-size:24px}.sports-polish .roster-compact-head strong{font-size:20px}.sports-polish .rank-leagues{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.sports-polish .rank-league{padding:13px 14px}.sports-polish .rank-league strong{font-size:17px}.sports-polish .rank-category{padding:16px;min-height:120px}.sports-polish .rank-category strong{font-size:21px}.sports-polish .player-history{grid-template-columns:1fr;padding:18px}.sports-polish .history-track{gap:12px}.sports-polish .history-stop{min-width:104px}.sports-polish .history-details{grid-column:auto}.sports-polish .filters{gap:12px}.sports-polish .filters label{min-width:0;flex:1 1 125px}.sports-polish .filters label:first-child{flex-basis:100%}.sports-polish td{padding:13px 12px}.sports-polish th{padding:13px 12px}.sports-polish .rank-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:360px){.sports-polish .roster-compact-stats strong{font-size:21px}.sports-polish .roster-compact-head>a,.sports-polish .roster-compact-head .player-photo{width:64px;height:64px}}
+@media(prefers-reduced-motion:reduce){.sports-polish *{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
