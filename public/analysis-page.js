@@ -1,3 +1,4 @@
+import {teamComparison} from './team-compare.js?v=20261122interactive';
 import {teamPower} from './team-power.js?v=20261122power';
 import {percentile,bar,radar} from './analysis-charts.js?v=20261122charts';
 import {playerImpactRows,teamEvidence} from './analysis-core.js';
@@ -20,10 +21,80 @@ function renderTeamRanking(ranking) {
       <span class="power-track" aria-hidden="true"><i style="width:${width}%;left:${left}%"></i></span>
       <strong>${signed(row.score)}</strong></button>`;
   }).join('');
-  return `<section class="panel power-panel"><h2>NBA 球隊戰力榜</h2>
+  return `<section class="panel power-panel"><h2 id="team-ranking">NBA 球隊戰力榜</h2>
     ${rows ? `<p>${esc(period?.startDate)} 至 ${esc(period?.endDate)} · ${ranking.length} 隊 · 中線為平均 0，向右越強</p><div class="power-list">${rows}</div>` : "<p>近期完賽資料不足或過期，暫無戰力排名。仍可查個別球隊。</p>"}
     <details><summary>戰力怎麼算</summary><p>近 30 日 SRS＝場均淨勝分＋交手對手的平均 SRS。以聯盟平均為 0，單位是每場分差。使用同季例行賽完賽比分，同一對手交手多次就計多次。傷病及主客場未另行調整。</p><p><a href="https://www.basketball-reference.com/about/glossary.html" target="_blank" rel="noopener noreferrer">Basketball Reference 的 SRS 定義</a></p></details></section>`;
 }
-function drawTeams(){const ranking=teamPower(data);const available=data.teamDashboard?.teams??[];if(!selected||!available.some(t=>t.team===selected))selected=ranking[0]?.code??available[0]?.team;$('#content').innerHTML=`${renderTeamRanking(ranking)}${ranking.length?'':`<div class="clubs">${available.slice().sort((a,b)=>a.team.localeCompare(b.team)).map(t=>`<button data-team="${esc(t.team)}" aria-pressed="${selected===t.team}">${club(t.team).logo?`<img src="${esc(club(t.team).logo)}" alt="">`:''}${esc(club(t.team).zh)}</button>`).join('')}</div>`}<section id="team-result" tabindex="-1"></section>`;document.querySelectorAll('[data-team]').forEach(b=>b.onclick=()=>{selected=b.dataset.team;drawTeams();const panel=$('#team-result');panel.focus({preventScroll:true});panel.scrollIntoView({block:'start'});});const result=teamEvidence(data,selected);if(!result){$('#team-result').textContent='球隊同季資料過期、樣本不足或尚未取得，暫不產生分析。';return;}const {team,metrics,strengths,needs,opponent:o}=result;const power=ranking.find(row=>row.code===selected);$('#team-result').innerHTML=`<h2 class="team-title">${club(selected).logo?`<img src="${esc(club(selected).logo)}" alt="">`:''}${esc(club(selected).zh)} · ${esc(team.record??'戰績待補')}</h2>${power?`<p class="power-summary">聯盟第 <strong>${power.rank}</strong>／${ranking.length} · SRS <strong>${signed(power.score)}</strong> ＝ 淨勝分 ${signed(power.margin)} ＋ 賽程強度 ${signed(power.schedule)}</p>`:''}<p>${esc(team.season)} 例行賽 · ${team.stats.gamesPlayed} 場 · ${when(team.observedAt)} · ${link(team.source,'球隊統計來源')}</p><div class="grid"><section class="panel"><h3>球隊表現</h3>${radar(metrics)}${metrics.map(m=>bar(m.label,m.percentile,`原值 ${value(m.value)}${m.key.endsWith("Pct")?"%":""} · 第 ${m.rank}／${m.count}`)).join('')}<p>投籃／三分越高排名越前，失誤越少越前；場均助攻與失誤受節奏影響，未做每百回合調整。</p></section><section class="panel"><h3>贏球對手與賽程背景</h3>${o?`${bar("對手平均勝率",Number.isFinite(o.opponentWinPct)?100*o.opponentWinPct:null,"實際勝率，非百分位","rate")}${bar("勝場對手平均勝率",Number.isFinite(o.opponentWinPctInWins)?100*o.opponentWinPctInWins:null,"贏球時遇到的對手","rate")}<p>近 ${o.games} 場：${o.wins} 勝 ${o.losses} 負</p><p>對手平均勝率 ${Number.isFinite(o.opponentWinPct)?(100*o.opponentWinPct).toFixed(1)+'%':'—'}；勝場對手平均勝率 ${Number.isFinite(o.opponentWinPctInWins)?(100*o.opponentWinPctInWins).toFixed(1)+'%':'—'}</p><p>原始場均淨勝分 ${o.games>0&&Number.isFinite(o.pointsFor)&&Number.isFinite(o.pointsAgainst)?signed((o.pointsFor-o.pointsAgainst)/o.games):'—'} · 對手資料涵蓋 ${o.opponentsCovered}／${o.games} 場</p><p>期間 ${esc(data.opponentAnalysis.window?.startDate)} 至 ${esc(data.opponentAnalysis.window?.endDate)}；這是對手背景，不是經對手校正戰力。</p>`:'<p>對手分析來源過期、缺失或球季不符，暫不顯示。</p>'}</section></div><div class="grid"><section class="panel"><h3>目前優勢</h3>${strengths.length?`<ul>${strengths.map(m=>`<li>${esc(m.label)}：第 ${m.rank}／${m.count}，位於比較樣本前段。</li>`).join('')}</ul>`:'<p>本輪四項資料沒有達到前四分之一的項目，不能解讀為球隊沒有優勢。</p>'}</section><section class="panel"><h3>補強角色需求：待核對</h3>${needs.length?`<ul>${needs.map(m=>`<li><strong>${esc(m.label)} 第 ${m.rank}／${m.count}</strong><br>${esc(m.need)}</li>`).join('')}</ul>`:'<p>本輪四項資料沒有落入後四分之一；仍需檢查其他弱點。</p>'}<p>這些是本站四分位篩選規則產生的研究提示，並非已驗證的補強模型或交易建議。先查傷兵、角色與輪替，再決定是否需要新球員；本版不推薦具名交易。</p></section></div><details><summary>分析範圍與尚缺資料</summary><p>只比較同球季、例行賽至少 4 場且 24 小時內有效的球隊；每項至少 20 隊才排名，並列同名次。缺少回合效率、外線出手量／品質、對位追蹤、護框、陣容組合與薪資合約，不能輸出完整防守、輪替厚度或補強人數分數。百分位計算：比自己差的隊數，加同值隊數扣一後的一半，再除以樣本數減一。前四分之一列觀察優勢，後四分之一列待核對需求。</p></details>`;}
+let comparisonMode = false;
+let comparisonCode = '';
+
+function drawTeams() {
+  const ranking = teamPower(data);
+  const available = data.teamDashboard?.teams ?? [];
+  const choices = ranking.length ? ranking.map(row => row.code) : available.map(team => team.team);
+  if (!choices.includes(selected)) selected = choices[0];
+  if (!ranking.some(row => row.code === comparisonCode) || comparisonCode === selected) comparisonCode = '';
+  if (!ranking.length) comparisonMode = false;
+
+  const fallback = ranking.length ? '' : `<div class="clubs">${choices.slice().sort().map(code =>
+    `<button data-team="${esc(code)}" aria-pressed="${selected === code}">${esc(club(code).zh)}</button>`
+  ).join('')}</div>`;
+  $('#content').innerHTML = `<div class="team-workspace">
+    <aside class="team-rank-column">${renderTeamRanking(ranking)}${fallback}</aside>
+    <div class="team-inspector"><div id="team-controls"></div>
+    <section id="team-comparison" tabindex="-1"></section>
+    <section id="team-result" tabindex="-1"></section></div></div>`;
+
+  const buttons = [...document.querySelectorAll('[data-team]')];
+  function update() {
+    for (const button of buttons) {
+      const code = button.dataset.team;
+      button.setAttribute('aria-pressed', String(code === selected || code === comparisonCode));
+      button.classList.toggle('compare-pick', code === comparisonCode);
+      button.setAttribute('aria-disabled', String(comparisonMode && code === selected));
+    }
+
+    $('#team-controls').innerHTML = ranking.length > 1 ? `<div class="team-actions">
+      <div role="status">${comparisonMode
+        ? (comparisonCode ? '從榜單點另一隊可更換比較對象' : '從榜單選第二支球隊')
+        : '點球隊看詳情'}</div>
+      <a class="ranking-return" href="#team-ranking">回球隊榜</a><button id="compare-toggle" aria-pressed="${comparisonMode}">${comparisonMode ? '結束比較' : '比較兩隊'}</button>
+    </div>` : '';
+    const toggle = $('#compare-toggle');
+    if (toggle) toggle.onclick = () => {
+      comparisonMode = !comparisonMode;
+      comparisonCode = '';
+      update();
+      $('#compare-toggle')?.focus();
+    };
+
+    const first = ranking.find(row => row.code === selected);
+    const second = ranking.find(row => row.code === comparisonCode);
+    $('#team-comparison').innerHTML = first && second ? teamComparison(data, first, second, (code, index) =>
+      `<span class="comparison-name"><i class="compare-color-${index}" aria-hidden="true"></i>${esc(club(code).zh)}</span>`
+    ) : '';
+    renderTeamDetail(ranking);
+  }
+
+  for (const button of buttons) button.onclick = () => {
+    const code = button.dataset.team;
+    if (comparisonMode) {
+      if (code === selected) return;
+      comparisonCode = code;
+    } else {
+      selected = code;
+    }
+    update();
+    if (globalThis.matchMedia('(max-width: 850px)').matches) {
+      const panel = $(comparisonCode ? '#team-comparison' : '#team-result');
+      panel.focus({preventScroll: true});
+      panel.scrollIntoView({block: 'start'});
+    }
+  };
+  update();
+}
+
+function renderTeamDetail(ranking) {
+const result=teamEvidence(data,selected);if(!result){$('#team-result').textContent='球隊同季資料過期、樣本不足或尚未取得，暫不產生分析。';return;}const {team,metrics,strengths,needs,opponent:o}=result;const power=ranking.find(row=>row.code===selected);$('#team-result').innerHTML=`<h2 class="team-title">${club(selected).logo?`<img src="${esc(club(selected).logo)}" alt="">`:''}${esc(club(selected).zh)} · ${esc(team.record??'戰績待補')}</h2>${power?`<p class="power-summary">聯盟第 <strong>${power.rank}</strong>／${ranking.length} · SRS <strong>${signed(power.score)}</strong> ＝ 淨勝分 ${signed(power.margin)} ＋ 賽程強度 ${signed(power.schedule)}</p>`:''}<p>${esc(team.season)} 例行賽 · ${team.stats.gamesPlayed} 場 · ${when(team.observedAt)} · ${link(team.source,'球隊統計來源')}</p><div class="grid"><section class="panel"><h3>球隊表現</h3>${radar(metrics)}${metrics.map(m=>bar(m.label,m.percentile,`原值 ${value(m.value)}${m.key.endsWith("Pct")?"%":""} · 第 ${m.rank}／${m.count}`)).join('')}<p>投籃／三分越高排名越前，失誤越少越前；場均助攻與失誤受節奏影響，未做每百回合調整。</p></section><section class="panel"><h3>贏球對手與賽程背景</h3>${o?`${bar("對手平均勝率",Number.isFinite(o.opponentWinPct)?100*o.opponentWinPct:null,"實際勝率，非百分位","rate")}${bar("勝場對手平均勝率",Number.isFinite(o.opponentWinPctInWins)?100*o.opponentWinPctInWins:null,"贏球時遇到的對手","rate")}<p>近 ${o.games} 場：${o.wins} 勝 ${o.losses} 負</p><p>對手平均勝率 ${Number.isFinite(o.opponentWinPct)?(100*o.opponentWinPct).toFixed(1)+'%':'—'}；勝場對手平均勝率 ${Number.isFinite(o.opponentWinPctInWins)?(100*o.opponentWinPctInWins).toFixed(1)+'%':'—'}</p><p>原始場均淨勝分 ${o.games>0&&Number.isFinite(o.pointsFor)&&Number.isFinite(o.pointsAgainst)?signed((o.pointsFor-o.pointsAgainst)/o.games):'—'} · 對手資料涵蓋 ${o.opponentsCovered}／${o.games} 場</p><p>期間 ${esc(data.opponentAnalysis.window?.startDate)} 至 ${esc(data.opponentAnalysis.window?.endDate)}；這是對手背景，不是經對手校正戰力。</p>`:'<p>對手分析來源過期、缺失或球季不符，暫不顯示。</p>'}</section></div><div class="grid"><section class="panel"><h3>目前優勢</h3>${strengths.length?`<ul>${strengths.map(m=>`<li>${esc(m.label)}：第 ${m.rank}／${m.count}，位於比較樣本前段。</li>`).join('')}</ul>`:'<p>本輪四項資料沒有達到前四分之一的項目，不能解讀為球隊沒有優勢。</p>'}</section><section class="panel"><h3>補強角色需求：待核對</h3>${needs.length?`<ul>${needs.map(m=>`<li><strong>${esc(m.label)} 第 ${m.rank}／${m.count}</strong><br>${esc(m.need)}</li>`).join('')}</ul>`:'<p>本輪四項資料沒有落入後四分之一；仍需檢查其他弱點。</p>'}<p>這些是本站四分位篩選規則產生的研究提示，並非已驗證的補強模型或交易建議。先查傷兵、角色與輪替，再決定是否需要新球員；本版不推薦具名交易。</p></section></div><details><summary>分析範圍與尚缺資料</summary><p>只比較同球季、例行賽至少 4 場且 24 小時內有效的球隊；每項至少 20 隊才排名，並列同名次。缺少回合效率、外線出手量／品質、對位追蹤、護框、陣容組合與薪資合約，不能輸出完整防守、輪替厚度或補強人數分數。百分位計算：比自己差的隊數，加同值隊數扣一後的一半，再除以樣本數減一。前四分之一列觀察優勢，後四分之一列待核對需求。</p></details>`;}
 document.querySelectorAll('[data-view]').forEach(b=>b.onclick=()=>{view=b.dataset.view;draw();});
 fetch('./data/dashboard.json',{cache:'no-store',signal:AbortSignal.timeout(15000)}).then(r=>{if(!r.ok)throw Error();return r.json();}).then(d=>{data=d;$('#status').textContent=`快照 ${when(d.generatedAt)}（台灣時間） · NBA 第一版`;draw();}).catch(()=>{$('#status').textContent='資料載入失敗，請重新整理；也可返回原球員資料庫。';});
