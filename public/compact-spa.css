@@ -1,0 +1,210 @@
+.dashboard-mode .compact-evidence {
+  margin: 8px 0;
+  padding: 0;
+  border: 1px solid #d8e5ec;
+  border-radius: 8px;
+  background: #fff;
+  min-width: 0;
+}
+.dashboard-mode .compact-evidence > summary {
+  cursor: pointer;
+  min-height: 36px;
+  padding: 8px 11px;
+  color: #086b62;
+  font-size: 13px;
+  font-weight: 750;
+  line-height: 1.45;
+}
+.dashboard-mode .compact-evidence[open] > summary {
+  border-bottom: 1px solid #dbe7ed;
+}
+.dashboard-mode .compact-evidence-body {
+  padding: 6px 11px 9px;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+.dashboard-mode .compact-evidence-body > p {
+  margin-block: 5px;
+  line-height: 1.55;
+}
+.dashboard-mode .compact-evidence-body .hash {
+  overflow-wrap: anywhere;
+}
+.dashboard-mode .compact-note {
+  margin: 6px 0 10px;
+  color: #496779;
+  font-size: 13px;
+}
+.dashboard-mode .compact-section-head {
+  display: flex;
+  gap: 8px;
+  align-items: baseline;
+  flex-wrap: wrap;
+}
+.dashboard-mode .compact-section-head h2 {
+  font-size: 18px;
+  margin: 5px 0 8px;
+}
+.dashboard-mode .compact-section-head small {
+  color: #496779;
+}
+.dashboard-mode .compact-tabs {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin: 7px 0 10px;
+}
+.dashboard-mode .compact-tabs > a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  border: 1px solid #cbdce4;
+  border-radius: 7px;
+  padding: 5px 10px;
+  background: #fff;
+  color: #183950;
+  font-weight: 750;
+}
+.dashboard-mode .compact-tabs > a[aria-current] {
+  background: #087e75;
+  color: #fff;
+  border-color: #087e75;
+}
+.dashboard-mode .rank-category.compact-category {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 42px;
+  padding: 7px 10px;
+  box-shadow: none;
+}
+.dashboard-mode .rank-category.compact-category > strong {
+  margin: 0;
+  font-size: 14px;
+}
+.dashboard-mode .compact-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(min(100%,220px),1fr));
+  gap: 8px;
+  margin: 8px 0;
+}
+.dashboard-mode .compact-tile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  min-height: 64px;
+  padding: 8px 11px;
+  color: #183950;
+  background: #fff;
+  border: 1px solid #d8e5ec;
+  border-radius: 8px;
+}
+.dashboard-mode .compact-tile small {
+  color: #496779;
+}
+.dashboard-mode .compact-tile strong {
+  font-variant-numeric: tabular-nums;
+  font-size: 17px;
+}
+.dashboard-mode .compact-leader,
+.dashboard-mode .compact-match {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.dashboard-mode .compact-leader .team-icon,
+.dashboard-mode .compact-match .team-icon,
+.dashboard-mode .compact-stat-table .team-icon,
+.dashboard-mode .compact-standings .team-icon {
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+}
+.dashboard-mode .compact-rank-player {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  min-width: 0;
+  color: #183950;
+  line-height: 1.35;
+}
+.dashboard-mode .compact-rank-player img {
+  display: block;
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border-radius: 50%;
+  background: #f2f6fa;
+}
+.dashboard-mode .compact-rank-player img[hidden] {
+  display: none;
+}
+.dashboard-mode .compact-rank-player small {
+  display: block;
+  font-size: 11px;
+  color: #496779;
+}
+.dashboard-mode .compact-standings td > .compact-evidence,
+.dashboard-mode .compact-stat-table td > .compact-evidence {
+  margin: 2px 0;
+  border: none;
+  background: transparent;
+}
+.dashboard-mode .compact-standings td > .compact-evidence > summary,
+.dashboard-mode .compact-stat-table td > .compact-evidence > summary {
+  padding: 3px 0;
+  min-height: 26px;
+  white-space: nowrap;
+}
+.dashboard-mode .compact-standings .compact-evidence[open] .compact-evidence-body,
+.dashboard-mode .compact-stat-table .compact-evidence[open] .compact-evidence-body {
+  padding: 3px 0;
+  min-width: 165px;
+}
+.dashboard-mode .compact-source-card .compact-evidence {
+  border: none;
+  background: transparent;
+  margin-bottom: 0;
+}
+.dashboard-mode .compact-source-card .compact-evidence > summary {
+  padding-inline: 0;
+}
+.dashboard-mode .compact-forecast .forecast-score {
+  margin: 6px 0 3px;
+}
+.dashboard-mode .compact-forecast .forecast-score b {
+  display: block;
+  font-size: 22px;
+  line-height: 1.1;
+}
+.dashboard-mode .compact-forecast > small { color: #496779; }
+.dashboard-mode .compact-picker .team-picker { margin: 0; }
+.dashboard-mode .compact-opponents .team-stat-grid { margin-block: 7px; }
+@media (min-width: 960px) {
+  .dashboard-mode .compact-stat-grid { grid-template-columns: repeat(5,minmax(0,1fr)); }
+}
+@media (min-width: 1280px) {
+  .dashboard-mode .compact-stat-grid { grid-template-columns: repeat(9,minmax(0,1fr)); }
+}
+.dashboard-mode .compact-links { display: flex; gap: 10px; }
+@media (max-width:700px) {
+  .dashboard-mode .compact-evidence > summary,
+  .dashboard-mode .compact-tabs > a {
+    min-height: 44px;
+  }
+  .dashboard-mode .compact-standings td,
+  .dashboard-mode .compact-standings th,
+  .dashboard-mode .compact-stat-table td,
+  .dashboard-mode .compact-stat-table th {
+    padding-inline: 7px;
+  }
+  .dashboard-mode .compact-stat-table .compact-rank-player img {
+    width: 34px;
+    height: 34px;
+  }
+  .dashboard-mode .compact-tile strong {
+    font-size: 16px;
+  }
+}

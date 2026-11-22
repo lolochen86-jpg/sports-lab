@@ -34,7 +34,7 @@ export function teamComparison(data, first, second, teamName) {
 
   return `<div class="panel comparison-panel"><h3>兩隊比較</h3>
     <div class="comparison-head">${rows.map((row, i) => `<div class="comparison-value">${titles[i]}<strong>第 ${row.rank} 名</strong><small>${row.wins} 勝 ${row.losses} 負</small></div>`).join('')}</div>
-    <p>三張分差圖共用刻度，中線是 0。</p><div class="comparison-grid">${marginCharts}</div>
-    <h3>球隊單項百分位</h3><div class="comparison-grid">${percentiles}</div>
+    <div class="comparison-grid">${marginCharts}</div>
+    <details class="standalone-data-detail"><summary>單項百分位</summary><p>上方分差圖共用刻度，中線為 0。</p><div class="comparison-grid">${percentiles}</div></details>
     </div>`;
 }

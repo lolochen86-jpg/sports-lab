@@ -6,7 +6,6 @@
 .dashboard-mode .home-panel{min-width:0;border:1px solid #cedce7;border-radius:10px;background:#fff;padding:13px}
 .dashboard-mode .home-panel h2{font-size:17px;line-height:1.32;margin:0 0 8px}
 .dashboard-mode .home-rail{display:grid;gap:10px;min-width:0}
-.dashboard-mode .home-status-date{font-size:12px;color:#496779;margin:0 0 6px}
 .dashboard-mode .home-status-bar{display:flex;overflow:hidden;height:8px;border-radius:5px;gap:1px;background:#eef3f6}
 .dashboard-mode .home-status-final{background:#087e75}
 .dashboard-mode .home-status-live{background:#326eaa}
@@ -23,6 +22,9 @@
 .dashboard-mode .home-source-counts{display:flex;gap:8px 11px;flex-wrap:wrap;font-size:12px;color:#496779}
 .dashboard-mode .home-source-counts b{font-size:16px;color:#183950;font-variant-numeric:tabular-nums}
 .dashboard-mode .home-sources .info-summary{margin:8px 0 0}
+.dashboard-mode .home-sources>summary{cursor:pointer;font-weight:750;line-height:1.4}
+.dashboard-mode .home-sources>summary small{font-weight:600;font-size:12px;color:#774619}
+.dashboard-mode .home-sources[open] .home-source-counts{margin-top:8px}
 .dashboard-mode .info-summary summary{line-height:1.45}
 .dashboard-mode .dashboard-data-status{margin-left:8px;font-size:12px;color:#774619}
 .dashboard-mode .home-history-note,.dashboard-context{font-size:12px;color:#496779}
@@ -36,16 +38,16 @@
 .dashboard-mode .home-game-scroll:focus-visible{outline:2px solid #087e75;outline-offset:2px}
 .dashboard-mode .home-schedule .game-grid{grid-template-columns:repeat(auto-fit,minmax(min(100%,225px),1fr));gap:7px}
 .dashboard-mode .home-schedule .game-card{box-shadow:none;padding:8px;border-radius:8px}
-.dashboard-mode .home-schedule .game-meta,.dashboard-mode .home-schedule .game-bottom{font-size:11px;padding:0;margin:0;gap:5px}
-.dashboard-mode .home-schedule .matchup{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:5px;padding:5px 0;margin:0;align-items:center}
-.dashboard-mode .home-schedule .matchup>div:not(.score){display:grid;gap:2px;align-items:center;justify-items:center;min-width:0}
-.dashboard-mode .home-schedule .matchup h3{font-size:13px;margin:0;line-height:1.25;word-break:break-word}
-.dashboard-mode .home-schedule .matchup .team-icon{width:31px;height:31px}
-.dashboard-mode .home-schedule .score strong{font-size:19px;white-space:nowrap}
-.dashboard-mode .home-schedule .score span{font-size:11px}
-.dashboard-mode .home-schedule .game-bottom{border-top:1px solid #edf2f5;padding-top:5px}
+.dashboard-mode .home-match-meta{display:flex;justify-content:space-between;align-items:center;gap:4px;margin-bottom:5px;color:#496779;font-size:11px;font-variant-numeric:tabular-nums}
+.dashboard-mode .home-match-teams{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:4px}
+.dashboard-mode .home-match-teams>span{display:flex;min-width:0;align-items:center;gap:4px;font-size:13px;line-height:1.25}
+.dashboard-mode .home-match-teams>span:last-child{justify-content:flex-end;flex-direction:row-reverse;text-align:right}
+.dashboard-mode .home-match-teams .team-icon{width:24px;height:24px;flex:none;font-size:9px}
+.dashboard-mode .home-match-teams b{overflow-wrap:anywhere}
+.dashboard-mode .home-match-score{font-size:clamp(13px,1.4vw,17px);white-space:nowrap;font-variant-numeric:tabular-nums}
 .dashboard-mode .home-schedule .badge{font-size:10px;line-height:1.25;padding:2px 5px;white-space:normal}
 .dashboard-mode .nba-stars{margin:18px 0}
+.dashboard-mode .nba-stars-source summary{cursor:pointer;width:max-content;font-weight:750;color:#087e75}
 .dashboard-mode .profile-hero h1{margin:0;font-size:clamp(22px,2.6vw,30px);line-height:1.2}
 .dashboard-mode .profile-hero .profile-name-en{margin:3px 0 6px;color:#496779;font-size:14px}
 .dashboard-mode .profile-hero .profile-basics{margin:5px 0}
@@ -60,6 +62,8 @@
  .dashboard-mode .home-links a,.dashboard-mode .home-primary{min-height:44px}
  .dashboard-mode .home-game-scroll{max-height:min(48vh,390px)}
  .dashboard-mode .home-schedule .game-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .dashboard-mode .home-match-teams>span{display:grid;gap:2px;justify-items:center;text-align:center}
+ .dashboard-mode .home-match-teams>span:last-child{justify-content:stretch;text-align:center}
  .dashboard-mode .home-status-grid{grid-template-columns:repeat(auto-fit,minmax(46px,1fr))}
  .dashboard-mode .home-status-grid>div{padding:4px}
  .dashboard-mode .home-status-grid dt{font-size:11px}

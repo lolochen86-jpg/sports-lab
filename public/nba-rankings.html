@@ -7,8 +7,8 @@
   <link rel="stylesheet" href="./analysis.css?v=20261122interactive">
   <link rel="stylesheet" href="./nba-rankings.css?v=efficiency-20261122">
   <link rel="stylesheet" href="./nba-advanced.css?v=20261122">
-  <script type="module" src="./nba-rankings.js?v=efficiency-20261122"></script>
-<link rel="stylesheet" href="./standalone-dashboard.css?v=dashboard-20261122"></head>
+  <script type="module" src="./nba-rankings.js?v=compact-20261122"></script>
+<link rel="stylesheet" href="./standalone-dashboard.css?v=compact-20261122"></head>
 <body class="standalone-dash standalone-rankings"><header class="standalone-topbar"><div class="standalone-nav-inner"><a class="standalone-brand" href="./" aria-label="Sports Lab 首頁"><img src="./icon.svg" width="28" height="28" alt="">Sports Lab</a><nav class="standalone-nav" aria-label="主要導覽"><a href="./#overview">賽事</a><a href="./#predictions">預測</a><a href="./nba-rankings.html" aria-current="page">綜合排行</a><a href="./analysis.html?view=teams">球隊戰力</a><a href="./#rosters">球員資料</a><a href="./transfers.html">轉隊</a></nav><nav class="standalone-utilities" aria-label="網站工具"><a href="./install.html">安裝</a><a href="./guestbook.html">留言</a></nav></div></header>
   <main>
     <div class="standalone-heading"><h1>NBA 球員綜合榜</h1><p id="rating-status" role="status">載入排行資料…</p></div>
@@ -28,12 +28,12 @@
       <section class="panel" id="rank-detail" tabindex="-1" aria-label="球員指標與趨勢"></section>
     </div>
     <details>
-      <summary>計算公式與資料來源</summary>
+      <summary>公式與來源</summary>
       <p>綜合分＝0.40 × adj-RAPM 百分位＋0.40 × BPM 百分位＋0.20 × WAR 百分位。百分位使用同一批完整、合格的現役球員計算。並列取平均百分位，綜合分同值並列。</p>
       <p>至少 10 場、200 分鐘，需通過 30 隊名單核對及球員身分對照。權重由 Sports Lab 設定。三項資料由 SportsDataverse 發布，WAR 與 RAPM 有共同資訊。<a href="https://hoopr.sportsdataverse.org/articles/nba-player-impact-model.html">模型與資料定義</a> · <a href="https://www.basketball-reference.com/about/bpm2.html">BPM 方法</a></p>
       <p>每個台灣日期保留最新的有效來源，最多 35 筆。本季有新來源時才更新趨勢，缺少紀錄的日期留空。名次升降也受其他球員表現和入榜樣本變動影響。</p>
     </details>
   </main>
-  <footer>僅供運動數據研究。</footer>
+  <footer>僅供研究。</footer>
 </body>
 </html>

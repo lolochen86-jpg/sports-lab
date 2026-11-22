@@ -17,6 +17,7 @@ export function homeNbaTop(data, now = Date.now()) {
     const name = playerChineseText({name: player.name, id: player.id, league: 'NBA'});
     const team = teams.NBA[player.team];
     const initials = player.name.split(/\s+/).slice(0, 2).map(word => word[0]).join('');
+    const rankChange = movement(board, player);
     const out = data.injuries?.some(report => report.team === player.team && report.player === player.name &&
       report.status === 'OUT' && report.comparison === 'reported_agreement' &&
       report.observations?.some(observation => {
@@ -34,15 +35,15 @@ export function homeNbaTop(data, now = Date.now()) {
         <strong>${escape(name)}${player.jersey != null && player.jersey !== '' ? ` <span>#${escape(player.jersey)}</span>` : ''}</strong>
         <small class="nba-stars-english">${escape(player.name)}</small>
         <div class="nba-stars-team">${team?.logo ? `<img src="${escape(team.logo)}" alt="" loading="lazy">` : ''}${escape(team?.zh ?? player.team)} · ${escape(position[player.position])}</div>
-        <div class="nba-stars-impact"><b>${player.score.toFixed(2)}</b><small>綜合分</small></div>
-        <small>${movement(board, player)}</small>
+        <div class="nba-stars-impact"><b aria-label="綜合分 ${player.score.toFixed(2)}">${player.score.toFixed(2)}</b>
+        ${rankChange === '待比較' ? '' : `<small>${rankChange}</small>`}</div>
       </div></a></li>`;
   }).join('');
 
   return `<section class="nba-stars" aria-labelledby="nba-stars-title">
     <div class="nba-stars-heading"><div><h2 id="nba-stars-title">本季 NBA 綜合榜前 10</h2>
-      <p>${rows.length ? `${season - 1}–${String(season).slice(-2)} 例行賽 · ${rows.length} 人 · ${escape(board.date)}${status}` : '等待本季三項評分核對完成。'}</p></div>
+      <p>${rows.length ? `${season - 1}–${String(season).slice(-2)} · ${escape(board.date)}${status}` : '綜合榜待更新'} </p></div>
       <a href="./nba-rankings.html?v=20261122">完整排名與趨勢 →</a></div>
-    ${cards ? `<ol class="nba-stars-grid">${cards}</ol><p class="nba-stars-source">綜合分採 adj-RAPM 40% · BPM 40% · WAR 20%。名次與上一次有效日期比較。</p>` : ''}
+    ${cards ? `<ol class="nba-stars-grid">${cards}</ol><details class="nba-stars-source"><summary>綜合分怎麼算</summary><p>adj-RAPM 40% · BPM 40% · WAR 20%。名次與上一次有效日期比較。</p></details>` : ''}
     </section>`;
 }

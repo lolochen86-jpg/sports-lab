@@ -24,7 +24,7 @@ function trend(row) {
   const start = Date.parse(board.date) - (range - 1) * day;
   const points = (board.history ?? []).filter(entry => Date.parse(entry.date) >= start && entry.values[row.id])
     .map(entry => ({date: entry.date, rank: entry.values[row.id][0], score: entry.values[row.id][1]}));
-  if (points.length < 2) return '<p>至少有兩個不同日期的有效紀錄才顯示趨勢。</p>';
+  if (points.length < 2) return '<p class="compact-context-inline">趨勢待更多快照</p>';
 
   const highest = Math.min(...points.map(point => point.rank));
   const lowest = Math.max(...points.map(point => point.rank));
@@ -46,8 +46,8 @@ function trend(row) {
   return `<figure class="rank-trend"><svg class="trend-plot" viewBox="0 0 396 151" role="img" aria-label="近 ${range} 日排名，名次越前越靠上">
     <rect x="26" y="126" width="344" height="1"/>${segments}${markers}
     <text x="26" y="144">近 ${range} 日</text><text x="370" y="144" text-anchor="end">${escape(board.date.slice(5))}</text>
-    </svg><figcaption>名次越前越靠上。沒有快照的日期留空。</figcaption></figure>
-    <details class="rank-history-table"><summary>每日名次與分數</summary>
+    </svg></figure>
+    <details class="rank-history-table standalone-data-detail"><summary>每日名次與分數</summary><p>名次越前越靠上，沒有快照的日期留空。</p>
     <table><thead><tr><th>日期</th><th>名次</th><th>綜合分</th></tr></thead>
     <tbody>${points.slice().reverse().map(point => `<tr><td>${escape(point.date)}</td><td>${point.rank}</td><td>${point.score.toFixed(2)}</td></tr>`).join('')}</tbody></table></details>`;
 }
@@ -61,14 +61,15 @@ function drawDetail() {
   const id = encodeURIComponent(row.id);
   $('#rank-detail').innerHTML = `<div class="rank-player"><img src="https://a.espncdn.com/i/headshots/nba/players/full/${id}.png" alt="">
     <div><h2><a href="./#player/nba/${id}">${escape(chinese(row))}</a></h2><small>${escape(row.name)} · ${escape(team(row))}</small></div></div>
-    <p><strong class="rank-score">${row.score.toFixed(2)}</strong> 分 · 第 ${row.rank} 名 · ${movement(board, row)}</p>
-    <p>${row.games} 場 · ${Math.round(row.minutes)} 分鐘</p>
-    ${components.map(([key, label, weight]) => bar(label, row.components[key].percentile,
-      `原值 ${row.components[key].value.toFixed(2)} · 權重 ${weight}%`)).join('')}
-    <h3>排名趨勢</h3>
-    <div class="rank-period">${[7, 30].map(days => `<button data-period="${days}" aria-pressed="${days === range}">近 ${days} 日</button>`).join('')}</div>
+    <div class="rank-compact-summary"><span><strong class="rank-score">${row.score.toFixed(2)}</strong> 分</span><span>第 ${row.rank} 名</span><span>${movement(board, row)}</span><small>${row.games} 場／${Math.round(row.minutes)} 分鐘</small></div>
+    <div class="compact-components">${components.map(([key, label]) => {
+      const component = row.components[key];
+      return bar(label, component.percentile, component.value.toFixed(2));
+    }).join('')}</div>
+    <div class="rank-trend-toolbar"><h3>趨勢</h3>
+    <div class="rank-period">${[7, 30].map(days => `<button data-period="${days}" aria-pressed="${days === range}">近 ${days} 日</button>`).join('')}</div></div>
     ${trend(row)}
-    ${renderNbaShotEfficiency(snapshot, row)}`;
+    <details class="standalone-data-detail rank-shot-detail"><summary>投籃明細與來源</summary>${renderNbaShotEfficiency(snapshot, row)}</details>`;
   for (const button of document.querySelectorAll('[data-period]')) button.onclick = () => {
     range = Number(button.dataset.period);
     drawDetail();
@@ -90,7 +91,7 @@ function drawList() {
     });
   }
   $('#rank-sort-note').textContent = shots
-    ? `綜合榜球員中，至少 ${NBA_SHOT_MIN_FGA} 次投籃且有有效數據的 ${ordered.length} 人`
+    ? `${ordered.length} 人 · ≥${NBA_SHOT_MIN_FGA} FGA`
     : '';
   const rows = ordered.filter(row => `${chinese(row)} ${row.name} ${team(row)} ${row.team} #${row.jersey ?? ''}`.toLowerCase().includes(query));
   $('#rank-list').innerHTML = rows.map(row => `<button class="rank-entry" data-ranked-player="${escape(row.id)}" aria-pressed="${row.id === selected}">
@@ -147,8 +148,9 @@ function showStatus() {
     $('#rating-status').textContent = board?.reason ?? '綜合榜尚無有效資料。';
     return;
   }
-  const status = compositeCurrent(board) ? '最新有效快照' : '歷史快照 · 等待有效更新';
-  $('#rating-status').textContent = `${board.season - 1}–${String(board.season).slice(-2)} · ${board.date} 台灣日期 · ${board.count} 人 · ${status}`;
+  const status = compositeCurrent(board) ? '' : ' · 歷史快照';
+  $('#rating-status').textContent = `${board.date} · ${board.count} 人${status}`;
+  $('#rating-status').title = `${board.season - 1}–${String(board.season).slice(-2)} 賽季 · 台灣日期`;
 }
 
 const refresh = createSnapshotRefresh({fetchSnapshot, apply: applyRankings, status: showStatus, failed() {

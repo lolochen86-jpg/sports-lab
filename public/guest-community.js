@@ -2,7 +2,7 @@ const endpoint = 'https://pyhmnoonmtxvwpcaxeyb.supabase.co/rest/v1/guest_comment
 const key = 'sb_publishable_TFFsK6pAF9mxlgdG6bUOcg_bO85CRJw';
 const root = document.querySelector('#guest-community');
 if (root) {
-  root.innerHTML = `<h2>訪客留言 / Guest comments</h2><p>留下暱稱、信箱和留言。信箱不會公開，也不會寄送驗證信；信箱所有權未經驗證。</p><form><label>暱稱 / Name <input name="nickname" maxlength="30" required></label><label>信箱 / Email <input name="email" type="email" maxlength="254" required></label><label>留言 / Comment <textarea name="body" maxlength="500" required></textarea></label><button type="submit">送出留言 / Submit</button></form><p role="status" aria-live="polite"></p><div class="guest-list"></div>`;
+  root.innerHTML = `<h2>訪客留言</h2><details class="standalone-data-detail"><summary>信箱不公開</summary><p>不會寄送驗證信，信箱所有權未經驗證。</p></details><form><label>暱稱 <input name="nickname" maxlength="30" required></label><label>信箱 <input name="email" type="email" maxlength="254" required></label><label>留言 <textarea name="body" maxlength="500" required></textarea></label><button type="submit">送出留言</button></form><p role="status" aria-live="polite"></p><div class="guest-list"></div>`;
   const form = root.querySelector('form');
   const status = root.querySelector('[role=status]');
   const list = root.querySelector('.guest-list');

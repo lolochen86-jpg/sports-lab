@@ -229,3 +229,100 @@
   .standalone-dash .player-history { grid-template-columns: minmax(0, 1fr); }
 }
 @media(max-width:450px) { .install-grid { grid-template-columns: minmax(0,1fr); } }
+
+.compact-context-inline {
+  color: var(--dash-muted);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  margin: 0 0 5px;
+  font-size: 12px;
+}
+.standalone-dash .compact-number { display: grid; gap: 3px; min-width: 66px; }
+.compact-number strong, .compact-team-kpis dd { font-variant-numeric: tabular-nums; }
+.compact-meter {
+  display: block;
+  height: 5px;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 4px;
+  background: #e3edf2;
+}
+.compact-meter i { display: block; height: 100%; background: var(--dash-accent); }
+.standalone-dash .impact-table td:last-child { width: 1%; }
+.standalone-dash .impact-table .person { min-width: 0; }
+.standalone-dash .impact-table .person > div { white-space: normal; }
+.standalone-dash .impact-table .impact-row-notes {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.standalone-dash .impact-row-notes summary { min-height: 34px; display: list-item; line-height: 34px; }
+.standalone-dash .impact-row-notes[open] { min-width: 10rem; white-space: normal; }
+.standalone-dash .impact-row-notes .bar-label > span { display: inline; }
+.standalone-dash .standalone-data-detail {
+  margin: 7px 0 0;
+  padding: 5px 0 0;
+  background: transparent;
+  border: 0;
+  border-top: 1px solid var(--dash-line);
+  border-radius: 0;
+}
+.standalone-dash .standalone-data-detail summary { min-height: 34px; line-height: 34px; color: var(--dash-accent); font-weight: 700; cursor: pointer; }
+.standalone-dash .standalone-data-detail h3 { margin-top: 10px; }
+.team-compact-heading, .rank-compact-summary, .rank-trend-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px 10px;
+}
+.team-compact-heading > span, .rank-compact-summary small { font-size: 12px; color: var(--dash-muted); }
+.compact-team-kpis {
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  gap: 5px;
+  margin: 5px 0 7px;
+}
+.compact-team-kpis div { min-width: 0; padding: 4px 7px; background: #edf5f7; border-radius: 5px; }
+.compact-team-kpis dt { color: var(--dash-muted); font-size: 12px; }
+.compact-team-kpis dd { margin: 0; font-size: 18px; font-weight: 800; line-height: 1.3; }
+.team-compact-charts {
+  display: grid;
+  grid-template-columns: minmax(0,1.05fr) minmax(0,1fr);
+  align-items: center;
+  gap: 10px;
+}
+.standalone-dash .team-compact-charts .radar { margin: 0 auto; max-width: 230px; }
+.standalone-dash .team-compact-charts .radar figcaption { position: absolute; clip-path: inset(50%); width: 1px; height: 1px; overflow: hidden; }
+.team-compact-metrics { display: grid; gap: 5px; }
+.team-compact-metrics > div { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 5px; align-items: center; }
+.team-compact-metrics > div > span { font-size: 13px; color: var(--dash-muted); }
+.team-compact-metrics strong { font-size: 13px; }
+.rank-compact-summary { justify-content: flex-start; gap: 5px 11px; margin: 7px 0; }
+.rank-compact-summary > span:not(:first-child) { font-size: 13px; }
+.standalone-dash .compact-components { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 6px; }
+.standalone-dash .compact-components .bar-chart { min-width: 0; margin: 2px 0 6px; }
+.standalone-dash .compact-components .bar-label { display: block; font-size: 12px; }
+.standalone-dash .compact-components .bar-label strong { display: block; font-size: 13px; }
+.standalone-dash .rank-trend-toolbar h3 { margin: 0; }
+.standalone-dash .rank-trend-toolbar button { min-height: 36px; padding: 4px 8px; }
+.standalone-dash .player-history .person strong .profile-link { font-size: inherit; }
+.standalone-dash .player-history .history-stop { display: grid; grid-template-rows: minmax(16px,auto) auto auto; align-self: stretch; }
+.standalone-dash .player-history .history-stop .club { grid-row: 2; }
+.standalone-dash .player-history .history-stop .history-jersey { grid-row: 3; }
+.standalone-dash .install-path { margin: 0; font-size: 13px; }
+.standalone-dash .guest-community > details { margin: 0; padding: 0; border: 0; }
+@media(min-width:800px) {
+  .standalone-dash .guest-community > details { grid-column: 1; }
+}
+@media(max-width:520px) {
+  .standalone-dash .impact-table :is(th,td) { padding: 6px 4px; }
+  .standalone-dash .impact-table .person { gap: 4px; }
+  .standalone-dash .impact-table .person img { width: 27px; height: 27px; }
+  .standalone-dash .impact-table .person small { font-size: 11px; }
+  .standalone-dash .impact-table th:nth-child(3) { white-space: normal; }
+  .team-compact-charts { grid-template-columns: minmax(0,1fr); gap: 3px; }
+  .team-compact-metrics { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 2px 7px; }
+}
