@@ -5,8 +5,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>NBA 球員綜合榜｜Sports Lab</title>
   <link rel="stylesheet" href="./analysis.css?v=20261122interactive">
-  <link rel="stylesheet" href="./nba-rankings.css?v=20261122">
-  <script type="module" src="./nba-rankings.js?v=20261122"></script>
+  <link rel="stylesheet" href="./nba-rankings.css?v=efficiency-20261122">
+  <link rel="stylesheet" href="./nba-advanced.css?v=20261122">
+  <script type="module" src="./nba-rankings.js?v=efficiency-20261122"></script>
 </head>
 <body>
   <header><a href="./">← Sports Lab</a><a href="./analysis.html">單項球員影響榜</a></header>
@@ -16,6 +17,12 @@
     <div class="rank-workspace">
       <section class="panel">
         <h2>球員排名</h2>
+        <div class="rank-sort" role="group" aria-label="排序指標">
+          <button type="button" data-shot-sort="composite" aria-pressed="true">綜合分</button>
+          <button type="button" data-shot-sort="tsPct" aria-pressed="false">TS%</button>
+          <button type="button" data-shot-sort="efgPct" aria-pressed="false">eFG%</button>
+        </div>
+        <p id="rank-sort-note" class="rank-sort-note"></p>
         <label for="find-ranked-player">球員、球隊或背號</label>
         <input id="find-ranked-player" type="search" placeholder="搜尋綜合榜">
         <div id="rank-list"></div>

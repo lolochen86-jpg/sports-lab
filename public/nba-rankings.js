@@ -3,6 +3,8 @@ import {bar} from './analysis-charts.js?v=20261122charts';
 import {playerChineseText} from './player-names.js?v=20261111';
 import {teams} from './localization.js';
 import {createSnapshotRefresh} from './snapshot-refresh.js';
+import {renderNbaShotEfficiency} from './nba-advanced-view.js?v=20261122';
+import {createNbaShotEfficiency, NBA_SHOT_MIN_FGA} from './nba-shot-efficiency.js?v=20261122';
 
 const $ = selector => document.querySelector(selector);
 const escape = value => String(value ?? '').replace(/[&<>"']/g, char =>
@@ -12,8 +14,11 @@ const team = row => teams.NBA[row.team]?.zh ?? row.team;
 const day = 86400000;
 
 let board;
+let snapshot;
 let selected = new URLSearchParams(location.search).get('player');
 let range = 30;
+let sortMetric = 'composite';
+let shotRows = [];
 
 function trend(row) {
   const start = Date.parse(board.date) - (range - 1) * day;
@@ -62,7 +67,8 @@ function drawDetail() {
       `原值 ${row.components[key].value.toFixed(2)} · 權重 ${weight}%`)).join('')}
     <h3>排名趨勢</h3>
     <div class="rank-period">${[7, 30].map(days => `<button data-period="${days}" aria-pressed="${days === range}">近 ${days} 日</button>`).join('')}</div>
-    ${trend(row)}`;
+    ${trend(row)}
+    ${renderNbaShotEfficiency(snapshot, row)}`;
   for (const button of document.querySelectorAll('[data-period]')) button.onclick = () => {
     range = Number(button.dataset.period);
     drawDetail();
@@ -72,11 +78,26 @@ function drawDetail() {
 
 function drawList() {
   const query = $('#find-ranked-player').value.trim().toLowerCase();
-  const rows = board.rows.filter(row => `${chinese(row)} ${row.name} ${team(row)} ${row.team} #${row.jersey ?? ''}`.toLowerCase().includes(query));
+  const shots = sortMetric !== 'composite';
+  let ordered = board.rows;
+  if (shots) {
+    ordered = shotRows.filter(row => Number.isFinite(row.shot[sortMetric]))
+      .sort((a, b) => b.shot[sortMetric] - a.shot[sortMetric] || a.rank - b.rank);
+    let place = 1;
+    ordered = ordered.map((row, index, sorted) => {
+      if (index > 0 && row.shot[sortMetric] !== sorted[index - 1].shot[sortMetric]) place = index + 1;
+      return {...row, listRank: place};
+    });
+  }
+  $('#rank-sort-note').textContent = shots
+    ? `綜合榜球員中，至少 ${NBA_SHOT_MIN_FGA} 次投籃且有有效數據的 ${ordered.length} 人`
+    : '';
+  const rows = ordered.filter(row => `${chinese(row)} ${row.name} ${team(row)} ${row.team} #${row.jersey ?? ''}`.toLowerCase().includes(query));
   $('#rank-list').innerHTML = rows.map(row => `<button class="rank-entry" data-ranked-player="${escape(row.id)}" aria-pressed="${row.id === selected}">
-    <b>${row.rank}</b><span>${escape(chinese(row))}<small>${escape(row.name)} · ${escape(team(row))}</small></span>
-    <strong>${row.score.toFixed(2)}</strong><span class="rank-move">${movement(board, row)}</span></button>`).join('') ||
-    '<p>找不到符合的球員。</p>';
+    <b>${row.listRank ?? row.rank}</b><span>${escape(chinese(row))}<small>${escape(row.name)} · ${escape(team(row))}</small></span>
+    <strong>${shots ? `${row.shot[sortMetric].toFixed(1)}%` : row.score.toFixed(2)}</strong>
+    <span class="rank-move">${shots ? `${row.shot.fga} 出手` : movement(board, row)}</span></button>`).join('') ||
+    '<p>找不到符合條件的球員。</p>';
   const buttons = [...document.querySelectorAll('[data-ranked-player]')];
   for (const button of buttons) button.onclick = () => {
     selected = button.dataset.rankedPlayer;
@@ -96,12 +117,25 @@ async function fetchSnapshot() {
 }
 
 function applyRankings(data) {
+  snapshot = data;
   board = data.nbaComposite;
   if (!board?.rows?.length) {
     $('#rank-list').textContent = '';
     $('#rank-detail').textContent = '等待資料更新。';
     return;
   }
+  const shotEfficiency = createNbaShotEfficiency(snapshot);
+  shotRows = board.rows.flatMap(row => {
+    const shot = shotEfficiency(row);
+    return shot?.fga >= NBA_SHOT_MIN_FGA ? [{...row, shot}] : [];
+  });
+  for (const button of document.querySelectorAll('[data-shot-sort]')) button.onclick = () => {
+    sortMetric = button.dataset.shotSort;
+    for (const option of document.querySelectorAll('[data-shot-sort]')) {
+      option.setAttribute('aria-pressed', String(option === button));
+    }
+    drawList();
+  };
   if (!board.rows.some(row => row.id === selected)) selected = board.rows[0].id;
   $('#find-ranked-player').oninput = drawList;
   drawList();

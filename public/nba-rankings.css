@@ -2,7 +2,7 @@
 .rank-workspace h2{margin-top:0}
 #find-ranked-player{display:block;width:100%;margin:6px 0 10px}
 #rank-list{display:grid;gap:5px;max-height:min(65vh,650px);overflow-y:auto;padding:4px}
-.rank-entry{display:grid;grid-template-columns:3ch minmax(0,1fr) 5ch 6ch;align-items:center;gap:6px;width:100%;text-align:left;padding:8px;font-variant-numeric:tabular-nums}
+.rank-entry{display:grid;grid-template-columns:3ch minmax(0,1fr) 7ch 7ch;align-items:center;gap:6px;width:100%;text-align:left;padding:8px;font-variant-numeric:tabular-nums}
 .rank-entry small{font-weight:400;overflow-wrap:anywhere}.rank-entry strong{text-align:right}
 .rank-move{font-size:12px;text-align:right}
 #rank-detail{scroll-margin-top:12px;min-width:0}
@@ -14,5 +14,8 @@
 .trend-plot rect{fill:#e1eaf0}.trend-plot polyline{stroke:#087e75;stroke-width:2.5;fill:none}.trend-plot circle{fill:#087e75}
 .trend-plot text{font-size:11px;fill:#183950}
 .rank-period{display:flex;gap:8px;flex-wrap:wrap}
+.rank-sort{display:flex;gap:6px;flex-wrap:wrap}
+.rank-sort button{padding:7px 12px}
+.rank-sort-note{font-size:12px;margin:8px 0}
 .rank-history-table{overflow-x:auto}.rank-history-table th,.rank-history-table td{padding:7px 10px}
 @media(max-width:780px){.rank-workspace{grid-template-columns:1fr}#rank-list{max-height:320px}}
