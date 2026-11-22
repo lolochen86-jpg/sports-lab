@@ -1,0 +1,31 @@
+.nba-stars{margin:24px 0;color:#183950}
+.nba-stars-heading{display:flex;align-items:end;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.nba-stars-heading h2{margin:0;font-size:clamp(24px,3vw,34px);font-weight:850}
+.nba-stars-heading p,.nba-stars-source{margin:5px 0 0;color:#496779;font-size:13px}
+.nba-stars a{color:#086b62}
+.nba-stars-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;list-style:none;margin:0;padding:0}
+.nba-stars-card{min-width:0;border:1px solid #d7e4e9;border-radius:14px;background:#fff;overflow:hidden}
+.nba-stars-card:first-child{border-color:#087e75}
+.nba-stars-card>a{display:block;height:100%;color:inherit;text-decoration:none}
+.nba-stars-card>a:hover{background:#eff8f6}
+.nba-stars-card>a:focus-visible{outline:3px solid #087e75;outline-offset:-3px}
+.nba-stars-portrait{position:relative;isolation:isolate;aspect-ratio:1.22;background:radial-gradient(ellipse at 50% 45%,#fff 0 30%,#dfedf0 70%);overflow:hidden}
+.nba-stars-card:first-child .nba-stars-portrait{background:radial-gradient(ellipse at 50% 45%,#e7faf2 0 30%,#addbd1 80%)}
+.nba-stars-headshot{position:absolute;bottom:0;inset-inline:0;width:100%;height:95%;object-fit:cover;object-position:50% 5%;z-index:1;background:radial-gradient(ellipse,#f4f9fb,#dfecef)}
+.nba-stars-card:first-child .nba-stars-headshot{background:radial-gradient(ellipse,#e7faf2,#addbd1)}
+.nba-stars-headshot[hidden]{display:none}
+.nba-stars-initials{position:absolute;inset:0;display:grid;place-items:center;color:#567982;font-size:clamp(30px,5vw,56px);font-weight:800}
+.nba-stars-rank,.nba-stars-out{position:absolute;z-index:2;font-weight:800}
+.nba-stars-rank{top:8px;left:8px;border-radius:8px;background:#173b4c;color:white;min-width:30px;text-align:center;padding:4px 6px;font-size:15px}
+.nba-stars-card:first-child .nba-stars-rank{background:#087e75}
+.nba-stars-out{bottom:6px;right:6px;font-size:11px;padding:3px 6px;border-radius:5px;color:#792c1f;background:#fff0e9}
+.nba-stars-info{padding:10px;line-height:1.35}
+.nba-stars-info>strong{display:block;font-size:clamp(14px,1.45vw,18px);overflow-wrap:anywhere;color:#173b4c}
+.nba-stars-info>strong span{color:#087e75;white-space:nowrap}
+.nba-stars-english,.nba-stars-team{font-size:12px;color:#496779;overflow-wrap:anywhere}
+.nba-stars-team{display:flex;align-items:center;gap:5px;margin-top:6px}
+.nba-stars-team img{width:20px;height:20px;object-fit:contain;flex:none}
+.nba-stars-impact{display:flex;align-items:baseline;gap:6px;margin-top:5px;color:#086b62;font-variant-numeric:tabular-nums}
+.nba-stars-impact b{font-size:clamp(18px,2.2vw,27px)}
+@media(max-width:1050px){.nba-stars-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:640px){.nba-stars-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}}
