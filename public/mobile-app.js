@@ -4,6 +4,9 @@
   const close = document.querySelector('#mobile-menu-close');
   const scrim = document.querySelector('#mobile-menu-scrim');
   if (!panel || !toggle || !close || !scrim) return;
+  // Guard against duplicate script tags or repeated initialisation.
+  if (toggle.dataset.menuBound === 'true') return;
+  toggle.dataset.menuBound = 'true';
   function setOpen(open, restoreFocus = false) {
     panel.hidden = !open;
     scrim.hidden = !open;
