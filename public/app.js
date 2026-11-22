@@ -1,4 +1,4 @@
-import {homeNbaTop} from './home-nba-top.js?v=20261122';
+import {homeNbaTop} from './home-nba-top.js?v=composite-20261122';
 import {renderPredictionDisplay} from './prediction-provider.js?v=player-zh-20261111';
 import {predictionWalkthrough} from './prediction-walkthrough.js?v=formula-20261110';
 import {loadPlayerQuarterScores} from './player-quarter-view.js?v=20261110';

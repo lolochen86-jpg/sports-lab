@@ -1,0 +1,18 @@
+.rank-workspace{display:grid;grid-template-columns:minmax(310px,.82fr) minmax(0,1.18fr);gap:15px;align-items:start}
+.rank-workspace h2{margin-top:0}
+#find-ranked-player{display:block;width:100%;margin:6px 0 10px}
+#rank-list{display:grid;gap:5px;max-height:min(65vh,650px);overflow-y:auto;padding:4px}
+.rank-entry{display:grid;grid-template-columns:3ch minmax(0,1fr) 5ch 6ch;align-items:center;gap:6px;width:100%;text-align:left;padding:8px;font-variant-numeric:tabular-nums}
+.rank-entry small{font-weight:400;overflow-wrap:anywhere}.rank-entry strong{text-align:right}
+.rank-move{font-size:12px;text-align:right}
+#rank-detail{scroll-margin-top:12px;min-width:0}
+.rank-player{display:flex;align-items:center;gap:15px}
+.rank-player img{width:100px;max-width:27%;height:auto;aspect-ratio:1.2;object-fit:cover;border-radius:12px;background:#e4f4f0}
+.rank-player h2{margin:0}
+.rank-score{font-size:32px;font-weight:800;color:#087e75;font-variant-numeric:tabular-nums}
+.rank-trend{margin:12px 0}.rank-trend svg{width:100%;display:block;background:#f2f6fa;border-radius:8px}
+.trend-plot rect{fill:#e1eaf0}.trend-plot polyline{stroke:#087e75;stroke-width:2.5;fill:none}.trend-plot circle{fill:#087e75}
+.trend-plot text{font-size:11px;fill:#183950}
+.rank-period{display:flex;gap:8px;flex-wrap:wrap}
+.rank-history-table{overflow-x:auto}.rank-history-table th,.rank-history-table td{padding:7px 10px}
+@media(max-width:780px){.rank-workspace{grid-template-columns:1fr}#rank-list{max-height:320px}}

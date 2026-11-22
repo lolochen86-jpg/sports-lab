@@ -22,6 +22,7 @@ import {collectRosters} from '../lib/rosters.mjs';
 import {collectMlbRosters} from '../lib/mlb-rosters.mjs';
 import {collectMlbPerformance} from '../lib/mlb-performance.mjs';
 import {collectNbaPlayerRatings} from '../lib/nba-player-ratings.mjs';
+import {buildNbaComposite} from '../lib/nba-composite.mjs';
 import {gatherHistory} from '../lib/prediction.mjs';
 import {preserveUnavailable} from '../lib/preserve.mjs';
 import {preserveGameHistory} from '../lib/game-history.mjs';
@@ -99,6 +100,7 @@ export async function collect({root=ROOT,date=taipeiDate(new Date()),budgetMs=90
   // Never replace a useful previous snapshot with an empty failed refresh.
   preserveUnavailable(dashboard,previous,receipts);
   preserveGameHistory(dashboard,previous);
+  dashboard.nbaComposite=buildNbaComposite(dashboard,previous?.nbaComposite);
   let recovery;try{recovery=JSON.parse(await readFile(path.join(data,'pregame-recovery.json'),'utf8'));}catch(e){if(e.code!=='ENOENT')throw e;}
   const retentionInputs={...previous,retainedPredictions:[...(previous?.retainedPredictions??[]),...(recovery?.retainedPredictions??[])]};
   dashboard.retainedPredictions=retainPregamePredictions(dashboard,retentionInputs);
