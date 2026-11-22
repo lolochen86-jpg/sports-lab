@@ -1,0 +1,228 @@
+/* The site shell and route surfaces share the same density and spacing. */
+body.sports-polish.dashboard-mode {
+  --dash-gap: 12px;
+  --dash-pad: 14px;
+  --dash-inset: clamp(12px, 2.4vw, 28px);
+  line-height: 1.5;
+}
+
+.dashboard-mode .workspace > main {
+  max-width: 1640px;
+  min-height: 58vh;
+  padding: var(--dash-pad) var(--dash-inset) 22px;
+}
+
+.dashboard-mode .topbar {
+  height: auto;
+  min-height: 52px;
+  padding: 7px var(--dash-inset);
+  gap: 10px;
+}
+
+.dashboard-mode .topbar > div { gap: 10px; }
+.dashboard-mode .topbar .subtle { min-height: 34px; }
+.dashboard-mode .workspace > footer {
+  padding: 12px var(--dash-inset);
+  gap: 6px 14px;
+}
+
+.dashboard-mode .page-heading {
+  align-items: center;
+  gap: var(--dash-gap);
+  margin: 0 0 12px;
+}
+
+.dashboard-mode .page-heading h1 {
+  margin: 2px 0 4px;
+  font-size: clamp(22px, 2.15vw, 30px);
+  line-height: 1.25;
+}
+
+.dashboard-mode .page-heading p { font-size: 13px; line-height: 1.55; }
+.dashboard-mode .page-heading > .button { margin-top: 0; }
+.dashboard-mode .content-section { margin-block: 18px; }
+.dashboard-mode .section-title { gap: 8px; margin-bottom: 9px; }
+.dashboard-mode .section-title .eyebrow { margin-bottom: 2px; }
+.dashboard-mode :is(.section-title h2, .content-section > h2) { font-size: clamp(18px, 1.7vw, 22px); }
+.dashboard-mode .section-description { margin: 6px 0 10px; line-height: 1.6; }
+.dashboard-mode .fine-print { margin-top: 8px; line-height: 1.55; }
+.dashboard-mode :is(.back, .rank-back) { margin-block: 0 8px; font-size: 13px; }
+.dashboard-mode .back + .page-heading { margin-bottom: 12px; }
+.dashboard-mode .rank-section-title { margin: 8px 0 10px; font-size: 21px; }
+.dashboard-mode :is(.rank-subtitle, .stats-group-title) { margin: 13px 0 7px; }
+
+.dashboard-mode .notice {
+  margin: 10px 0;
+  padding: 9px 12px;
+  gap: 6px 10px;
+}
+
+.dashboard-mode .notice > div { min-width: 0; }
+.dashboard-mode .notice small { margin-top: 2px; line-height: 1.55; }
+.dashboard-mode .overview-details { margin: 10px 0; }
+.dashboard-mode :is(.metrics, .overview-details .metrics) { margin: 10px 0; box-shadow: none; }
+.dashboard-mode .metrics article { padding: 8px 12px; }
+.dashboard-mode .metrics strong { margin: 1px 0; font-size: clamp(23px, 2.1vw, 32px); line-height: 1.28; }
+.dashboard-mode .metrics p { line-height: 1.4; }
+.dashboard-mode .prediction-entry { margin: 10px 0; padding: 10px 12px; }
+.dashboard-mode .filter-row {
+  gap: 7px 10px;
+  margin-block: 8px 0;
+  padding-block: 7px;
+}
+
+.dashboard-mode :is(.field-label, .filters label) { gap: 6px; }
+.dashboard-mode .result-label { padding: 7px 0; }
+.dashboard-mode .segmented { min-height: 0; }
+.dashboard-mode .segmented button { padding-inline: 14px; }
+.dashboard-mode :is(.filters, .movement-search) { margin-block: 10px; gap: 8px; }
+.dashboard-mode :is(.rank-leagues, .rank-grid, .roster-grid, .game-grid, .prediction-grid,
+  .source-grid, .dashboard-grid, .two-panels, .method-grid, .rookie-grid, .team-stat-grid) {
+  gap: var(--dash-gap);
+}
+
+.dashboard-mode :is(.prediction-grid, .team-stat-grid, .rank-leagues, .composite-menu) { margin-block: 12px; }
+.dashboard-mode :is(.source-grid, .two-panels, .method-grid, .rookie-grid, .daily-topics) { margin-top: 10px; }
+.dashboard-mode :is(.chart-card, .feature-panel, .source-card, .forecast, .prediction-card,
+  .rookie-card, .roster-card, .radar-panel, .team-stat-grid article, .shooting-grid article) {
+  padding: var(--dash-pad);
+  box-shadow: none;
+  min-width: 0;
+}
+
+.dashboard-mode .chart-card h3 { margin-bottom: 10px; }
+.dashboard-mode .chart-card > h3:not(:first-child) { margin-top: 12px; }
+.dashboard-mode .chart-card > small { margin-top: 8px; }
+.dashboard-mode .chart-row { margin-block: 7px; }
+.dashboard-mode .feature-panel h2 { margin-block: 6px; }
+.dashboard-mode .feature-panel > span:last-child:not(.eyebrow) { margin-top: 8px; }
+.dashboard-mode .feature-symbol { margin-bottom: 6px; font-size: 23px; }
+.dashboard-mode .daily-topics .feature-panel { min-height: 0; }
+.dashboard-mode .daily-topics .feature-panel a { margin-top: 6px; }
+.dashboard-mode .source-card > p { margin-block: 6px; }
+.dashboard-mode .source-numbers { margin: 8px 0 5px; }
+.dashboard-mode .source-numbers strong { font-size: 25px; }
+.dashboard-mode .meter { height: 5px; margin: 6px 0 10px; }
+.dashboard-mode .endpoint { padding-block: 8px; }
+.dashboard-mode .report-links { margin-top: 9px; }
+.dashboard-mode .source-strip { margin-top: 12px; padding: 8px 0; gap: 7px 12px; }
+.dashboard-mode .limitations { padding-block: 5px; line-height: 1.65; }
+
+.dashboard-mode .game-card { box-shadow: none; }
+.dashboard-mode .game-meta { padding: 8px 11px 4px; gap: 6px; font-size: 11px; }
+.dashboard-mode .matchup { padding: 7px 10px 9px; gap: 5px; grid-template-columns: minmax(0,1fr) minmax(54px,auto) minmax(0,1fr); }
+.dashboard-mode .matchup .team-icon { width: 42px; height: 42px; margin-bottom: 5px; }
+.dashboard-mode .matchup h3 { overflow-wrap: anywhere; font-size: 15px; }
+.dashboard-mode .matchup small { overflow-wrap: anywhere; }
+.dashboard-mode .matchup .score { min-width: 0; }
+.dashboard-mode .matchup .score > span { font-size: 12px; letter-spacing: 1px; }
+.dashboard-mode .matchup .score strong { font-size: clamp(17px, 1.7vw, 25px); font-variant-numeric: tabular-nums; letter-spacing: 0; }
+.dashboard-mode .matchup .score em { margin: 0 4px; }
+.dashboard-mode .game-bottom { padding: 6px 10px; gap: 5px 8px; }
+.dashboard-mode .game-bottom > span:last-child { font-size: 11px; }
+.dashboard-mode .forecast-score { margin: 9px 0 6px; }
+.dashboard-mode .forecast > p { margin-block: 7px; }
+.dashboard-mode .scenario-box { margin-top: 9px; padding: 10px; }
+.dashboard-mode .scenario-numbers { margin-block: 8px; }
+.dashboard-mode .scenario-box p { margin: 6px 0; }
+
+.dashboard-mode .rank-league,
+.dashboard-mode .rank-category {
+  min-height: 0;
+  gap: 4px;
+  padding: 10px 12px;
+  box-shadow: none;
+}
+
+.dashboard-mode .rank-league > span { font-size: 23px; line-height: 1.2; }
+.dashboard-mode :is(.rank-league, .rank-category) strong { font-size: clamp(16px, 1.65vw, 21px); }
+.dashboard-mode :is(.rank-league, .rank-category) small { font-size: 13px; line-height: 1.4; }
+.dashboard-mode :is(.rank-league, .rank-category) b { margin-top: 4px; font-size: 13px; }
+.dashboard-mode .table-wrap { margin-top: 9px; }
+.dashboard-mode .table-wrap :is(th, td) { padding: 8px 10px; }
+.dashboard-mode .table-wrap th { font-size: 13px; }
+.dashboard-mode .table-wrap td { font-size: 14px; vertical-align: middle; }
+.dashboard-mode .table-wrap td > small { margin-top: 3px; }
+.dashboard-mode .player-table .player-cell { gap: 8px; min-width: 170px; }
+.dashboard-mode .player-table .player-cell strong { font-size: 16px; }
+.dashboard-mode .player-table .player-cell small { margin-top: 1px; font-size: 12px; }
+.dashboard-mode .player-table .player-photo { width: 52px; height: 52px; }
+.dashboard-mode .ranking-team { gap: 8px; min-width: 155px; }
+.dashboard-mode .ranking-team .team-icon { width: 34px; height: 34px; }
+.dashboard-mode .inj-observation { margin: 5px 0; line-height: 1.5; }
+.dashboard-mode details[open] > summary { margin-bottom: 6px; }
+
+.dashboard-mode .roster-compact-head { gap: 8px; }
+.dashboard-mode .roster-compact-head > a,
+.dashboard-mode .roster-compact-head .player-photo { width: 60px; height: 60px; }
+.dashboard-mode .roster-compact-head strong { font-size: 17px; }
+.dashboard-mode .roster-compact-meta,
+.dashboard-mode .roster-compact-score { margin-block: 6px; }
+.dashboard-mode .roster-compact-stats { padding-block: 8px; gap: 6px; }
+.dashboard-mode .roster-compact-stats strong { font-size: clamp(18px, 1.65vw, 24px); }
+.dashboard-mode .roster-card .roster-compact-link { margin-top: 2px; }
+.dashboard-mode .roster-pagination { margin-block: 12px; gap: 10px; }
+.dashboard-mode .profile-hero {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  gap: 12px;
+  padding: var(--dash-pad);
+}
+
+.dashboard-mode .profile-hero > img { width: clamp(72px, 9vw, 125px); height: auto; aspect-ratio: 1; }
+.dashboard-mode .profile-hero h2 { font-size: clamp(19px, 2vw, 27px); overflow-wrap: anywhere; }
+.dashboard-mode .profile-hero p { margin-block: 4px; font-size: 13px; }
+.dashboard-mode .profile-hero .player-team-info .team-icon { width: 30px; height: 30px; }
+.dashboard-mode .radar-layout { gap: 10px; }
+.dashboard-mode .radar-layout svg { max-width: 290px; }
+.dashboard-mode .rookie-archive { margin-block: 7px; }
+.dashboard-mode .rookie-current-title { padding: 6px 0 5px; }
+.dashboard-mode .rookie-card-foot { margin-top: 6px; }
+.dashboard-mode .team-overview { margin-block: 10px; padding: 12px; gap: 9px; }
+.dashboard-mode .team-hero { gap: 9px; }
+.dashboard-mode .team-hero .team-icon { width: 54px; height: 54px; }
+.dashboard-mode .team-hero h2 { font-size: 20px; }
+.dashboard-mode .team-record strong { font-size: 26px; }
+.dashboard-mode .team-stat-grid strong { font-size: 23px; }
+.dashboard-mode .team-compare-row { margin-block: 9px; }
+.dashboard-mode .team-availability { margin-block: 9px; gap: 7px; }
+.dashboard-mode .team-availability span { padding: 6px 8px; }
+.dashboard-mode .empty { padding: 16px 12px; }
+.dashboard-mode .empty > span { font-size: 23px; }
+.dashboard-mode .empty h3 { margin: 4px 0; }
+.dashboard-mode .loading { padding: 38px 12px; }
+
+@media (min-width: 901px) {
+  .dashboard-mode .shell { grid-template-columns: 184px minmax(0, 1fr); }
+  .dashboard-mode .sidebar { padding: 16px 10px; }
+  .dashboard-mode .brand { font-size: 15px; }
+  .dashboard-mode .sidebar .nav-caption { margin: 16px 10px 5px; }
+  .dashboard-mode .sidebar nav a { padding: 7px 8px; gap: 8px; }
+  .dashboard-mode .sidebar nav span { font-size: 13px; }
+  .dashboard-mode .sidebar-bottom { padding: 12px 8px 0; }
+}
+
+@media (min-width: 1250px) {
+  .dashboard-mode .game-grid { grid-template-columns: repeat(3,minmax(0,1fr)); }
+}
+
+@media (max-width: 700px) {
+  body.sports-polish.dashboard-mode { --dash-gap: 8px; --dash-pad: 11px; }
+  .dashboard-mode .sidebar { padding: 7px var(--dash-inset); }
+  .dashboard-mode .sidebar .mark { font-size: 25px; }
+  .dashboard-mode .topbar { min-height: 44px; }
+  .dashboard-mode .topbar .subtle { min-height: 44px; }
+  .dashboard-mode .page-heading h1 { font-size: 23px; }
+  .dashboard-mode .page-heading > .button { margin-top: 7px; }
+  .dashboard-mode .content-section { margin-block: 13px; }
+  .dashboard-mode .prediction-entry { gap: 8px; }
+  .dashboard-mode .filter-row { justify-content: flex-start; }
+  .dashboard-mode :is(.segmented button, .roster-pagination button) { min-height: 44px; }
+  .dashboard-mode .table-wrap :is(th, td) { padding: 7px 8px; }
+  .dashboard-mode .injury-table tr { padding: 5px 10px; margin-bottom: 8px; box-shadow: none; }
+  .dashboard-mode .injury-table td { padding: 6px 0; }
+  .dashboard-mode .injury-table .player-cell { min-width: 0; }
+  .dashboard-mode .injury-table td:not(:first-child)::before { margin-bottom: 2px; }
+  .dashboard-mode .mobile-bottom-nav { grid-template-columns: repeat(5,minmax(0,1fr)); }
+}
