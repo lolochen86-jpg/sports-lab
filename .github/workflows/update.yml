@@ -45,9 +45,14 @@ jobs:
       - uses: actions/upload-pages-artifact@v4
         with:
           path: dist
+          name: github-pages-${{ github.run_attempt }}
+      - name: Wait for Pages artifact metadata
+        run: sleep 15
       - name: Publish exact validated website
         id: publish
         uses: actions/deploy-pages@v4
+        with:
+          artifact_name: github-pages-${{ github.run_attempt }}
       - name: Preserve normalized snapshot after successful deployment
         run: |
           git config user.name "sports-lab-bot"
@@ -61,7 +66,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: sports-lab-receipt-${{ github.run_id }}
+          name: sports-lab-receipt-${{ github.run_id }}-${{ github.run_attempt }}
           path: |
             data/progress.json
             data/runs/
