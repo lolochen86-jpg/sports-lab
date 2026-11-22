@@ -20,3 +20,22 @@ test('ESPN sourceEventId must match a unique non-stale same-match observation',(
   assert.equal(selectPredictionDisplay([{...game,status:'final',observations}],[],[],'NBA',Date.parse('2026-11-10T13:00:00Z'),[external])[0].forecast,null);
  }
 });
+
+test('compact archive shows validated probabilities and confirmed score before closed evidence', () => {
+  const final = {...game, status:'final', awayScore:107, homeScore:114};
+  const after = Date.parse('2026-11-10T15:00:00Z');
+  const input = {games:[final],external:[],retainedExternal:[external],archived:[],league:'NBA',now:after};
+  const rendered = renderPredictionDisplay(input);
+  const [compact, evidence] = rendered.split('<details class="prediction-compact-details"');
+  assert.match(compact,/107 : 114/);
+  assert.match(compact,/賽前勝率存檔/);
+  assert.match(compact,/The Drop<\/span><b>37\.5%/);
+  assert.doesNotMatch(compact,/來源檔案更新|展開公式/);
+  assert.match(evidence,/^ data-prediction-details="g1">/);
+  assert.match(evidence,/外部賽前存檔/);
+  assert.match(renderPredictionDisplay(input,{openGames:new Set(['g1'])}),/data-prediction-details="g1" open/);
+  const conflict = renderPredictionDisplay({...input,games:[{...final, comparison:'conflict'}]});
+  const [conflicted] = conflict.split('<details class="prediction-compact-details"');
+  assert.doesNotMatch(conflicted,/107 : 114|37\.5%/);
+  assert.match(conflicted,/無可核對的賽前勝率/);
+});
